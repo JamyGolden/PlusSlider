@@ -1,18 +1,16 @@
-<h1>PlusSlider jQuery Plugin</h1>
-<p>A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'</p>
-<h2>Features</h2>
-<ul>
-	<li>Slides are <em>HTML</em> (<em>Can be images or text</em>)</li>
-	<li>Easily swap between <strong>fading</strong> <span class="amp">&amp;</span> <strong>sliding</strong></li>
-	<li>Multiple PlusSliders per page</li>
-	<li>Very <em>simple</em> <span class="amp">&amp;</span> <em>valid markup</em></li>
-	<li>Autoplay (<em>Optional</em>)</li>
-	<li><strong>Next/Previous</strong> Navigation (<em>Optional</em>)</li>
-	<li><strong>Paginated</strong> Navigation (<em>Optional</em>)</li>
-	<li>Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong></li>
-</ul>
-<h2>Default Options</h2>
-<pre><code>$('#slider').plusSlider({
+h1. PlusSlider jQuery Plugin
+A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'
+h2. Features</h2>
+* Slides are <em>HTML</em> (<em>Can be images or text</em>)</li>
+* Easily swap between <strong>fading</strong> <span class="amp">&amp;</span> <strong>sliding</strong></li>
+* Multiple PlusSliders per page</li>
+* Very <em>simple</em> <span class="amp">&amp;</span> <em>valid markup</em></li>
+* Autoplay (<em>Optional</em>)</li>
+* <strong>Next/Previous</strong> Navigation (<em>Optional</em>)</li>
+* <strong>Paginated</strong> Navigation (<em>Optional</em>)</li>
+* Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong></li>
+h2. Default Options
+<pre>$('#slider').plusSlider({
 createArrows: true, // Creates forward and backward navigation
 createPagination: true, // Creates Numbered pagination
 
@@ -28,14 +26,10 @@ sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
 
 width: false, // Overide the default CSS width
 height: false // Overide the default CSS width
-});</code></pre>				
-<h2>Changelog</h2>
-<h3>Version 1.1</h3>
-<ul>
-	<li>Added support for multiple sliders per page</li>
-	<li>Added a <code>width</code> &amp; <code>height</code> option</li>
-</ul>
-<h3>Version 1</h3>
-<ul>
-	<li>First official version</li>
-</ul>
+});</pre>				
+h2. Changelog
+h3. Version 1.1
+* Added support for multiple sliders per page</li>
+* Added a <code>width</code> &amp; <code>height</code> option</li>
+h3. Version 1
+* First official version</li>
