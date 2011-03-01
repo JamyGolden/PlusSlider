@@ -1,6 +1,6 @@
 h1. PlusSlider jQuery Plugin
 
-*A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'
+A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'
 
 h2. Features
 * Slides are <em>HTML</em> (<em>Can be images or text</em>)
