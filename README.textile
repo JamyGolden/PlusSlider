@@ -1,0 +1,35 @@
+h1. PlusSlider jQuery Plugin
+A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'
+h2. Features</h2>
+* Slides are <em>HTML</em> (<em>Can be images or text</em>)</li>
+* Easily swap between <strong>fading</strong> <span class="amp">&amp;</span> <strong>sliding</strong></li>
+* Multiple PlusSliders per page</li>
+* Very <em>simple</em> <span class="amp">&amp;</span> <em>valid markup</em></li>
+* Autoplay (<em>Optional</em>)</li>
+* <strong>Next/Previous</strong> Navigation (<em>Optional</em>)</li>
+* <strong>Paginated</strong> Navigation (<em>Optional</em>)</li>
+* Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong></li>
+h2. Default Options
+<pre>$('#slider').plusSlider({
+createArrows: true, // Creates forward and backward navigation
+createPagination: true, // Creates Numbered pagination
+
+displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
+speed: 500, // The amount of time it takes for a slide to fade into another slide
+
+autoPlay: true, // Creats a times, looped 'slide-show'
+keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
+pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
+
+sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+
+width: false, // Overide the default CSS width
+height: false // Overide the default CSS width
+});</pre>				
+h2. Changelog
+h3. Version 1.1
+* Added support for multiple sliders per page</li>
+* Added a <code>width</code> &amp; <code>height</code> option</li>
+h3. Version 1
+* First official version</li>
