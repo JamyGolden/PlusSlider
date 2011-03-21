@@ -1,14 +1,12 @@
 /*
- * jQuery Plus Slider 1.1.1
+ * jQuery Plus Slider 1.2
  * By Jamy Golden
  * http://css-plus.com
  *
- * Copyright 2011, Jamy Golden
+ * Copyright 2011
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  *
- * 18 Feb 2011
- * Added options paginationBefore and paginationWidth
  */
 (function($){
     $.plusSlider = function(el, options){
@@ -165,11 +163,11 @@
                         direction = true;
                     }
                     if(direction == true && !base.$slides.is(':animated')){
-                        if(base.$el.children(':last').is(':visible')){
+                        if(base.$el.children(':last').is('.current')){
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a:last').removeClass('current').siblings('a:first').addClass('current');
                             }
-                            base.$el.children(':visible').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50);
+                            base.$el.children('.current').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50);
                             base.$el.children(':first').css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
                                 base.$slides.not('.current').hide();
                             });
@@ -177,16 +175,16 @@
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a.current').removeClass('current').next().addClass('current');
                             }
-                            base.$el.children(':visible').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50).end().next().css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
+                            base.$el.children('.current').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50).end().next().css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
                                 base.$slides.not('.current').hide();
                             });
                         }
                     }else if(direction == false && !base.$slides.is(':animated')){
-                        if(base.$el.children(':first').is(':visible')){
+                        if(base.$el.children(':first').is('.current')){
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a:first').removeClass('current').siblings('a:last').addClass('current');
                             }
-                            base.$el.children(':visible').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50);
+                            base.$el.children('.current').removeClass('current').css('zIndex', 60).siblings().css('zIndex', 50);
                             base.$el.children(':last').css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
                                 base.$slides.not('.current').hide();
                             });
@@ -194,7 +192,7 @@
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a.current').removeClass('current').prev().addClass('current');
                             }
-                            base.$el.children(':visible').removeClass('current').siblings().css('zIndex', 50).end().css('zIndex', 60).prev().css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
+                            base.$el.children('.current').removeClass('current').siblings().css('zIndex', 50).end().css('zIndex', 60).prev().css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
                                 base.$slides.not('.current').hide();
                             });
                         }
@@ -265,21 +263,21 @@
     $.plusSlider.defaults ={
         createArrows: true, // Creates forward and backward navigation
         createPagination: true, // Creates Numbered pagination
-        paginationBefore: false, // Place the pagination ontop of the slider
-        paginationWidth: true, // Gives the pagination a dynamic width
+        paginationBefore: false, // Place the pagination above the slider within the HTML
+        paginationWidth: true, // Automatically gives the pagination a dynamic width
 		
-        displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
+        displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         speed: 500, // The amount of time it takes for a slide to fade into another slide
 		
-		autoPlay: true, // Creats a times, looped 'slide-show'
+	autoPlay: true, // Creats a times, looped 'slide-show'
         keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
 		
         sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
 		
-		width: false, // Overide the default CSS width
-		height: false // Overide the default CSS width
+	width: false, // Overide the default CSS width
+	height: false // Overide the default CSS width
     };
     $.fn.plusSlider = function(options){
         return this.each(function(){
