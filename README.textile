@@ -23,16 +23,30 @@ h2. Default Options
         displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         speed: 500, // The amount of time it takes for a slide to fade into another slide
 		
-	autoPlay: true, // Creats a times, looped 'slide-show'
+        autoPlay: true, // Creats a times, looped 'slide-show'
         keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
 		
         sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
 		
-	width: false, // Overide the default CSS width
-	height: false // Overide the default CSS width
+        width: false, // Overide the default CSS width
+        height: false // Overide the default CSS width
 });</pre>
+
+h2. Customizing PlusSlider
+
+The default example is a great demonstration of what you can do with PlusSlider, but you probably want to customize the slider to match your site's design.
+To see the bare minimum of styles that are required for a functioning slider, look at the "minimal.html" and "minimal.css" example files. These have all but the most essential styles stripped away so you can easily identify what is and isn't needed for your own custom slider design.
+
+Some things to note about widths and heights:
+* The slider div must have specific width+height set in either CSS *OR* via the "width" and "height" javascript options.
+* Every piece of interior content must *ALSO* have explicit widths + heights set via CSS (these cannot be set by the "width" and "height" javascript options).
+* The interior content's width + padding-left + padding-right + margin-left + margin-right must equal the slider's width.
+* The interior content's height + padding-top + padding-bottom + margin-top + margin-bottom must equal the slider's height.
+* If the interior content is just an image, the image tag's "width" and "height" attributes can be used instead of CSS width and height.
+* When using the "fader" effect (sliderType:fader), setting the width/height via javascript options will do some resizing/clipping of images and content (which can be helpful if you have variably-sized content from a CMS, for example). This does not occur when using the "slider" effect.
+* When using the "fader" effect (sliderType:fader) with non-image content, you will want some kind of non-transparent background (either a non-transparent background-image or a solid background-color) otherwise the fade will look bad.
 
 h2. Changelog
 
