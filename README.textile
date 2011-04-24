@@ -42,11 +42,11 @@ To see the bare minimum of styles that are required for a functioning slider, lo
 Some things to note about widths and heights:
 * The slider div must have specific width+height set in either CSS *OR* via the "width" and "height" javascript options.
 * Every piece of interior content must *ALSO* have explicit widths + heights set via CSS (these cannot be set by the "width" and "height" javascript options).
-* The interior content's width + padding-left + padding-right + margin-left + margin-right must equal the slider's width.
-* The interior content's height + padding-top + padding-bottom + margin-top + margin-bottom must equal the slider's height.
+* Each piece of interior content must have it's width + padding-left + padding-right + margin-left + margin-right equal to the slider's width.
+* Each piece of interior content must have it's height + padding-top + padding-bottom + margin-top + margin-bottom equal the slider's height.
 * If the interior content is just an image, the image tag's "width" and "height" attributes can be used instead of CSS width and height.
 * When using the "fader" effect (sliderType:fader), setting the width/height via javascript options will do some resizing/clipping of images and content (which can be helpful if you have variably-sized content from a CMS, for example). This does not occur when using the "slider" effect.
-* When using the "fader" effect (sliderType:fader) with non-image content, you will want some kind of non-transparent background (either a non-transparent background-image or a solid background-color) otherwise the fade will look bad.
+* When using the "fader" effect (sliderType:fader) with non-image content, you will want some kind of background (either a non-transparent background-image or a solid background-color) otherwise the effect will not be smooth.
 
 h2. Changelog
 
