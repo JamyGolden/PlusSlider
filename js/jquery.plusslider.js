@@ -18,17 +18,17 @@
         base.el = el;
         // Add a reverse reference to the DOM object
         base.$el.data('plusSlider', base);
-		
+        
         base.init = function(){
             base.options = $.extend({}, $.plusSlider.defaults, options);
             base.$slides = base.$el.children();
             base.$totalSlides = base.$slides.length;
-			
+            
             // Injected HTML elements 
             base.$el.wrap('<div class="plusSlider" />');
             base.$slides.addClass('child');
             base.$slides.eq(0).addClass('current');
-			
+            
             // Slider/Fader Settings
             if(base.options.sliderType == 'slider'){
                 base.$slideWidth = base.$el.find(':first').outerWidth(true);
@@ -45,73 +45,40 @@
                 base.options.createArrows = false;
                 base.options.createPagination = false;
             }
-			
-			// Overide default CSS width
-			 if(base.options.width){
-				base.$el.parent().width(base.options.width);
-			 }
-			 // Overide default CSS height
-			 if(base.options.height){
-				base.$el.parent().height(base.options.height);
-			 }
+            
+            // Overide default CSS width
+             if(base.options.width){
+                base.$el.parent().width(base.options.width);
+             }
+             // Overide default CSS height
+             if(base.options.height){
+                base.$el.parent().height(base.options.height);
+             }
             // Begin settings.pagination
             if(base.options.createPagination){
                 // #slider-controls
                 if(base.options.paginationBefore){
-                	base.$el.before('<div class="plusSlider-controls" />');
-                	base.$sliderControls = base.$el.prev('.plusSlider-controls');
-            	} else{
-               		base.$el.after('<div class="plusSlider-controls" />');
-               		base.$sliderControls = base.$el.next('.plusSlider-controls');
-           		}
-           		base.$sliderControls.wrap('<div class="plusSlider-controls-wrapper" />');
+                    base.$el.before('<div class="plusSlider-controls" />');
+                    base.$sliderControls = base.$el.prev('.plusSlider-controls');
+                } else{
+                       base.$el.after('<div class="plusSlider-controls" />');
+                       base.$sliderControls = base.$el.next('.plusSlider-controls');
+                   }
+                   base.$sliderControls.wrap('<div class="plusSlider-controls-wrapper" />');
                 // Pagination
                 for (var i = 0; i < base.$totalSlides; i++){
                     base.$sliderControls.append('<a href="#" rel="' + i + '">' + (i + 1) + '</a>');
                 }
-                 if(base.options.paginationWidth){
-                 	base.$sliderControls.width(base.$sliderControls.find('a').outerWidth(true) * base.$totalSlides);
-             	}
-                if(base.options.sliderType == 'slider'){
-                    base.$sliderControls.find('a').click(function(){
-                        var $this = $(this);
-                        // Don't animate while animated
-                        if(!base.$slides.is(':animated')){
-                            base.$rel = $this.attr('rel');
-                            $this.addClass('current').siblings().removeClass('current');
-                            base.$el.animate({
-                                left: base.$slideWidth * base.$rel * -1 + "px"
-                            }, base.options.speed, base.options.sliderEasing);
-                            // Clear Timer
-                            if(base.options.autoPlay){
-                                base.clearTimer();
-                                base.beginTimer();
-                            }
-                        }
-                        return false;
-                    });
-                }else{
-                    base.$sliderControls.find('a').click(function(){
-                        var $this = $(this);
-                        // Don't animate while animated
-                        if(!base.$slides.is(':animated')){
-                            $this.addClass('current').siblings().removeClass('current');
-                            base.$slides.eq($this.attr('rel')).siblings().css('zIndex', 50).removeClass('current');
-                            base.$slides.eq($this.attr('rel')).css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
-                                base.$slides.not('.current').hide();
-                            });
-                            // Clear Timer
-                            if(base.options.autoPlay){
-                                base.clearTimer();
-                                base.beginTimer();
-                            }
-                        }
-                        return false;
-                    });
-                }
+                if(base.options.paginationWidth){
+                     base.$sliderControls.width(base.$sliderControls.find('a').outerWidth(true) * base.$totalSlides);
+                 }
+                base.$sliderControls.find('a').click(function(){
+                    base.toSlide($(this).attr('rel'));
+                    return false;
+                });
                 base.$sliderControls.find('a').eq(0).addClass('current');
             } // End settings.pagination
-			
+            
             // Begin Functions
             if(base.options.sliderType == 'slider'){
                 base.nextSlide = function (direction){
@@ -202,8 +169,33 @@
                         base.beginTimer();
                     }
                 }
-            } // End Functions
-			
+            }
+            
+            base.toSlide = function(index){
+                // Don't animate while animated
+                if(!base.$slides.is(':animated')){
+                    if(base.options.createPagination){
+                        base.$sliderControls.find('a[rel="' + index + '"]').addClass('current').siblings().removeClass('current');
+                    }
+                    if(base.options.sliderType == 'slider'){
+                        base.$el.animate({
+                            left: base.$slideWidth * index * -1 + "px"
+                        }, base.options.speed, base.options.sliderEasing);
+                    }else{
+                        base.$slides.eq(index).siblings().css('zIndex', 50).removeClass('current');
+                        base.$slides.eq(index).css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
+                            base.$slides.not('.current').hide();
+                        });
+                    }
+                    // Clear Timer
+                    if(base.options.autoPlay){
+                        base.clearTimer();
+                        base.beginTimer();
+                    }
+                }
+            }
+            // End Functions
+            
             // Auto Play Begins
             if(base.options.autoPlay){
                 base.clearTimer = function(){
@@ -227,19 +219,19 @@
                     });
                 }
             } // Auto Play Ends
-			
+            
             // Create Arrows
             if(base.options.createArrows){
                 base.$el.before('<a class="arrow prev" href="#">prev</a><a class="arrow next" href="#">next</a>').siblings('.next').click(function(){
                     base.nextSlide();
-					return false;
+                    return false;
                 });
                 base.$el.siblings('.prev').click(function(){
                     base.nextSlide(false);
-					return false;
+                    return false;
                 });
             } // End Arrow Creation
-			
+            
             // Keyboard navigation
             if(base.options.keyboardNavigation){
                 base.$el.click(function(){
@@ -265,19 +257,19 @@
         createPagination: true, // Creates Numbered pagination
         paginationBefore: false, // Place the pagination above the slider within the HTML
         paginationWidth: true, // Automatically gives the pagination a dynamic width
-		
+        
         displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         speed: 500, // The amount of time it takes for a slide to fade into another slide
-		
-	autoPlay: true, // Creats a times, looped 'slide-show'
+        
+    autoPlay: true, // Creats a times, looped 'slide-show'
         keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
-		
+        
         sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-		
-	width: false, // Overide the default CSS width
-	height: false // Overide the default CSS width
+        
+    width: false, // Overide the default CSS width
+    height: false // Overide the default CSS width
     };
     $.fn.plusSlider = function(options){
         return this.each(function(){
