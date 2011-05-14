@@ -94,6 +94,7 @@
                             base.$el.animate({
                                 left: "-=" + base.$slideWidth + "px"
                             }, base.options.speed, base.options.sliderEasing);
+                            base.$el.children('.current').removeClass('current').next().addClass('current');
                         }else{
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a:last').removeClass('current').siblings('a:first').addClass('current');
@@ -101,6 +102,7 @@
                             base.$el.animate({
                                 left: 0
                             }, base.options.speed, base.options.sliderEasing);
+                            base.$el.children('.current').removeClass('current').siblings(':first').addClass('current');
                         }
                     }else if(direction == false && !base.$el.is(':animated')){
                         if(base.$el.position().left < 0 && !base.$slides.is(':animated')){
@@ -110,6 +112,7 @@
                             base.$el.animate({
                                 left: "+=" + base.$slideWidth + "px"
                             }, base.options.speed, base.options.sliderEasing);
+                            base.$el.children('.current').removeClass('current').prev().addClass('current');
                         }else{
                             if(base.options.createPagination){
                                 base.$sliderControls.find('a:first').removeClass('current').siblings('a:last').addClass('current');
@@ -117,6 +120,7 @@
                             base.$el.animate({
                                 left: "-=" + base.$stopPosition + "px"
                             }, base.options.speed, base.options.sliderEasing);
+                            base.$el.children('.current').removeClass('current').siblings(':last').addClass('current');
                         }
                     }
                 }else{
@@ -156,9 +160,14 @@
                         }
                     }
                 }
+                // Clear Timer
                 if(base.options.autoPlay){
                     base.clearTimer();
                     base.beginTimer();
+                }
+                // Callback
+                if (base.options.onSlide && typeof(base.options.onSlide) == "function") {
+                    base.options.onSlide(base.$slides.filter('.current').index());
                 }
             }
             
@@ -172,6 +181,7 @@
                         base.$el.animate({
                             left: base.$slideWidth * index * -1 + "px"
                         }, base.options.speed, base.options.sliderEasing);
+                        base.$el.children('.current').removeClass('current').parent().children().eq(index).addClass('current');
                     }else{
                         base.$slides.eq(index).siblings().css('zIndex', 50).removeClass('current');
                         base.$slides.eq(index).css('zIndex', 100).addClass('current').fadeIn(base.options.speed, function(){
@@ -182,6 +192,10 @@
                     if(base.options.autoPlay){
                         base.clearTimer();
                         base.beginTimer();
+                    }
+                    // Callback
+                    if (base.options.onSlide && typeof(base.options.onSlide) == "function") {
+                        base.options.onSlide(index);
                     }
                 }
             }
@@ -260,7 +274,9 @@
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
         
         width: false, // Overide the default CSS width
-        height: false // Overide the default CSS width
+        height: false, // Overide the default CSS width
+        
+        onSlide: null // Callback function
     };
     $.fn.plusSlider = function(options){
         return this.each(function(){
