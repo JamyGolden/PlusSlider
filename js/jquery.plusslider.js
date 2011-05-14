@@ -80,11 +80,11 @@
             } // End settings.pagination
             
             // Begin Functions
-            if(base.options.sliderType == 'slider'){
-                base.nextSlide = function (direction){
-                    if(direction !== false){
-                        direction = true;
-                    }
+            base.nextSlide = function (direction){
+                if(direction !== false){
+                    direction = true;
+                }
+                if(base.options.sliderType == 'slider'){
                     if(direction == true && !base.$el.is(':animated')){
                         //stop position -1 to fix IE8 inconsistancy
                         if(base.$el.position().left > (base.$stopPosition - 1) * -1){
@@ -119,16 +119,7 @@
                             }, base.options.speed, base.options.sliderEasing);
                         }
                     }
-                    if(base.options.autoPlay){
-                        base.clearTimer();
-                        base.beginTimer();
-                    }
-                }
-            }else{
-                base.nextSlide = function (direction){
-                    if(direction !== false){
-                        direction = true;
-                    }
+                }else{
                     if(direction == true && !base.$slides.is(':animated')){
                         if(base.$el.children(':last').is('.current')){
                             if(base.options.createPagination){
@@ -164,10 +155,10 @@
                             });
                         }
                     }
-                    if(base.options.autoPlay){
-                        base.clearTimer();
-                        base.beginTimer();
-                    }
+                }
+                if(base.options.autoPlay){
+                    base.clearTimer();
+                    base.beginTimer();
                 }
             }
             
@@ -261,15 +252,15 @@
         displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         speed: 500, // The amount of time it takes for a slide to fade into another slide
         
-    autoPlay: true, // Creats a times, looped 'slide-show'
+        autoPlay: true, // Creats a times, looped 'slide-show'
         keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
         
         sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
         
-    width: false, // Overide the default CSS width
-    height: false // Overide the default CSS width
+        width: false, // Overide the default CSS width
+        height: false // Overide the default CSS width
     };
     $.fn.plusSlider = function(options){
         return this.each(function(){
