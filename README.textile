@@ -23,18 +23,35 @@ h2. Default Options
         displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         speed: 500, // The amount of time it takes for a slide to fade into another slide
 		
-	autoPlay: true, // Creats a times, looped 'slide-show'
+        autoPlay: true, // Creats a times, looped 'slide-show'
         keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
 		
         sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
 		
-	width: false, // Overide the default CSS width
-	height: false // Overide the default CSS width
+        width: false, // Overide the default CSS width
+        height: false, // Overide the default CSS width
+        
+        onSlide: null // Optional callback function, is called whenever slide changes (just after animation begins)
 });</pre>
 
+h2. Navigation Functions
+
+<pre>var slider = null;
+$(document).ready(function(){
+    slider = new $.plusSlider($('#slider'), {});
+});
+slider.nextSlide(); //move slider to next slide
+slider.nextSlide(false); //move slider to previous slide
+slider.toSlide(3); //move slider to arbitrary index (first slide is 0, second is 1, etc.)
+</pre>
+
 h2. Changelog
+
+h3. Version 1.?
+* Added toSlide() function
+* Added onSlide callback option
 
 h3. Version 1.2
 * Added option to place pagination before the slides
