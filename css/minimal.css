@@ -59,3 +59,4 @@
 	#slider .slide1 h2{color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left;}
 	#slider .slide1 p{border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px;}
 	#slider .quote{background: #f1f1f1; color: #333; font: 24px Georgia, serif; text-align: center;}
+	#slider a img, #slider2 a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
