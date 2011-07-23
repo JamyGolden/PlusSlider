@@ -9,7 +9,8 @@ h2. Features
 * Very <em>simple</em> <span class="amp">&amp;</span> <em>valid markup</em>
 * Autoplay (<em>Optional</em>)
 * <strong>Next/Previous</strong> Navigation (<em>Optional</em>)
-* <strong>Paginated</strong> Navigation (<em>Optional</em>)
+* Titled or numbered <strong>paginated</strong> navigation (<em>Optional</em>)
+* Callback available after each slide
 * Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong>
 
 h2. Default Options
@@ -59,6 +60,13 @@ Some things to note about widths and heights:
 * When using the "fader" effect (sliderType:fader) with non-image content, you will want some kind of background (either a non-transparent background-image or a solid background-color) otherwise the effect will not be smooth.
 
 h2. Changelog
+
+h3. Version 1.2.6
+* Added a paginationTitle
+* Plugin optimization
+* Added a minimal style option for easier CSS customization - jordanlev
+* Added callback function - jordanlev
+* Added toSlide() function - jordanlev
 
 h3. Version 1.2
 * Added option to place pagination before the slides
