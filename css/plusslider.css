@@ -86,8 +86,8 @@
 .plusSlider a.next:hover{background-position: -33px -42px;}
 
 /* PlusFader Specific */
-.fader .child{display: none; position: absolute; left: 0; top: 0;}
-.fader .plusSlider-controls{position: relative; z-index: 200;}
+.plusTypeFader .child{display: none; position: absolute; left: 0; top: 0;}
+.plusTypeFader .plusSlider-controls{position: relative; z-index: 200;}
 
 /* no-javascript fallback */
 #slider > *, #slider2 > *{display: none;}

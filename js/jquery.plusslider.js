@@ -25,19 +25,20 @@
             base.$totalSlides = base.$slides.length;
             
             // Injected HTML elements 
-            base.$el.wrap('<div class="plusSlider" />');
+            base.$el.wrap('<div class="plusSlider ' + base.$el.attr('id') + '" />');
             base.$slides.addClass('child');
             base.$slides.eq(0).addClass('current');
             
             // Slider/Fader Settings
             if(base.options.sliderType == 'slider'){
+                base.$el.parent().addClass('plusTypeSlider');
                 base.$slideWidth = base.$el.find(':first').outerWidth(true);
                 base.$sliderWidth = base.$slideWidth * base.$totalSlides;
                 base.$stopPosition = base.$sliderWidth - base.$slideWidth;
                 base.$el.width(base.$sliderWidth);
                 base.$el.children().show();
             }else{
-                base.$el.parent().addClass('fader');
+                base.$el.parent().addClass('plusTypeFader');
                 base.$el.children(':first').show();
             }
             if(base.$totalSlides === 1){
