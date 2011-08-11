@@ -11,7 +11,7 @@ h2. Features
 * <strong>Next/Previous</strong> Navigation (<em>Optional</em>)
 * Titled or numbered <strong>paginated</strong> navigation (<em>Optional</em>)
 * Callback available after each slide
-* Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong>
+* Tested on <strong>IE 7+</strong> and <strong>modern browsers</strong>
 
 h2. Default Options
 <pre>$('#slider').plusSlider({
@@ -49,7 +49,7 @@ If you wish to be able to navigate the slides via code (for example, if you have
 $(document).ready(function(){
     slider = new $.plusSlider($('#slider'), {});
 });
-slider.toSlide('next'); //move slider to next slide
+slider.toSlide('next); //move slider to next slide
 slider.nextSlide('prev'); //move slider to previous slide
 slider.toSlide(3); //move slider to arbitrary index (first slide is 0, second is 1, etc.)
 </pre>
@@ -60,7 +60,6 @@ The thumbnails are dynamically created. This will make your life a lot easier as
 
 h2. Customizing PlusSlider
 
-h3. General Customization
 The default example is a great demonstration of what you can do with PlusSlider, but you probably want to customize the slider to match your site's design.
 To see the bare minimum of styles that are required for a functioning slider, look at the "minimal.html" and "minimal.css" example files. These have all but the most essential styles stripped away so you can easily identify what is and isn't needed for your own custom slider design.
 
