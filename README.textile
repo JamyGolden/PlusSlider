@@ -39,7 +39,6 @@ h2. Default Options
         height: false, // Overide the default CSS width
         
         onSlide: null // Callback function for you developers
-
  });</pre>
 
 h2. Using Navigation Functions
