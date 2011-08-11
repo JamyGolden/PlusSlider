@@ -49,15 +49,34 @@
 	background: url(../images/plus-sprite.png) no-repeat left top;
 	display: block;
 	float: left;
+	font-size: 0;
 	height: 10px;
 	margin: 0 3px;
-	width: 10px;
 	text-indent: -9999px; /*IE6 fix */
-	font-size: 0;
+	width: 10px;
+	position: relative;
 }
 .plusSlider-controls a.current, .plusSlider-controls a:hover{
 	background-position: -10px 0;
 }
+.plusSlider-thumbnails{background-repeat: repeat: none; border: 15px solid rgba(255, 255, 255, 0.3); height: 250px; opacity: 0; width: 630px; position: absolute; right: 0; top: 50px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-transform: scale(.4,.4); 
+	-ms-transform: scale(.4,.4);
+	-o-transform: scale(.4,.4);
+	-webkit-transform: scale(.4,.4);
+	transform: scale(.4,.4);
+	-moz-transition: opacity 0.2s ease;
+	-ms-transition: opacity 0.2s ease;
+	-o-transition: opacity 0.2s ease;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;}
+.plusSlider-thumbnails .child{display: none; position: absolute; right: 0; top: 0;}
+.plusSlider-active{opacity: 1;}
+.plusSlider-thumbnails .plusSlider-current{display: block; left: 0; bottom: -30px;}
+
 .plusSlider a.arrow{
 	background: url(../images/plus-sprite.png) no-repeat left top;
 	display: block;
@@ -72,6 +91,12 @@
 	-moz-transition-property: opacity;
 	-moz-transition-duration: 0.2s;
 	-moz-transition-timing-function: ease-in;
+	-ms-transition-property: opacity;
+	-ms-transition-duration: 0.2s;
+	-ms-transition-timing-function: ease-in;
+	-o-transition-property: opacity;
+	-o-transition-duration: 0.2s;
+	-o-transition-timing-function: ease-in;
 	-webkit-transition-property: opacity;
 	-webkit-transition-duration: 0.2s;
 	-webkit-transition-timing-function: ease-in;
@@ -79,7 +104,7 @@
 	transition-duration: 0.2s;
 	transition-timing-function: ease-in;
 }
-.plusSlider:hover  a.arrow{opacity: 1;}
+.plusSlider:hover a.arrow{opacity: 1;}
 .plusSlider a.prev{background-position: 0 -10px; left: 10px;}
 .plusSlider a.prev:hover{background-position: 0 -42px; left: 10px;}
 .plusSlider a.next{background-position: -33px -10px; right: 10px;}
