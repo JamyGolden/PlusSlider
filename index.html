@@ -16,8 +16,9 @@
 $(document).ready(function(){
 	$('#slider').plusSlider({
 		sliderEasing: 'easeInOutExpo', // Anything other than 'linear' and 'swing' requires the easing plugin
-		paginationBefore: true,
+		paginationBefore: false,
 		paginationTitle: true,
+		paginationThumbnails: true,
 		sliderType: 'slider' // Choose whether the carousel is a 'slider' or a 'fader'
 	});
 	$('#slider2').plusSlider({
@@ -35,7 +36,7 @@ $(document).ready(function(){
             <h1>PlusSlider</h1>
 			<div id="slider">
 			
-				<div data-title="PlusSlider" class="slide1">
+				<div id="winning-slide" data-title="PlusSlider" class="slide1">
 					<h2>PlusSlider</h2>
 					<p>
 						A content slider that simply works...<br />
@@ -87,28 +88,39 @@ $(document).ready(function(){
 				</ul>
 				<h2>Default Options</h2>
 				<pre><code>$('#slider').plusSlider({
-	createArrows: true, // Creates forward and backward navigation
-	createPagination: true, // Creates Numbered pagination
-	paginationBefore: false, // Place the pagination above the slider within the HTML
-	paginationWidth: true, // Automatically gives the pagination a dynamic width
-	paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
+    createArrows: true, // Creates forward and backward navigation
+    nextText: 'Next', // The next button's text
+    prevText: 'Previous', // The previous button's text
 
-	displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
-	speed: 500, // The amount of time it takes for a slide to fade into another slide
-
-	autoPlay: true, // Creats a times, looped 'slide-show'
-	keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
-	pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
-
-	sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
-	sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-
-	width: false, // Overide the default CSS width
-	height: false, // Overide the default CSS width
-
-    onSlide: null // Callback function
+    createPagination: true, // Creates Numbered pagination
+    paginationBefore: false, // Place the pagination above the slider within the HTML
+    paginationWidth: true, // Automatically gives the pagination a dynamic width
+    paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
+    paginationThumbnails: false, // Creates a thumbnail preview of the slide you hover over in the pagination. Note: To use this effectuively, make sure you're using the 'transform: scale(x,y) CSS property. Doesn't work in IE.
+    
+    displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
+    speed: 500, // The amount of time it takes for a slide to fade into another slide
+    
+    autoPlay: true, // Creats a times, looped 'slide-show'
+    keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
+    pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
+    
+    sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+    sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+    
+    width: false, // Overide the default CSS width
+    height: false, // Overide the default CSS width
+    
+    onSlide: null // Callback function for you developers
 });</code></pre>				
 				<h2>Changelog</h2>
+				<h3>Version 1.3</h3>
+				<ul>
+					<li>Added nextText and prevText options</li>
+					<li>Added the paginationThumbnails option</li>
+					<li>Added the nextSlide() functionality to toSlide()</li>
+					<li>Removed the nextSlide() function - Redundant</li>
+				</ul>
 				<h3>Version 1.2.6</h3>
 				<ul>
 					<li>Added a paginationTitle</li>
