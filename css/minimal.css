@@ -17,13 +17,13 @@
 	}
 
 	/* PlusFader Specific (not needed with sliderType:slider, OR if you set paginationBefore:true when initializing slider) */
-	.fader .child {
+	.plusTypeFader .child {
 		display: none;
 		position: absolute;
 		left: 0;
 		top: 0;
 	}
-	.fader .plusSlider-controls {
+	.plusTypeFader .plusSlider-controls {
 		position: relative;
 		z-index: 200;
 	}
