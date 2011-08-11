@@ -1,12 +1,11 @@
 /*
- * jQuery Plus Slider 1.2.6
+ * jQuery Plus Slider 1.3
  * By Jamy Golden
  * http://css-plus.com
  *
  * Copyright 2011
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- *
  */
 (function($){
     $.plusSlider = function(el, options){
@@ -21,11 +20,11 @@
         
         base.init = function(){
             base.options = $.extend({}, $.plusSlider.defaults, options);
-            // Vasic variables & Injected HTML elements 
-            base.$slides = base.$el.children();
-            base.$totalSlides = base.$slides.length;
+            // Vasic variables & Injected HTML elements
             base.$el.wrap('<div class="plusSlider ' + base.$el.attr('id') + '" />');
             base.$wrap = base.$el.parent();
+            base.$slides = base.$el.children();
+            base.$totalSlides = base.$slides.length;
             base.$slides.addClass('child');
             base.$slides.eq(0).addClass('current');
             
@@ -55,35 +54,53 @@
             if(base.options.createPagination){
                 // #slider-controls
                 if(base.options.paginationBefore){
-                    base.$el.before('<div class="plusSlider-controls" />');
+                    $('<div />', {
+                        class: 'plusSlider-controls'
+                    }).prependTo(base.$wrap);
                     base.$sliderControls = base.$el.prev('.plusSlider-controls');
                 } else{
-                   base.$el.after('<div class="plusSlider-controls" />');
+                   $('<div />', {
+                       class: 'plusSlider-controls'
+                    }).appendTo(base.$wrap);
                    base.$sliderControls = base.$el.next('.plusSlider-controls');
                 }
                 base.$sliderControls.wrap('<div class="plusSlider-controls-wrapper" />');
-                // Pagination
+
+                // Create Pagination
                 for (var i = 0; i < base.$totalSlides; i++){
-                    base.$sliderControls.append('<a href="#" rel="' + i + '">' + (i + 1) + '</a>');
+                    $('<a />', {
+                        href: '#',
+                        rel: i,
+                        text: i + 1
+                    }).appendTo(base.$sliderControls);
                 }
+
+                // Pagination Titles
+                if(base.options.paginationTitle){
+                    for (var i = 0; i < base.$totalSlides; i++){
+                        base.$sliderControls.find('a[rel="' + i + '"]').text(base.$slides.eq(i).attr('data-title'));
+                    }
+                } // End Pagination Titles
+
+                // Dynamic pagination width
                 if(base.options.paginationWidth){
                      base.$sliderControls.width(base.$sliderControls.find('a').outerWidth(true) * base.$totalSlides);
-                 }
+                 } // End dynamic pagination width
+
+                // Pagination functionality
                 base.$sliderControls.find('a').click(function(){
                     base.toSlide($(this).attr('rel'));
                     return false;
-                });
-                base.$sliderControls.find('a').eq(0).addClass('current');
+                }).eq(0).addClass('current');
             } // End settings.pagination
 
-            // Add plusSlider data
-            base.$el.data("slides",{ current: base.$el.children('.current').index() })
-            base.$wrap.before(base.$el.data("slides").current);
+            // PlusSlider data
+            base.$el.data('slides',{ current: base.$el.children('.current').index() })
             
             // Begin Functions
             base.toSlide = function (slide){
-                if(slide == 'next' || slide == null) slide = base.$el.data("slides").current + 1;
-                if(slide == 'prev') slide = base.$el.data("slides").current - 1;
+                if(slide == 'next' || slide == null) slide = base.$el.data('slides').current + 1;
+                if(slide == 'prev') slide = base.$el.data('slides').current - 1;
                 if(slide >= base.$totalSlides) slide = 0;
                 if(slide <= -1) slide = base.$totalSlides -1;
 
@@ -93,7 +110,7 @@
                             base.$sliderControls.find('a[rel="' + slide + '"]').addClass('current').siblings().removeClass('current');
                         }
                         base.$el.animate({
-                            left: base.$slideWidth * slide * -1 + "px"
+                            left: base.$slideWidth * slide * -1 + 'px'
                         }, base.options.speed, base.options.sliderEasing);
                         base.$el.children('.current').removeClass('current').parent().children().eq(slide).addClass('current');
                     }
@@ -114,12 +131,11 @@
                     base.beginTimer();
                 }
                 // Callback
-                if (base.options.onSlide && typeof(base.options.onSlide) == "function") {
+                if (base.options.onSlide && typeof(base.options.onSlide) == 'function') {
                     base.options.onSlide(base.$slides.filter('.current').index());
                 }
-
-                base.$el.data("slides",{ current: base.$el.children('.current').index() })
-                base.$wrap.before(base.$el.data("slides").current);
+                // Modify PlusSlider data
+                base.$el.data('slides',{ current: base.$el.children('.current').index() })
             }
             
             // Auto Play Begins
@@ -148,7 +164,20 @@
             
             // Create Arrows
             if(base.options.createArrows){
-                base.$el.before('<a class="arrow prev" href="#">prev</a><a class="arrow next" href="#">next</a>').siblings('.next').click(function(){
+                // Prepend Next Arrow
+                $('<a />', {
+                    class: 'arrow next',
+                    href: '#',
+                    text: base.options.nextText
+                }).prependTo(base.$wrap);
+
+                // Prepend Previous Arrow
+                $('<a />', {
+                    class: 'arrow prev',
+                    href: '#',
+                    text: base.options.prevText
+                }).prependTo(base.$wrap);
+                base.$el.siblings('.next').click(function(){
                     base.toSlide('next');
                     return false;
                 }).siblings('.prev').click(function(){
@@ -174,29 +203,31 @@
                 });
             } // End Keyboard navigation
 
-            // Pagination Titles-
-            if(base.options.paginationTitle){
-                for (var i = 0; i < base.$totalSlides; i++){
-                    base.$sliderControls.find('a[rel="' + i + '"]').text(base.$slides.eq(i).attr('data-title'));
-                }
-            } // End Pagination Titles
-
-            // Pagination Thumbnails - FIREFOX 5+ ONLY
+            // Pagination Thumbnails
             if(base.options.paginationThumbnails){
+                // This functionality only works in IE 9+, Firefox, Chrome and Opera. The following if statement prohibits LT IE 9 from running this
+                if($.browser.msie ? $.browser.version >= 9 : true == true){
 
-                for(i = 0; i < base.$slides.length; i++){
-                    var $this = base.$slides.eq(i);
-                    if(!$this.attr('id')){
-                        $this.attr('id', 'plusSlider-slide-' + $this.index()); 
+                    for(i = 0; i < base.$slides.length; i++){
+                        var $this = base.$slides.eq(i);
+                        if(!$this.attr('id')){
+                            $this.attr('id', 'plusSlider-slide-' + $this.index()); 
+                        }
                     }
-                }
 
-                base.$sliderControls.after($("<div />", {'class': "plusSlider-thumbnail"}));
-                var sliderThumbnail = base.$sliderControls.next('.plusSlider-thumbnail');
+                    base.$el.after($('<div />', {
+                        class: 'plusSlider-thumbnails'
+                    }));
 
-                sliderThumbnail.css({'height':base.$el.height(), 'width':base.$wrap.width()}).siblings('.plusSlider-controls').find('a').hover(function(){
-                    sliderThumbnail.css('background-image', '-moz-element(#' + base.$slides.eq($(this).attr('rel')).attr('id') + ')').toggleClass('plusSlider-active');
-                });
+                    var sliderThumbnail = base.$el.next('.plusSlider-thumbnails');
+                    base.$slides.clone().removeAttr('style').appendTo(sliderThumbnail);
+
+                    base.$sliderControls.children().hover(function(){
+                        sliderThumbnail.addClass('plusSlider-active').children().hide().eq($(this).index()).show();
+                    }, function(){
+                        sliderThumbnail.removeClass('plusSlider-active').children();
+                    });
+                }; // End LT IE 9 protection
 
             } // End Pagination Thumbnails
 
@@ -206,6 +237,9 @@
     };
     $.plusSlider.defaults ={
         createArrows: true, // Creates forward and backward navigation
+        nextText: 'Next',
+        prevText: 'Previous',
+
         createPagination: true, // Creates Numbered pagination
         paginationBefore: false, // Place the pagination above the slider within the HTML
         paginationWidth: true, // Automatically gives the pagination a dynamic width
