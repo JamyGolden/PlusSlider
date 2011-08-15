@@ -1,8 +1,8 @@
 /* Custom Slider Styling */
-#slider .slide1{background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px;}
-#slider .slide1 h2{color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left;}
-#slider .slide1 p{border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px;}
-#slider .quote{background: #f1f1f1; color: #333; height: 170px; padding: 40px 0; width: 630px; font: 24px Georgia, serif; text-align: center;}
+.slide1{background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px;}
+.slide1 h2{color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left;}
+.slide1 p{border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px;}
+.quote{background: #f1f1f1; color: #333; height: 170px; padding: 40px 0; width: 630px; font: 24px Georgia, serif; text-align: center;}
 
 /* Page Styling */
 body{background: #333; color: #fff; font: 14px Verdana, Arial, Helvetica, san-serif;}
