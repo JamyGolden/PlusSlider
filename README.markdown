@@ -54,9 +54,9 @@ If you wish to be able to navigate the slides via code (for example, if you have
     slider.toSlide(3); //move slider to arbitrary index (first slide is 0, second is 1, etc.)
 
 
-## Pagination Thumbnails (requires CSS3 -- doesn't work in IE)
+## Pagination Thumbnails
 
-The thumbnails are dynamically created. This will make your life a lot easier as you won't have to create separate smaller images for each slide. This functionality is slightly more advanced than the rest and requires a bit of CSS knowledge/experience to manipulate as desired. The pagination thumbnails functionality relies heavily on the transform: scale(x,y) CSS property and value. If this property is not applied, the 'thumbnails' will be the same size as the slides and therefore render it useless. This option will not run on browsers that don't support it. So feel free to use it for progressive enhancement.
+The thumbnails are dynamically created (note that this feature does not work in IE8 or lower). If you aren't using a CMS or other back-end code that will generate thumbnails for you, this will make your life a lot easier as you won't have to create separate smaller images for each slide. This functionality is slightly more advanced than the rest and requires a bit of CSS knowledge/experience to manipulate as desired. The pagination thumbnails functionality relies heavily on the transform: scale(x,y) CSS property and value. If this property is not applied, the 'thumbnails' will be the same size as the slides and therefore render it useless. This option is automatically disabled for browsers that don't support it, so it is safe to use for progressive enhancement.
 
 ## Customizing PlusSlider
 
