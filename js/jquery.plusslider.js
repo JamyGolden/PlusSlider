@@ -27,14 +27,22 @@
             base.$totalSlides = base.$slides.length;
             base.$slides.addClass('child');
             base.$slides.eq(0).addClass('current');
-            
+
+            var sliderWidth = 0;
+
+            for ( var i = 0; i < base.$slides.length; i++ ) {
+                
+                sliderWidth += base.$slides.eq( i ).width();
+
+            }
+
             // Slider/Fader Settings
             if(base.options.sliderType == 'slider'){
                 base.$wrap.addClass('plusTypeSlider');
                 base.$slideWidth = base.$el.find(':first').outerWidth(true);
                 base.$sliderWidth = base.$slideWidth * base.$totalSlides;
                 base.$stopPosition = base.$sliderWidth - base.$slideWidth;
-                base.$el.width(base.$sliderWidth);
+                base.$el.width(sliderWidth);
                 base.$slides.show();
             }else{
                 base.$wrap.addClass('plusTypeFader');
@@ -109,10 +117,17 @@
                         if(base.options.createPagination){
                             base.$sliderControls.find('a[rel="' + slide + '"]').addClass('current').siblings().removeClass('current');
                         }
+
                         base.$el.animate({
-                            left: base.$slideWidth * slide * -1 + 'px'
+                            left: base.$slides.eq(slide).position().left * -1 + 'px'
                         }, base.options.speed, base.options.sliderEasing);
+
+                         base.$el.closest('.plusSlider').animate({
+                            width: base.$slides.eq(slide).width()
+                        }, base.options.speed, base.options.sliderEasing);
+
                         base.$el.children('.current').removeClass('current').parent().children().eq(slide).addClass('current');
+
                     }
                 }else{ // Begin Fader
                     if(!base.$slides.is(':animated')){
