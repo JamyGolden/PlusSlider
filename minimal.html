@@ -2,71 +2,73 @@
 <html>
 <head>
 	<meta charset="utf-8">
+
 	<title>PlusSlider - Minimal Example</title>
 
 	<link rel="stylesheet" type="text/css" href="css/minimal.css" />
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type='text/javascript' src='js/jquery.plusslider-min.js'></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type='text/javascript' src='js/jquery.plusslider.js'></script>
 	<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
 	<script type='text/javascript'>
 	$(document).ready(function(){
-
 		$('#slider').plusSlider({
 			sliderEasing: 'easeInOutExpo', // Anything other than 'linear' and 'swing' requires the easing plugin
 			sliderType: 'slider' // Choose whether the carousel is a 'slider' or a 'fader'
 		});
-
 		$('#slider2').plusSlider({
-			displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires the default option 'autoPlay: true'
-			paginationTitle: true, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
-			paginationWidth: false,
+			displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
 			sliderType: 'fader', // Choose whether the carousel is a 'slider' or a 'fader'
 			width: 500, // Overide the default CSS width
 			height: 260 // Overide the default CSS width
 		});
-
 	});
 	</script>
 </head>
 <body>
-	<div id="slider">
+	<div id="page-wrap">
+		<div id="content">
+            <h1>PlusSlider</h1>
+			<div id="slider">
+							
+				<div id="winning-slide" data-title="PlusSlider" class="slide1">
+					<h2>PlusSlider</h2>
+					<p>
+						A content slider that simply works...<br />
+						The right way
+					</p>
+				</div>
 
-		<div class="slide1">
-			<h2>PlusSlider</h2>
-			<p>
-				A content slider that simply works...<br />
-				The right way
-			</p>
-		</div>
-		
-		<a href="#"><img src="images/image2.jpg" alt="" height="250" width="630" /></a>
-		
-		<img src="images/image3.jpg" alt="" height="250" width="630" />
-		
-		<div class="quote">
-			I do not fear death,<br />
-			in view of the fact that I had been dead<br />
-			for billions and billions of years<br />
-			before I was born, and had not suffered<br />
-			the slightest inconvenience from it.<br />
-			- Mark Twain
-		</div>
-		
-		<img src="images/image4.jpg" alt="" height="250" width="630" />
-		
-	</div>
+				<a data-title="Tree" href="#"><img src="images/tree.jpg" alt="" height="250" width="351" /></a>
+				
+				<img data-title="Sunset" src="images/clouds.jpg" alt="" height="134" width="630" />
+				
+				<div data-title="Quote" class="quote">
+					I do not fear death,<br />
+					in view of the fact that I had been dead<br />
+					for billions and billions of years<br />
+					before I was born, and had not suffered<br />
+					the slightest inconvenience from it.<br />
+					- Mark Twain
+				</div>
+				
+				<img data-title="Stop Sign" src="images/image4.jpg" alt="" height="250" width="630" />
+				
+			</div><!-- #slider -->
+			<br /><br />
+			<div id="slider2">
+			
+				
+				<a href="#"><img src="images/image2.jpg" alt="" height="250" width="630" /></a>
+				
+				<img src="images/image3.jpg" alt="" height="250" width="630" />
+				
+				
+				<img src="images/image4.jpg" alt="" height="250" width="630" />
+				
+			</div> <!-- #slider2 -->
 
-	<br /><br />
-
-	<div id="slider2">
-
-		<a data-title="Tree" href="#"><img src="images/image2.jpg" alt="" height="250" width="630" /></a>
-		
-		<img data-title="Sunset" src="images/image3.jpg" alt="" height="250" width="630" />
-		
-		<img data-title="Stop Sign" src="images/image4.jpg" alt="" height="250" width="630" />
-		
-	</div>
+		</div> <!-- #content -->
+	</div> <!-- #page-wrap -->
 </body>
-</html
+</html>

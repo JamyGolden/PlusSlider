@@ -7,38 +7,46 @@ A jQuery content slider that is easily configurable and can easily be switched b
 * Easily swap between **fading** &amp; *sliding*
 * Multiple PlusSliders per page
 * Very _simple_ &amp; _valid markup_
-* Autoplay (_Optional_)
+* AutoSlide (_Optional_)
 * **Next/Previous** Navigation (_Optional_)
 * Titled or numbered **paginated** navigation (_Optional_)
 * Callback available after each slide
-* Tested on *IE 7+* and *modern browsers*
+* Supports slides of various width and height
+* Tested on *IE 6+* and *modern browsers*
 
 ## Default Options
     $('#slider').plusSlider({
-        createArrows: true, // Creates forward and backward navigation
-        nextText: 'Next', // The next button's text
-        prevText: 'Previous', // The previous button's text
 
-        createPagination: true, // Creates Numbered pagination
-        paginationBefore: false, // Place the pagination above the slider within the HTML
-        paginationWidth: true, // Automatically gives the pagination a dynamic width
-        paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
-        paginationThumbnails: false, // Creates a thumbnail preview of the slide you hover over in the pagination. Note: To use this effectuively, make sure you're using the 'transform: scale(x,y) CSS property. Doesn't work in IE.
-
-        displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
-        speed: 500, // The amount of time it takes for a slide to fade into another slide
-
-        autoPlay: true, // Creats a times, looped 'slide-show'
-        keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
-        pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
-
-        sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+        /* General */
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-
         width: false, // Overide the default CSS width
         height: false, // Overide the default CSS width
+        
+        /* Display related */
+        defaultSlide: 0, // Sets the default starting slide - Number based on item index
+        displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+        sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+        speed: 500, // The amount of time it takes for a slide to fade into another slide
 
-        onSlide: null // Callback function for you developers
+        /* Functioanlity related */
+        autoSlide: true, // Creats a times, looped 'slide-show'
+        keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
+        pauseOnHover: true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
+
+            /* Arrow related */
+            createArrows: true, // Creates forward and backward navigation
+            nextText: 'Next', // Adds text to the 'next' trigger
+            prevText: 'Previous', // Adds text to the 'prev' trigger
+
+            /* Pagination related */
+            createPagination: true, // Creates Numbered pagination
+            paginationBefore: false, // Place the pagination above the slider within the HTML
+            paginationWidth: false, // Automatically gives the pagination a dynamic width
+            paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
+
+        /* Callbacks */
+        onSlide: null // Callback function
+
     });
 
 ## Using Navigation Functions
@@ -53,11 +61,6 @@ If you wish to be able to navigate the slides via code (for example, if you have
     slider.toSlide('prev'); //move slider to previous slide
     slider.toSlide(3); //move slider to arbitrary index (first slide is 0, second is 1, etc.)
 
-
-## Pagination Thumbnails
-
-The thumbnails are dynamically created (note that this feature does not work in IE8 or lower). If you aren't using a CMS or other back-end code that generates thumbnails for you, this will make your life a lot easier as you won't have to create separate smaller images for each slide. This functionality is slightly more advanced than the rest and requires a bit of CSS knowledge/experience to manipulate as desired. The pagination thumbnails functionality relies heavily on the transform: scale(x,y) CSS property and value. If this property is not applied, the 'thumbnails' will be the same size as the slides and therefore render it useless. This option is automatically disabled for browsers that don't support it, so it is safe to use for progressive enhancement.
-
 ## Customizing PlusSlider
 
 The default example is a great demonstration of what you can do with PlusSlider, but you probably want to customize the slider to match your site's design.
@@ -65,13 +68,22 @@ To see the bare minimum of styles that are required for a functioning slider, lo
 
 Some things to note about widths and heights:
 
-* The slider div must have specific width+height set in either CSS **OR** via the "width" and "height" javascript options.
-* Every piece of interior content must **ALSO** have explicit widths + heights set via CSS (these cannot be set by the "width" and "height" javascript options). Each interior content piece's width + padding-left + padding-right + margin-left + margin-right should equal the slider div's width, and each interior content piece's height + padding-top + padding-bottom + margin-top + margin-bottom should equal the slider div's height.
-* If the interior content is just an image, the image tag's "width" and "height" attributes can be used instead of CSS width and height.
+* A set slider width and height effect can be achieved by giving each slide the same width and height. If they vary, the slider will accomodate the different slide width and height. Since each slide is given a `.child` class, a set width and height on that class would force a static sized PlusSlider.
 * When using the "fader" effect (sliderType:fader), setting the width/height via javascript options will do some resizing/clipping of images and content (which can be helpful if you have variably-sized content from a CMS, for example). This does not occur when using the "slider" effect.
 * When using the "fader" effect (sliderType:fader) with non-image content, you will want some kind of background (either a non-transparent background-image or a solid background-color) otherwise the effect will not be smooth.
 
 ## Changelog
+
+### Version 1.4
+* Added slider support for dynamic `width` and `height`
+* Streamlined the script
+* Removed the `paginationThumbnails` option
+* Set the `paginationWidth` to default to false
+* Changed the title of the option `autoPlay` to `autoSlide`
+* Added `defaultSlide` option
+* Added comments throughout the jquery.plusslider.js file as well as made it more human-readable
+* Changed a couple of element types and class names
+* Added `.plusslide-container` class to the `.child` parent
 
 ### Version 1.3
 * Added `nextText` and `prevText` options

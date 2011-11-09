@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
 
-<title>PlusSlider</title>
+	<title>PlusSlider</title>
 
-<link rel="stylesheet" type="text/css" href="css/resets.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/plusslider.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/plusslider.css" />
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script type='text/javascript' src='js/jquery.plusslider.js'></script>
-<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
-<script type='text/javascript'>
-$(document).ready(function(){
-	$('#slider').plusSlider({
-		autoPlay: false,
-		sliderEasing: 'easeInOutExpo', // Anything other than 'linear' and 'swing' requires the easing plugin
-		paginationBefore: false,
-		paginationTitle: true,
-		paginationThumbnails: true,
-		sliderType: 'slider' // Choose whether the carousel is a 'slider' or a 'fader'
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type='text/javascript' src='js/jquery.plusslider.js'></script>
+	<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider').plusSlider({
+			sliderEasing: 'easeInOutExpo', // Anything other than 'linear' and 'swing' requires the easing plugin
+			paginationBefore: false,
+			paginationTitle: true,
+			paginationThumbnails: true,
+			sliderType: 'slider' // Choose whether the carousel is a 'slider' or a 'fader'
+		});
+		$('#slider2').plusSlider({
+			displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+			sliderType: 'fader', // Choose whether the carousel is a 'slider' or a 'fader'
+			width: 500, // Overide the default CSS width
+			height: 250 // Overide the default CSS width
+		});
 	});
-	$('#slider2').plusSlider({
-		displayTime: 2000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
-		sliderType: 'fader', // Choose whether the carousel is a 'slider' or a 'fader'
-		width: 500, // Overide the default CSS width
-		height: 260 // Overide the default CSS width
-	});
-});
-</script>
+	</script>
 </head>
 <body>
 	<div id="page-wrap">
 		<div id="content">
             <h1>PlusSlider</h1>
 			<div id="slider">
-			
+							
 				<div id="winning-slide" data-title="PlusSlider" class="slide1">
 					<h2>PlusSlider</h2>
 					<p>
@@ -44,10 +42,10 @@ $(document).ready(function(){
 						The right way
 					</p>
 				</div>
+
+				<a data-title="Tree" href="#"><img src="images/tree.jpg" alt="" height="250" width="351" /></a>
 				
-				<a data-title="Tree" href="#"><img src="images/image2.jpg" alt="" height="250" width="330" /></a>
-				
-				<img data-title="Sunset" src="images/image3.jpg" alt="" height="250" width="630" />
+				<img data-title="Sunset" src="images/clouds.jpg" alt="" height="134" width="630" />
 				
 				<div data-title="Quote" class="quote">
 					I do not fear death,<br />
@@ -85,36 +83,56 @@ $(document).ready(function(){
 					<li><strong>Next/Previous</strong> Navigation (<em>Optional</em>)</li>
 					<li>Titled or numbered <strong>paginated</strong> navigation (<em>Optional</em>)</li>
 					<li>Callback available after each slide</li>
-					<li>Tested on <strong><abbr title="Internet Explorer">IE</abbr>7+</strong> and <strong>modern browsers</strong></li>
+					<li>Supports slides of various width and height</li>
+					<li>Tested on <strong><abbr title="Internet Explorer">IE</abbr>6+</strong> and <strong>modern browsers</strong></li>
 				</ul>
 				<h2>Default Options</h2>
 				<pre><code>$('#slider').plusSlider({
-    createArrows: true, // Creates forward and backward navigation
-    nextText: 'Next', // The next button's text
-    prevText: 'Previous', // The previous button's text
 
-    createPagination: true, // Creates Numbered pagination
-    paginationBefore: false, // Place the pagination above the slider within the HTML
-    paginationWidth: true, // Automatically gives the pagination a dynamic width
-    paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
-    paginationThumbnails: false, // Creates a thumbnail preview of the slide you hover over in the pagination. Note: To use this effectuively, make sure you're using the 'transform: scale(x,y) CSS property. Doesn't work in IE.
-    
-    displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
-    speed: 500, // The amount of time it takes for a slide to fade into another slide
-    
-    autoPlay: true, // Creats a times, looped 'slide-show'
-    keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
-    pauseOnHover: true, // Autoplay does not continue ifsomeone hovers over Plus Slider.
-    
-    sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
-    sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-    
-    width: false, // Overide the default CSS width
-    height: false, // Overide the default CSS width
-    
-    onSlide: null // Callback function for you developers
-});</code></pre>				
+        /* General */
+        sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+        width: false, // Overide the default CSS width
+        height: false, // Overide the default CSS width
+        
+        /* Display related */
+        defaultSlide: 0, // Sets the default starting slide - Number based on item index
+        displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+        sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+        speed: 500, // The amount of time it takes for a slide to fade into another slide
+
+        /* Functioanlity related */
+        autoSlide: true, // Creats a times, looped 'slide-show'
+        keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
+        pauseOnHover: true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
+
+            /* Arrow related */
+            createArrows: true, // Creates forward and backward navigation
+            nextText: 'Next', // Adds text to the 'next' trigger
+            prevText: 'Previous', // Adds text to the 'prev' trigger
+
+            /* Pagination related */
+            createPagination: true, // Creates Numbered pagination
+            paginationBefore: false, // Place the pagination above the slider within the HTML
+            paginationWidth: false, // Automatically gives the pagination a dynamic width
+            paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
+
+        /* Callbacks */
+        onSlide: null // Callback function
+
+    });</code></pre>				
 				<h2>Changelog</h2>
+				<h3>Version 1.4</h3>
+				<ul>
+					<li>Added slider support for dynamic <code>width</code> and <code>height</code></li>
+					<li>Streamlined the script</li>
+					<li>Removed the <code>paginationThumbnails</code> option</li>
+					<li>Set the <code>paginationWidth</code> to default to false</li>
+					<li>Changed the title of the option <code>autoPlay</code> to <code>autoSlide</code></li>
+					<li>Added <code>defaultSlide</code> option</li>
+					<li>Added comments throughout the jquery.plusslider.js file as well as made it more human-readable</li>
+					<li>Changed a couple of element types and class names</li>
+					<li>Added <code>.plusslide-container</code> class to the <code>.child</code> parent</li>
+				</ul>
 				<h3>Version 1.3</h3>
 				<ul>
 					<li>Added nextText and prevText options</li>
