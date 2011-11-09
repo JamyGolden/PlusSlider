@@ -1,62 +1,46 @@
-/* The following styles are essential to the slider's functionality */
-	#slider, #slider2 { /* Change "#slider" and "#slider2" identifiers as needed for your html */
-		position: relative;
-		left: 0;
-	}
+* { margin: 0; padding: 0; } /* Hard reset */
 
-	.plusSlider {
+/* The following styles are essential to the slider's functionality */
+
+	.plusslider {
 		overflow: hidden;
 		position: relative;
-
-		width: 630px; /* Change this to your slider's width. Not needed if you set explicit width js option when initializing slider */
-		height: 290px; /* Change this to your slider's height. Not needed if you set explicit height js option when initializing slider */
+		padding: 60px 0; /* The height / width of the slider should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
 	}
 
-	.plusSlider .child {
+	.plusslide-container {
+		position: relative;
+	}
+
+	.plusslider .child {
 		float: left;
 	}
 
-	/* PlusFader Specific (not needed with sliderType:slider, OR if you set paginationBefore:true when initializing slider) */
-	.plusTypeFader .child {
-		display: none;
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
-	.plusTypeFader .plusSlider-controls {
-		position: relative;
-		z-index: 200;
-	}
+	/* PlusFader Specific (not needed with plustype:slider */
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
+	.plustype-fader .current { z-index: 5; }
+	/* End PlusFader Specific */
 
-	/* no-javascript fallback -- change "#slider" and "#slider2" identifiers as needed for your html */
-	#slider > *,
-	#slider2 > * {
-		display: none;
-	}
-	#slider > *:first-child,
-	#slider2 > *:first-child {
-		display: block;
-	}
-	/* end no-javascript fallback */
+	/* No-javascript fallback -- change "#slider" and "#slider2" identifiers as needed for your html */
+	#slider > * { display: none; }
+	#slider > *:first-child, #slider2 > *:first-child {	display: block;	}
+	/* End no-javascript fallback */
 
-
-/* Interior Content Width + Height Settings.
-   These styles are essential, but are specific to the size of the example content we're using
-   so they will require some modification depending on the html structure and content you have.
-   It is important to note that images will pretty much "just work" with PlusSlider,
-   but non-image content requires explicit width and height settings via CSS. */
-	#slider .slide1 {width:550px; padding-left:40px; padding-right:40px; margin-left:0; margin-right:0;} /* THIS MUST TOTAL UP TO THE EXACT WIDTH OF #slider */
-	#slider .slide1 {height:210px; padding-top:20px; padding-bottom:20px; margin-top:0; margin-bottom:0;} /* THESE MUST TOTAL UP TO THE EXACT HEIGHT OF #slider */
-
-	#slider .quote {width:630px;} /* SAME DEAL AS ABOVE */
-	#slider .quote {height:170px; padding-top:40px; padding-bottom:40px;} /* SAME DEAL AS ABOVE */
-
+/* End essential styles*/
 
 /* The following styles are not essential for slider functionality. They are specific to the example content.
-   It is important to note that the fading effect does not look very good with non-image content unless that
-   content area has a solid background (either a background image or a background-color, but not transparent). */
-	#slider .slide1{background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px;}
-	#slider .slide1 h2{color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left;}
-	#slider .slide1 p{border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px;}
-	#slider .quote{background: #f1f1f1; color: #333; font: 24px Georgia, serif; text-align: center;}
+   It is important to note that the fading effect does not work correctly with non-image content unless that
+   content area has a solid background (either a background image or a background-color, but not transparent).
+
+	Slides to not have to be the same width or height, but if you'd like a consistent width and/or height, make sure to set that within the CSS! */
+	#slider .slide1 { padding-left: 40px; padding-right: 40px; margin-left: 0; margin-right: 0; } 
+	#slider .slide1 { height: 210px; padding-top: 20px; padding-bottom: 20px; margin-top: 0; margin-bottom: 0; } 
+
+	.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px; }
+	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
+	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
+	.quote{background: #f1f1f1; color: #333; font: 24px Georgia, serif; padding: 50px 20px; text-align: center; }
 	#slider a img, #slider2 a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
+
+	.plusslider-controls { position: absolute; left: 0; bottom: 0; }
+	.plusslider-controls li { float: left; list-style: none; margin-left: 5px; }

@@ -1,39 +1,45 @@
 /**
-	PlusSlider Version 1.1
+	plusslider Version 1.4
 	By Jamy Golden
 	http://css-plus.com
 **/
 
-/* PlusSlider Styling */
-#slider, #slider2{height: 250px; width: 630px; position: relative; left: 0;}
-.plusSlider{
-	-moz-background-clip: padding;
+/* plusslider Styling */
+#slider, #slider2 { position: relative; left: 0; }
+
+.plusslider {
 	-webkit-background-clip: padding;
-	background-clip: padding-box;
-	-moz-border-radius: 15px;
+	   -moz-background-clip: padding;
+	        background-clip: padding-box;
 	-webkit-border-radius: 15px;
-	border-radius: 15px;
+	   -moz-border-radius: 15px;
+	        border-radius: 15px;
 	background-color: rgba(255, 255, 255, 0.3);
 	border: 15px solid rgba(255, 255, 255, 0.3);
-	height: 290px;
+	height: 250px;
 	margin: 0 auto;
+	padding-bottom: 40px;
 	overflow: hidden;
-	width: 630px;
 	position: relative;
 }
-.plusSlider .child{float: left;}
+
+.plusslider .child { float: left; }
+
 /* Controls */
-.plusSlider-controls-wrapper {
+.plusslider-controls-wrapper {
 	background-color: #f1f1f1; /* fallback color */
 	background-image: url(../images/svg-gradient.svg); /* Gradient support for IE9 and Opera */
-	background-image: -moz-linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#ccc));
-	-moz-border-radius-bottomleft: 10px;
-	-moz-border-radius-bottomright: 10px;
+	background-image:    -moz-linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
+	background-image:     -ms-linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
+	background-image:      -o-linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
+	background-image:         linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
 	-webkit-border-bottom-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+	   -moz-border-radius-bottomleft: 10px;
+	   -moz-border-radius-bottomright: 10px;
+	        border-bottom-left-radius: 10px;
+	        border-bottom-right-radius: 10px;
 	height: 40px;
 	width: 100%;
 	position: absolute;
@@ -41,12 +47,16 @@
 	bottom: 0;
 	z-index: 500;
 }
-.plusSlider-controls{
+
+.plusslider-controls {
+	display: table;
 	margin: 0 auto;
 	padding: 15px 0;
 }
-.plusSlider-controls a{
+
+.plusslider-controls li {
 	background: url(../images/plus-sprite.png) no-repeat left top;
+	cursor: pointer;
 	display: block;
 	float: left;
 	font-size: 0;
@@ -56,65 +66,54 @@
 	width: 10px;
 	position: relative;
 }
-.plusSlider-controls a.current, .plusSlider-controls a:hover{
+
+.plusslider-controls .current, .plusslider-controls li:hover {
 	background-position: -10px 0;
 }
-.plusSlider-thumbnails{background-repeat: repeat: none; border: 15px solid rgba(255, 255, 255, 0.3); height: 250px; opacity: 0; width: 630px; position: absolute; right: 0; top: 50px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	-moz-transform: scale(.4,.4); 
-	-ms-transform: scale(.4,.4);
-	-o-transform: scale(.4,.4);
-	-webkit-transform: scale(.4,.4);
-	transform: scale(.4,.4);
-	-moz-transition: opacity 0.2s ease;
-	-ms-transition: opacity 0.2s ease;
-	-o-transition: opacity 0.2s ease;
-	-webkit-transition: opacity 0.2s ease;
-	transition: opacity 0.2s ease;}
-.plusSlider-thumbnails .child{display: none; position: absolute; right: 0; top: 0;}
-.plusSlider-active{opacity: 1;}
-.plusSlider-thumbnails .plusSlider-current{display: block; left: 0; bottom: -30px;}
 
-.plusSlider a.arrow{
+.plusnav li {
 	background: url(../images/plus-sprite.png) no-repeat left top;
+	cursor: pointer;
 	display: block;
 	height: 32px;
+	margin-top: -16px;
 	opacity: 0;
 	width: 32px;
 	position: absolute;
-	top: 120px;
+	top: 50%;
 	z-index: 200;
 	text-indent: -9999px;
+
 	/* Fade in/out .arrows on hover */
-	-moz-transition-property: opacity;
-	-moz-transition-duration: 0.2s;
-	-moz-transition-timing-function: ease-in;
-	-ms-transition-property: opacity;
-	-ms-transition-duration: 0.2s;
-	-ms-transition-timing-function: ease-in;
-	-o-transition-property: opacity;
-	-o-transition-duration: 0.2s;
-	-o-transition-timing-function: ease-in;
 	-webkit-transition-property: opacity;
 	-webkit-transition-duration: 0.2s;
 	-webkit-transition-timing-function: ease-in;
-	transition-property: opacity;
-	transition-duration: 0.2s;
-	transition-timing-function: ease-in;
+	   -moz-transition-property: opacity;
+	   -moz-transition-duration: 0.2s;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-property: opacity;
+	    -ms-transition-duration: 0.2s;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-property: opacity;
+	     -o-transition-duration: 0.2s;
+	     -o-transition-timing-function: ease-in;
+	        transition-property: opacity;
+	        transition-duration: 0.2s;
+	        transition-timing-function: ease-in;
 }
-.plusSlider:hover a.arrow{opacity: 1;}
-.plusSlider a.prev{background-position: 0 -10px; left: 10px;}
-.plusSlider a.prev:hover{background-position: 0 -42px; left: 10px;}
-.plusSlider a.next{background-position: -33px -10px; right: 10px;}
-.plusSlider a.next:hover{background-position: -33px -42px;}
+
+.plusslider:hover .plusnav li {opacity: 1; }
+.plusnav .prev {background-position: 0 -10px; left: 10px; }
+.plusnav .prev:hover {background-position: 0 -42px; left: 10px; }
+.plusnav .next {background-position: -33px -10px; right: 10px; }
+.plusnav .next:hover {background-position: -33px -42px; }
 
 /* PlusFader Specific */
-.plusTypeFader .child{display: none; position: absolute; left: 0; top: 0;}
-.plusTypeFader .plusSlider-controls{position: relative; z-index: 200;}
+.plustype-fader .current { z-index: 2; }
+.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
+.plustype-fader .plusslider-controls { position: relative; z-index: 200; }
 
 /* no-javascript fallback */
-#slider > *, #slider2 > *{display: none;}
-#slider > *:first-child, #slider2 > *:first-child{display: block;}
+#slider > *, #slider2 > * { display: none; }
+#slider > *:first-child, #slider2 > *:first-child { display: block; }
 /* end no-javascript fallback */
