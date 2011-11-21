@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4
+ * jQuery Plus Slider 1.4.1.1
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -31,6 +31,7 @@
             // Vasic variables & Injected HTML elements
             base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.el.getAttribute('id') + '" />');
             base.$wrap = base.$el.parent();
+
             base.$slides = base.$el.children();
 
             // Slider value variables
@@ -147,11 +148,11 @@
             base.toSlide = function ( slide ) {
 
 
-                if ( slide == 'next' || slide == '' ) {
+                if ( slide === 'next' || slide === '' ) {
 
                     slide = base.$el.data('slides').current + 1;
                 
-                } else if ( slide == 'prev' ) {
+                } else if ( slide === 'prev' ) {
 
                     slide = base.$el.data('slides').current - 1;
                 
