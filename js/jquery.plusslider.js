@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4
+ * jQuery Plus Slider 1.4.1.1
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -31,12 +31,16 @@
             // Vasic variables & Injected HTML elements
             base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.el.getAttribute('id') + '" />');
             base.$wrap = base.$el.parent();
+            base.$wrapContainer = base.$wrap.parent();
             base.$slides = base.$el.children();
 
             // Slider value variables
             var totalSlides = base.$slides.length,
-                totalIndex = totalSlides - 1;
-                sliderWidth = 0;
+                totalIndex = totalSlides - 1,
+                sliderWidth = 0,
+                wrapContainerWidth = base.$wrapContainer.width();
+
+                console.log ( wrapContainerWidth )
 
             // Default slide options
             if ( base.options.defaultSlide > totalIndex ) {
@@ -52,15 +56,19 @@
             // Current slide data
             base.$el.data('slides', { 
 
-                current: base.options.defaultSlide
+                current: base.options.defaultSlide,
+                dimensionsRecorded: false
 
             }); // base.$el.data.slides
 
             for ( var i = 0; i < totalSlides; i++ ) {
+
+                if ( i == 0 ) sliderWidth = 0;
                 
                 sliderWidth += base.$slides.eq( i ).outerWidth();
 
             }; // Calculate the total slider width
+            
 
             var currentTotalWidth = base.$slides.eq( base.options.defaultSlide ).outerWidth(),
                 currentTotalHeight = base.$slides.eq( base.options.defaultSlide ).outerHeight();
@@ -75,8 +83,60 @@
 
                 base.$wrap.addClass('plustype-slider');
                 base.$el.width( sliderWidth );
+
+                        if ( base.options.fullBleed ) {
+
+                            function setSliderWidth () {
+
+                                for ( var i = 0; i < totalSlides; i++ ) {
+
+                                    if ( i == 0 ) sliderWidth = 0;
+                                    
+                                    var $currentSlide = base.$slides.eq( i );
+
+                                    $currentSlide.width();
+                                    sliderWidth += $currentSlide.outerWidth();
+
+                                    base.$el.width( sliderWidth );
+
+                                }; // Calculate the total slider width
+
+                            };
+
+                            base.$el.width( 9999 );
+                            for ( var i = 0; i < totalSlides; i++ ) {
+
+                                var $currentSlide = base.$slides.eq( i );
+                                if ( base.$el.data('slides').dimensionsRecorded == false ) {
+                                    $currentSlide.data('dimensions', {
+                                        originalWidth: $currentSlide.width(),
+                                        widthPercentage: Math.round ( parseFloat( 100 * $currentSlide.outerWidth() ) / parseFloat( wrapContainerWidth ) )
+                                    });
+                                };
+
+                                var $currentSlide = base.$slides.eq( i );
+
+                                if ( $currentSlide.data('dimensions').originalWidth > wrapContainerWidth ) {
+
+                                    $currentSlide.width( wrapContainerWidth );
+
+                                } else {
+
+                                    $currentSlide.width( $currentSlide.data('dimensions').originalWidth );
+
+                                } // $currentSlide.data.dimensions.originalWidth
+
+
+                                if ( i == totalIndex ) base.$el.data('slides').dimensionsRecorded = true;
+                            }
+
+                            setSliderWidth();
+                            
+                        }
+
                 base.$slides.show();
                 base.$el.css( 'left', base.$slides.eq( base.options.defaultSlide ).position().left * -1 + 'px' );
+
 
             } else {
 
@@ -145,7 +205,6 @@
 
             // Begin Functions
             base.toSlide = function ( slide ) {
-
 
                 if ( slide == 'next' || slide == '' ) {
 
@@ -356,6 +415,7 @@
 
         /* General */
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+        fullBleed: false,
         width: false, // Overide the default CSS width
         height: false, // Overide the default CSS width
         
