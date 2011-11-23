@@ -3,14 +3,15 @@
 img { display: block; }
 a img { border: none; }
 
-.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px; }
+.slide1 div { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px; }
 .slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
 .slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
-.quote, .quote2 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
+.quote, .quote2, .quote3 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
 .quote { background: #f1f1f1; color: #333; }
 .quote2 { background: #333; color: #f1f1f1; }
+.quote3 { background: #666; color: #f1f1f1; }
 
-.quote:after { content: '100% width'; position: absolute; right: 0; top: 0; }
+.quote:after, .quote2:after, .quote3:after { content: '100% width'; position: absolute; right: 0; top: 0; }
 
 /* Page Styling */
 body { background: #333; color: #fff; font: 14px Verdana, sans-serif; }

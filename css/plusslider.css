@@ -1,11 +1,11 @@
 /**
-	plusslider Version 1.4
+	plusslider Version 1.4.0.1
 	By Jamy Golden
 	http://css-plus.com
 **/
 
 /* plusslider Styling */
-#slider, #slider2 { position: relative; left: 0; }
+#slider, #slider2, #slider3 { position: relative; left: 0; }
 
 .plusslider {
 	-webkit-background-clip: padding;
@@ -23,7 +23,7 @@
 	position: relative;
 }
 
-.plusslider .child { float: left; }
+.plusslider .child { float: left; max-width:; }
 
 /* Controls */
 .plusslider-controls-wrapper {
@@ -40,6 +40,9 @@
 	   -moz-border-radius-bottomright: 10px;
 	        border-bottom-left-radius: 10px;
 	        border-bottom-right-radius: 10px;
+	-webkit-background-clip: padding;
+	   -moz-background-clip: padding;
+	        background-clip: padding-box;
 	height: 40px;
 	width: 100%;
 	position: absolute;
@@ -117,3 +120,5 @@
 #slider > *, #slider2 > * { display: none; }
 #slider > *:first-child, #slider2 > *:first-child { display: block; }
 /* end no-javascript fallback */
+
+.slider3, .slider3 .plusslider-controls-wrapper { border: none; border-radius: 0; }
