@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.1.1
+ * jQuery Plus Slider 1.4.1
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -31,13 +31,14 @@
             // Vasic variables & Injected HTML elements
             base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.el.getAttribute('id') + '" />');
             base.$wrap = base.$el.parent();
-
+            base.$wrapContainer = base.$wrap.parent();
             base.$slides = base.$el.children();
 
             // Slider value variables
             var totalSlides = base.$slides.length,
-                totalIndex = totalSlides - 1;
-                sliderWidth = 0;
+                totalIndex = totalSlides - 1,
+                sliderWidth = 0,
+                wrapContainerWidth = base.$wrapContainer.width();
 
             // Default slide options
             if ( base.options.defaultSlide > totalIndex ) {
@@ -53,20 +54,24 @@
             // Current slide data
             base.$el.data('slides', { 
 
-                current: base.options.defaultSlide
+                current: base.options.defaultSlide,
+                dimensionsRecorded: false
 
             }); // base.$el.data.slides
 
             for ( var i = 0; i < totalSlides; i++ ) {
+
+                if ( i == 0 ) sliderWidth = 0;
                 
                 sliderWidth += base.$slides.eq( i ).outerWidth();
 
             }; // Calculate the total slider width
+            
+            base.$slides.addClass('child').eq( base.options.defaultSlide ).addClass('current');
 
             var currentTotalWidth = base.$slides.eq( base.options.defaultSlide ).outerWidth(),
                 currentTotalHeight = base.$slides.eq( base.options.defaultSlide ).outerHeight();
 
-            base.$slides.addClass('child').eq( base.options.defaultSlide ).addClass('current');
             base.$wrap.width( currentTotalWidth ).height( currentTotalHeight );
             base.$el.height( currentTotalHeight );
 
@@ -76,8 +81,39 @@
 
                 base.$wrap.addClass('plustype-slider');
                 base.$el.width( sliderWidth );
+
+                if ( base.options.fullWidth ) {
+
+
+                    function setSliderWidth () {
+
+                        wrapContainerWidth = base.$wrapContainer.width();
+
+                        sliderWidth = wrapContainerWidth * totalSlides;
+
+                        var $currentSlide = base.$slides.eq ( base.$el.data('slides').current ),
+                            currentTotalWidth = wrapContainerWidth,
+                            currentTotalHeight = $currentSlide.outerHeight();
+
+                        base.$slides.width( wrapContainerWidth );
+                        base.$el.width( sliderWidth ).css('left', $currentSlide.position().left * -1 + 'px');
+                        base.$wrap.width( currentTotalWidth ).height( currentTotalHeight );
+
+                    }; // setSliderWidth()
+
+                    setSliderWidth();
+                
+                    $(window).resize( function () {
+
+                        setSliderWidth();
+
+                    }); // window.resize
+      
+                }; // base.options.fullWidth
+
                 base.$slides.show();
                 base.$el.css( 'left', base.$slides.eq( base.options.defaultSlide ).position().left * -1 + 'px' );
+
 
             } else {
 
@@ -147,7 +183,6 @@
             // Begin Functions
             base.toSlide = function ( slide ) {
 
-
                 if ( slide === 'next' || slide === '' ) {
 
                     slide = base.$el.data('slides').current + 1;
@@ -158,6 +193,10 @@
                 
                 }; 
 
+                // return from function if disable loop options are selected
+                if ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && slide < 0 ) return;
+                if ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && slide > totalIndex ) return;
+
                 if ( slide > totalIndex ) {
 
                     slide = 0;
@@ -167,6 +206,7 @@
                     slide = totalIndex;
                 
                 }; // Handle possible slide values
+
 
                 if ( base.options.sliderType == 'slider' ) {
 
@@ -232,7 +272,7 @@
                 // Callback
                 if ( base.options.onSlide && typeof( base.options.onSlide ) == 'function' ) {
 
-                    base.options.onSlide( );
+                    base.options.onSlide( base.$slides.filter('.current').index() );
 
                 }; // base.options.onSlide
 
@@ -330,11 +370,11 @@
 
                     if ( base.$el.is('.active-plusslider') ) {
 
-                        if ( e.keyCode == 39 ) {
+                        if ( e.keyCode == 38 || e.keyCode == 39 ) { // Up or right arrow
 
-                            base.toSlide();
+                            base.toSlide('next');
 
-                        } else if ( e.keyCode == 37 ) {
+                        } else if ( e.keyCode == 37 || e.keyCode == 40) { // Left or down arrow
 
                             base.toSlide('prev');
 
@@ -357,6 +397,8 @@
 
         /* General */
         sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+        disableLoop: false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
+        fullWidth: false, // sets the width of the slider to 100% of the parent container
         width: false, // Overide the default CSS width
         height: false, // Overide the default CSS width
         
