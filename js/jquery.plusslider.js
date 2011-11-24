@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.1
+ * jQuery Plus Slider 1.4.x
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -8,7 +8,6 @@
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-
 ( function( $ ) {
 
     $.plusSlider = function( el, options ) {
@@ -27,239 +26,174 @@
         base.init = function () {
 
             base.options = $.extend( {}, $.plusSlider.defaults, options );
-
-            // Vasic variables & Injected HTML elements
             base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.el.getAttribute('id') + '" />');
-            base.$wrap = base.$el.parent();
-            base.$wrapContainer = base.$wrap.parent();
-            base.$slides = base.$el.children();
+            base.$wrap                  = base.$el.parent();
+            base.$slides                = base.$el.children();
+            base.$wrapContainer         = base.$wrap.parent();
+            base.slideCount             = base.$slides.length;
+            base.slideIndexCount        = base.slideCount - 1;
+            base.animating              = false;
+            base.wrapContainerWidth     = base.$wrapContainer.width();
+            base.wrapContainerHeight    = base.$wrapContainer.height();
+            base.currentSlideIndex      = base.options.defaultSlide;
+            base.$currentSlide          = base.$slides.eq( base.currentSlideIndex );
+            base.currentSlideWidth      = base.$currentSlide.outerWidth();
+            base.currentSlideHeight     = base.$currentSlide.outerHeight();
+            // base.functions
+            base.calculateSliderWidth   = function() {
 
-            // Slider value variables
-            var totalSlides = base.$slides.length,
-                totalIndex = totalSlides - 1,
-                sliderWidth = 0,
-                wrapContainerWidth = base.$wrapContainer.width();
+                for ( var i = 0; i < base.slideCount; i++ ) {
+                    if ( i == 0 ) base.sliderWidth = 0;
+                    base.sliderWidth += base.$slides.eq( i ).outerWidth();
+                };
 
-            // Default slide options
-            if ( base.options.defaultSlide > totalIndex ) {
+            }; // base.calculateSliderWidth
+            base.beginTimer             = function() {
 
-                base.options.defaultSlide = 0;
+                base.timer = window.setInterval( function () {
+                    base.toSlide('next');
+                }, base.options.displayTime);
 
-            } else if ( base.options.defaultSlide < 0 ) {
-
-                base.options.defaultSlide = totalIndex;
-
-            }; // Handle incorrect default slide options
-
-            // Current slide data
-            base.$el.data('slides', { 
-
-                current: base.options.defaultSlide,
-                dimensionsRecorded: false
-
-            }); // base.$el.data.slides
-
-            for ( var i = 0; i < totalSlides; i++ ) {
-
-                if ( i == 0 ) sliderWidth = 0;
+            }; // base.beginTimer
+            base.clearTimer             = function() {
                 
-                sliderWidth += base.$slides.eq( i ).outerWidth();
+                if ( base.timer) { // If the timer is set, clear it
+                    window.clearInterval(base.timer);
+                };
 
-            }; // Calculate the total slider width
-            
-            base.$slides.addClass('child').eq( base.options.defaultSlide ).addClass('current');
+            }; // base.clearTimer
+            base.setSliderDimensions = function() {
 
-            var currentTotalWidth = base.$slides.eq( base.options.defaultSlide ).outerWidth(),
-                currentTotalHeight = base.$slides.eq( base.options.defaultSlide ).outerHeight();
+                // Set values
+                base.wrapContainerWidth = base.$wrapContainer.width();
+                base.sliderWidth = base.wrapContainerWidth * base.slideCount;
+                // Values Set
 
-            base.$wrap.width( currentTotalWidth ).height( currentTotalHeight );
-            base.$el.height( currentTotalHeight );
+                base.$slides.width( base.wrapContainerWidth );
+                base.$el.width( base.sliderWidth ).css('left', base.$currentSlide.position().left * -1 + 'px');
+                base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
 
+            }; // base.setSliderWidth
+            base.toSlide                = function( slide ) {
 
-            // Slider/Fader Settings
-            if ( base.options.sliderType == 'slider' ) {
-
-                base.$wrap.addClass('plustype-slider');
-                base.$el.width( sliderWidth );
-
-                if ( base.options.fullWidth ) {
-
-
-                    function setSliderWidth () {
-
-                        wrapContainerWidth = base.$wrapContainer.width();
-
-                        sliderWidth = wrapContainerWidth * totalSlides;
-
-                        var $currentSlide = base.$slides.eq ( base.$el.data('slides').current ),
-                            currentTotalWidth = wrapContainerWidth,
-                            currentTotalHeight = $currentSlide.outerHeight();
-
-                        base.$slides.width( wrapContainerWidth );
-                        base.$el.width( sliderWidth ).css('left', $currentSlide.position().left * -1 + 'px');
-                        base.$wrap.width( currentTotalWidth ).height( currentTotalHeight );
-
-                    }; // setSliderWidth()
-
-                    setSliderWidth();
-                
-                    $(window).resize( function () {
-
-                        setSliderWidth();
-
-                    }); // window.resize
-      
-                }; // base.options.fullWidth
-
-                base.$slides.show();
-                base.$el.css( 'left', base.$slides.eq( base.options.defaultSlide ).position().left * -1 + 'px' );
-
-
-            } else {
-
-                base.$wrap.addClass('plustype-fader');
-                base.$slides.eq(0).show();
-
-            }; // base.options.sliderType
-            
-            // Handle the slider if only one slide exists
-            if ( totalSlides === 1 ) {
-
-                base.options.autoSlide = false;
-                base.options.createArrows = false;
-                base.options.createPagination = false;
-
-            }; // totalSlides === 1
-
-            // Overide default CSS width
-            if ( base.options.width) base.$wrap.width( base.options.width );
-
-            // Overide default CSS height
-            if ( base.options.height) base.$wrap.height( base.options.height );
-
-            // Begin pagination
-            if ( base.options.createPagination ) {
-
-                base.$sliderControls = $('<ul />', {
-
-                        'class': 'plusslider-controls'
-
-                    });
-
-                // base.options.paginationBefore
-                base.options.paginationBefore ? base.$sliderControls.prependTo( base.$wrap ) : base.$sliderControls.appendTo( base.$wrap ); 
-
-                base.$sliderControls.wrap('<div class="plusslider-controls-wrapper" />');
-
-                // Create Pagination
-                for ( var i = 0; i < totalSlides; i++ ) {
-
-                    $('<li />', {
-
-                        href: '#',
-                        'data-index': i,
-                        text: base.options.paginationTitle ? base.$slides.eq( i ).attr('data-title') : i + 1
-
-                    }).appendTo(base.$sliderControls);
-
-                }; // Pagination appended
-
-                // Dynamic pagination width
-                if ( base.options.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('li').outerWidth(true) * totalSlides );
-
-                // Pagination functionality
-
-                var controlIndex = 0;
-                base.$sliderControls.find('li').click( function( e ) {
-
-                    controlIndex = $(this).index();
-
-                    base.toSlide( controlIndex );
-
-                }).eq( controlIndex ).addClass('current'); // base.$sliderControls.find('li').click
-
-            }; // End settings.pagination
-
-            // Begin Functions
-            base.toSlide = function ( slide ) {
-
+                // Handling of slide values
                 if ( slide === 'next' || slide === '' ) {
 
-                    slide = base.$el.data('slides').current + 1;
+                    base.currentSlideIndex += 1;
                 
                 } else if ( slide === 'prev' ) {
 
-                    slide = base.$el.data('slides').current - 1;
+                    base.currentSlideIndex -= 1;
                 
-                }; 
+                } else {
 
-                // return from function if disable loop options are selected
-                if ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && slide < 0 ) return;
-                if ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && slide > totalIndex ) return;
+                    base.currentSlideIndex = slide;
 
-                if ( slide > totalIndex ) {
+                }
+                // End Handling of slide values
 
-                    slide = 0;
+                // Disable first and last buttons on the first and last slide respectively
+                if ( ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && base.currentSlideIndex < 0 ) || ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && base.currentSlideIndex > base.slideIndexCount )) {
+                     return;
+                }  // End Disable first and last buttons on the first and last slide respectively
+
+                // Handle possible slide values
+                if ( base.currentSlideIndex > base.slideIndexCount ) {
+
+                    base.currentSlideIndex = 0;
                 
-                } else if ( slide < 0 ) {
+                } else if ( base.currentSlideIndex < 0 ) {
 
-                    slide = totalIndex;
+                    base.currentSlideIndex = base.slideIndexCount;
                 
                 }; // Handle possible slide values
 
+                // Set values
+                base.$currentSlide      = base.$slides.eq( base.currentSlideIndex );
+                base.currentSlideWidth  = base.$currentSlide.width();
+                base.currentSlideHeight = base.$currentSlide.height();
+                // Values set
 
-                if ( base.options.sliderType == 'slider' ) {
+                // beforeSlide callback
+                if ( base.options.beforeSlide && typeof( base.options.beforeSlide ) == 'function' ) base.options.beforeSlide( base );
+                // End beforeSlide callback
 
-                    if ( !base.$el.is(':animated') ) {
+                if ( base.animating == false ) {
+
+                    // Set values
+                    base.animating = true;
+                    // Values set
+
+                    // onSlide callback
+                    if ( base.options.onSlide && typeof( base.options.onSlide ) == 'function' ) base.options.onSlide( base );
+                    // End onSlide callback
+
+                    if ( base.options.sliderType == 'slider' ) {
 
                         if ( base.options.createPagination ) {
 
-                            base.$sliderControls.find('li').removeClass('current').eq( slide ).addClass('current');
+                            base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 
                         }; // base.options.createPagination
 
                         // Animate slide position
                         base.$el.animate({
-                            height: base.$slides.eq( slide ).outerHeight(),
-                            left: base.$slides.eq( slide ).position().left * -1 + 'px'
+                            height: base.$currentSlide.outerHeight(),
+                            left: base.$currentSlide.position().left * -1 + 'px'
                         
-                        }, base.options.speed, base.options.sliderEasing);
+                        }, base.options.speed, base.options.sliderEasing, function() {
+
+                            // Set values
+                            base.animating = false;
+                            // Values set
+
+                            // afterSlide and onEnd callback
+                            if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
+                            if ( base.options.onEnd && typeof( base.options.onEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onEnd( base );
+                            // End afterSlide and onEnd callback
+
+                        });
 
                         // Animate wrapper width
                         base.$wrap.animate({
 
-                            height: base.$slides.eq( slide ).outerHeight(),
-                            width: base.$slides.eq( slide ).outerWidth()
+                            height: base.$currentSlide.outerHeight(),
+                            width: base.$currentSlide.outerWidth()
                         
                         }, base.options.speed, base.options.sliderEasing);
 
                         // Handle current slide
-                        base.$slides.removeClass('current').eq( slide ).addClass('current');
+                        base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 
-                    }; // Don't slide while animated
+                    // End slider
 
-                // End slider
-
-                } else { 
+                    } else { 
                 
-                // Begin Fader
-                    if ( !base.$slides.is(':animated') ) {
-  
+                    // Begin Fader  
                         if ( base.options.createPagination ) {
 
-                            base.$sliderControls.find('li').removeClass('current').eq( slide ).addClass('current');
+                            base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 
                         }; // base.options.createPagination
 
-                        base.$slides.removeClass('current').eq( slide ).addClass('current').fadeIn(base.options.speed, function() {
+                        base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current').fadeIn(base.options.speed, function() {
 
                             base.$slides.not('.current').hide();
 
+                            // Set values
+                            base.animating = false;
+                            // Values set
+
+                            // afterSlide and onEnd callback
+                            if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
+                            if ( base.options.onEnd && typeof( base.options.onEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onEnd( base );
+                            // End afterSlide and onEnd callback
+
                         });
 
-                    }; // if !animated
+                    }; // if sliderType slider/fader
 
-                }; // if sliderType slider/fader
+                }; // Don't slide while animated
 
                 // Clear Timer
                 if ( base.options.autoSlide ) {
@@ -269,122 +203,195 @@
 
                 }; // if base.options.autoSlide 
 
-                // Callback
-                if ( base.options.onSlide && typeof( base.options.onSlide ) == 'function' ) {
-
-                    base.options.onSlide( base.$slides.filter('.current').index() );
-
-                }; // base.options.onSlide
-
-                // Modify PlusSlider data
-                base.$el.data('slides',{ 
-
-                    current: slide 
-
-                });
-
             }; // base.toSlide
-            
-            // Auto Play Begins
-            if ( base.options.autoSlide ) {
-                base.clearTimer = function() {
 
-                    // Clear the timer only if it is set
-                    if ( base.timer) {
+            ////////////////////////////////////////////////////////////////////////////// End of methods
 
-                        window.clearInterval(base.timer);
+            // Handle dependant options
+                if ( base.slideCount === 1 ) {
 
-                    }; // if base.timer
-                }; // base.clearTimer
+                    base.options.autoSlide = false;
+                    base.options.createArrows = false;
+                    base.options.createPagination = false;
 
-                base.beginTimer = function() {
-                    base.timer = window.setInterval( function () {
+                }; // base.slideCount === 1
+
+                if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
+        
+            // onStart callback
+            if ( base.options.onStart && typeof( base.options.onStart ) == 'function' ) base.options.onStart( base );
+            // End onStart callback
+
+            // DOM manipulations
+
+                base.$slides.addClass('child').eq( base.currentSlideIndex ).addClass('current');
+                base.$wrap.width( base.currentSlideWidth ).height( base.currentSlideHeight );
+
+                // Overide default CSS width and height
+                if ( base.options.width) base.$wrap.width( base.options.width );
+                if ( base.options.height) base.$wrap.height( base.options.height );
+                // End CSS overide
+
+                // Set values
+                base.currentSlideWidth  = base.$currentSlide.outerWidth();
+                base.currentSlideHeight = base.$currentSlide.outerHeight();
+                // Values set
+
+                // Slider/Fader Settings
+                if ( base.options.sliderType == 'slider' ) {
+
+                    base.calculateSliderWidth();
+
+                    base.$wrap.addClass('plustype-slider').find( base.$el ).width( base.sliderWidth );
+
+                    if ( base.options.fullWidth ) {
+
+                        base.setSliderDimensions();
+                    
+                        $(window).resize( function () {
+
+                            base.setSliderDimensions();
+
+                        }); // window.resize
+          
+                    }; // base.options.fullWidth
+
+                    base.$slides.show();
+                    base.$el.css( 'left', base.$currentSlide.position().left * -1 + 'px' );
+
+                } else {
+
+                    base.$wrap.addClass('plustype-fader');
+                    base.$slides.eq(0).show();
+
+                }; // base.options.sliderType
+
+                // Begin pagination
+                if ( base.options.createPagination ) {
+
+                    base.$sliderControls = $('<ul />', {
+
+                            'class': 'plusslider-controls'
+
+                        });
+
+                    base.options.paginationBefore ? base.$sliderControls.prependTo( base.$wrap ) : base.$sliderControls.appendTo( base.$wrap ); // base.options.paginationBefore
+
+                    base.$sliderControls.wrap('<div class="plusslider-controls-wrapper" />');
+
+                    // Create Pagination
+                    for ( var i = 0; i < base.slideCount; i++ ) {
+
+                        $('<li />', {
+
+                            href: '#',
+                            'data-index': i,
+                            text: base.options.paginationTitle ? base.$slides.eq( i ).attr('data-title') : i + 1
+
+                        }).appendTo(base.$sliderControls);
+
+                    }; // Pagination appended
+
+                    // Dynamic pagination width
+                    if ( base.options.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('li').outerWidth(true) * base.slideCount );
+
+                    // Pagination functionality
+                    base.$sliderControls.find('li').click( function( ) {
+
+                        var controlIndex = $(this).index();
+
+                        base.toSlide( controlIndex );
+
+                    }).eq( base.currentSlideIndex ).addClass('current'); 
+                    // base.$sliderControls.find('li').click
+
+                }; // End settings.pagination
+
+                // Create Arrows
+                if ( base.options.createArrows ) {
+
+                    $('<ul />', {
+                        'class': 'plusnav'
+                    }).prependTo(base.$wrap);
+
+                    base.$arrows = base.$wrap.find('.plusnav');
+
+                    // Prepend Next Arrow
+                    $('<li />', {
+                        'class': 'next',
+                        text: base.options.nextText
+                    }).prependTo( base.$arrows );
+
+                    // Prepend Previous Arrow
+                    $('<li />', {
+                        'class': 'prev',
+                        text: base.options.prevText
+                    }).prependTo( base.$arrows );
+
+                    base.$arrows.find('.next').click( function() {
+
                         base.toSlide('next');
-                    }, base.options.displayTime);
-                }; // base.beginTimer
 
-                base.beginTimer();
+                    }); // .next.click
 
-                // Pause on hover
-                if ( base.options.pauseOnHover) {
+                    base.$arrows.find('.prev').click( function() {
 
-                    base.$el.hover( function () {
+                        base.toSlide('prev');
 
-                        base.clearTimer();
+                    }); // prev.click
 
-                    }, function() {
+                }; // base.options.createArrows
 
-                        base.beginTimer();
+                // base.options.autoSlide
+                if ( base.options.autoSlide ) {
 
-                    }); // base.$el.hover
+                    base.beginTimer();
 
-                }; //  base.options.pauseOnHover
+                    // Pause on hover
+                    if ( base.options.pauseOnHover) {
 
-            }; // base.options.autoSlide
-            
-            // Create Arrows
-            if ( base.options.createArrows ) {
+                        base.$el.hover( function () {
 
-                $('<ul />', {
-                    'class': 'plusnav'
-                }).prependTo(base.$wrap);
+                            base.clearTimer();
 
-                base.$arrows = base.$wrap.find('.plusnav');
+                        }, function() {
 
-                // Prepend Next Arrow
-                $('<li />', {
-                    'class': 'next',
-                    text: base.options.nextText
-                }).prependTo( base.$arrows );
+                            base.beginTimer();
 
-                // Prepend Previous Arrow
-                $('<li />', {
-                    'class': 'prev',
-                    text: base.options.prevText
-                }).prependTo( base.$arrows );
+                        }); // base.$el.hover
 
-                base.$arrows.find('.next').click( function() {
+                    }; //  base.options.pauseOnHover
 
-                    base.toSlide('next');
+                }; // base.options.autoSlide
+                
+                // Keyboard navigation
+                if ( base.options.keyboardNavigation ) {
 
-                }); // .next.click
+                    base.$el.click( function () {
+                        $('.active-plusslider').removeClass('active-plusslider');
+                        $(this).addClass('active-plusslider');
 
-                base.$arrows.find('.prev').click( function() {
+                    });
 
-                    base.toSlide('prev');
+                    $(window).keyup( function ( e ) {
 
-                }); // prev.click
+                        if ( base.$el.is('.active-plusslider') ) {
 
-            }; // base.options.createArrows
-            
-            // Keyboard navigation
-            if ( base.options.keyboardNavigation ) {
+                            if ( e.keyCode == 39 ) { // Right arrow
 
-                base.$el.click( function () {
-                    $('.active-plusslider').removeClass('active-plusslider');
-                    $(this).addClass('active-plusslider');
+                                base.toSlide('next');
 
-                });
+                            } else if ( e.keyCode == 37 ) { // Left arrow
 
-                $(window).keyup( function ( e ) {
+                                base.toSlide('prev');
 
-                    if ( base.$el.is('.active-plusslider') ) {
+                            }; // e.keyCode
 
-                        if ( e.keyCode == 38 || e.keyCode == 39 ) { // Up or right arrow
+                        }; // if is .active-plusslider
 
-                            base.toSlide('next');
+                    }); // window.keyup
 
-                        } else if ( e.keyCode == 37 || e.keyCode == 40) { // Left or down arrow
-
-                            base.toSlide('prev');
-
-                        }; // e.keyCode
-
-                    }; // if is .active-plusslider
-
-                }); // window.keyup
-
-            }; // base.options.keyboardNavigation
+                }; // base.options.keyboardNavigation
 
         }; // base.init
 
@@ -396,36 +403,40 @@
     $.plusSlider.defaults ={
 
         /* General */
-        sliderType: 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-        disableLoop: false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
-        fullWidth: false, // sets the width of the slider to 100% of the parent container
-        width: false, // Overide the default CSS width
-        height: false, // Overide the default CSS width
+        sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+        disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
+        fullWidth           : false, // sets the width of the slider to 100% of the parent container
+        width               : null,
+        height              : null,
         
         /* Display related */
-        defaultSlide: 0, // Sets the default starting slide - Number based on item index
-        displayTime: 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
-        sliderEasing: 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
-        speed: 500, // The amount of time it takes for a slide to fade into another slide
+        defaultSlide        : 0, // Sets the default starting slide - Number based on item index
+        displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+        sliderEasing        : 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
+        speed               : 500, // The amount of time it takes for a slide to fade into another slide
 
         /* Functioanlity related */
-        autoSlide: true, // Creats a times, looped 'slide-show'
-        keyboardNavigation: true, // The keyboard's directional left and right arrows function as next and previous buttons
-        pauseOnHover: true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
+        autoSlide           : true, // Creats a times, looped 'slide-show'
+        keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
+        pauseOnHover        : true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
 
-            /* Arrow related */
-            createArrows: true, // Creates forward and backward navigation
-            nextText: 'Next', // Adds text to the 'next' trigger
-            prevText: 'Previous', // Adds text to the 'prev' trigger
+        /* Arrow related */
+        createArrows        : true, // Creates forward and backward navigation
+        nextText            : 'Next', // Adds text to the 'next' trigger
+        prevText            : 'Previous', // Adds text to the 'prev' trigger
 
-            /* Pagination related */
-            createPagination: true, // Creates Numbered pagination
-            paginationBefore: false, // Place the pagination above the slider within the HTML
-            paginationWidth: false, // Automatically gives the pagination a dynamic width
-            paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
+        /* Pagination related */
+        createPagination    : true, // Creates Numbered pagination
+        paginationBefore    : false, // Place the pagination above the slider within the HTML
+        paginationWidth     : false, // Automatically gives the pagination a dynamic width
+        paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
         /* Callbacks */
-        onSlide: null // Callback function
+        onStart             : null, // Callback function: On slider initialize
+        beforeSlide         : null, // Callback function: Before the slide begins
+        onSlide             : null, // Callback function: As the slide starts to animate
+        afterSlide          : null, // Callback function: As the slide completes the animation
+        onEnd               : null // Callback function: Once the slider reaches the last slide
 
     }; // $.plusSlider
 
