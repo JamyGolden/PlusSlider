@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.2
+ * jQuery Plus Slider 1.4.3
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -26,7 +26,7 @@
         base.init = function () {
 
             base.options = $.extend( {}, $.plusSlider.defaults, options );
-            base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.el.getAttribute('id') + '" />');
+            base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
             base.$wrap                  = base.$el.parent();
             base.$slides                = base.$el.children();
             base.$wrapContainer         = base.$wrap.parent();

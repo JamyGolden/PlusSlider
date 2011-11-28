@@ -79,6 +79,7 @@ The following are the PlusSlider values you may use within the callback function
 
 ### Accessing properties and methods from outside the callback functions
 If you wish to make use of the slider methods and properties outside of the callback functions, you would need to initialize the slider in a slightly different way:
+
     var slider = null;
     
     $(document).ready(function(){
