@@ -227,7 +227,7 @@
             // DOM manipulations
 
                 base.$slides.addClass('child').eq( base.currentSlideIndex ).addClass('current');
-                base.$wrap.width( base.currentSlideWidth ).height( base.currentSlideHeight );
+                base.setSliderDimensions();
 
                 // Overide default CSS width and height
                 if ( base.options.width) base.$wrap.width( base.options.width );
