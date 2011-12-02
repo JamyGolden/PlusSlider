@@ -66,7 +66,9 @@
 
                 // Set values
                 base.wrapContainerWidth = base.$wrapContainer.width();
-                base.sliderWidth = base.wrapContainerWidth * base.slideCount;
+                base.sliderWidth        = base.wrapContainerWidth * base.slideCount;
+                base.currentSlideWidth  = base.$currentSlide.outerWidth();
+                base.currentSlideHeight = base.$currentSlide.outerHeight();
                 // Values Set
 
                 base.$slides.width( base.wrapContainerWidth );
