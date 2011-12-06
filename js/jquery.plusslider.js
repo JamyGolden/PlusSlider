@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.3
+ * jQuery Plus Slider 1.4.4
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -30,6 +30,7 @@
             base.$wrap                  = base.$el.parent();
             base.$slides                = base.$el.children();
             base.$wrapContainer         = base.$wrap.parent();
+            base.setSliderWidth         = 0;
             base.slideCount             = base.$slides.length;
             base.slideIndexCount        = base.slideCount - 1;
             base.animating              = false;
@@ -62,18 +63,30 @@
                 };
 
             }; // base.clearTimer
-            base.setSliderDimensions = function() {
+            base.setSliderDimensions    = function() {
 
                 // Set values
-                base.wrapContainerWidth = base.$wrapContainer.width();
-                base.sliderWidth        = base.wrapContainerWidth * base.slideCount;
+                base.calculateSliderWidth();
+
                 base.currentSlideWidth  = base.$currentSlide.outerWidth();
                 base.currentSlideHeight = base.$currentSlide.outerHeight();
                 // Values Set
+                
+                if ( base.options.fullWidth ) {
 
-                base.$slides.width( base.wrapContainerWidth );
-                base.$el.width( base.sliderWidth ).css('left', base.$currentSlide.position().left * -1 + 'px');
-                base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
+                    base.sliderWidth        = base.wrapContainerWidth * base.slideCount;
+                    base.wrapContainerWidth = base.$wrapContainer.width();
+
+                    base.$slides.width( base.wrapContainerWidth );
+                    base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
+                    base.$el.width( base.sliderWidth ).css('left', base.$currentSlide.position().left * -1 + 'px');
+
+                } else if ( base.options.sliderType == 'slider' ) {
+
+                    base.$wrap.width( base.currentSlideWidth );
+                    base.$wrap.height( base.currentSlideHeight );
+
+                }
 
             }; // base.setSliderWidth
             base.toSlide                = function( slide ) {
@@ -252,7 +265,13 @@
                     
                         $(window).resize( function () {
 
+                            // Reset timer
+                            base.clearTimer();
+                            base.beginTimer();
+
+                            // Reset dimensions
                             base.setSliderDimensions();
+
 
                         }); // window.resize
           
@@ -308,6 +327,10 @@
                     // base.$sliderControls.find('li').click
 
                 }; // End settings.pagination
+
+                if ( base.options.paginationContainer ) {
+                    console.log(true);
+                }
 
                 // Create Arrows
                 if ( base.options.createArrows ) {
@@ -402,7 +425,7 @@
 
     };
 
-    $.plusSlider.defaults ={
+    $.plusSlider.defaults = {
 
         /* General */
         sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
