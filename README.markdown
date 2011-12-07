@@ -49,14 +49,12 @@ A jQuery content slider that is easily configurable and can easily be switched b
         paginationTitle : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
         /* Callbacks */
-        onStart : null, // Callback function: On slider initialize
-        beforeSlide : null, // Callback function: Before the slide begins
+        onInit : null, // Callback function: On slider initialize
         onSlide : null, // Callback function: As the slide starts to animate
         afterSlide : null, // Callback function: As the slide completes the animation
-        onEnd : null // Callback function: Once the slider reaches the last slide
+        onSlideEnd : null // Callback function: Once the slider reaches the last slide
 
     });
-
 
 ## Using the API
 The following are the PlusSlider values you may use within the callback functions. Property names beginning with $ ( dollar sign ) are referencing a jQuery object, methods are referenced by ending in () ( open parenthasis, close parenthasis ) and the rest contain a number value.
@@ -103,6 +101,12 @@ Some things to note about widths and heights:
 * When using the "fader" effect ( sliderType:'fader' ) with non-image content, you will want some kind of background (either a non-transparent background-image or a solid background-color) otherwise the effect will not be smooth.
 
 ## Changelog
+
+### Version 1.4.5
+* Fixed various `fullWidth` bugs
+* Streamlined the script slightly more
+* Removed beforeSlide callback function - unnecessary
+* renamed `onStart` and `onEnd` callback functions to `onInit` and `onSlideEnd` respectively
 
 ### Version 1.4.2
 * Added a 100% width support option, `fullWidth`

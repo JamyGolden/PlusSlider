@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.4
+ * jQuery Plus Slider 1.4.5
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -30,9 +30,9 @@
             base.$wrap                  = base.$el.parent();
             base.$slides                = base.$el.children();
             base.$wrapContainer         = base.$wrap.parent();
-            base.setSliderWidth         = 0;
             base.slideCount             = base.$slides.length;
             base.slideIndexCount        = base.slideCount - 1;
+            base.sliderWidth            = 0;
             base.animating              = false;
             base.wrapContainerWidth     = base.$wrapContainer.width();
             base.wrapContainerHeight    = base.$wrapContainer.height();
@@ -67,7 +67,6 @@
 
                 // Set values
                 base.calculateSliderWidth();
-
                 base.currentSlideWidth  = base.$currentSlide.outerWidth();
                 base.currentSlideHeight = base.$currentSlide.outerHeight();
                 // Values Set
@@ -78,6 +77,8 @@
                     base.wrapContainerWidth = base.$wrapContainer.width();
 
                     base.$slides.width( base.wrapContainerWidth );
+                    base.calculateSliderWidth();
+
                     base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
                     base.$el.width( base.sliderWidth ).css('left', base.$currentSlide.position().left * -1 + 'px');
 
@@ -88,55 +89,51 @@
 
                 }
 
-            }; // base.setSliderWidth
+            }; // base.setSliderDimensions
             base.toSlide                = function( slide ) {
-
-                // Handling of slide values
-                if ( slide === 'next' || slide === '' ) {
-
-                    base.currentSlideIndex += 1;
-                
-                } else if ( slide === 'prev' ) {
-
-                    base.currentSlideIndex -= 1;
-                
-                } else {
-
-                    base.currentSlideIndex = slide;
-
-                }
-                // End Handling of slide values
-
-                // Disable first and last buttons on the first and last slide respectively
-                if ( ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && base.currentSlideIndex < 0 ) || ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && base.currentSlideIndex > base.slideIndexCount )) {
-                     return;
-                }  // End Disable first and last buttons on the first and last slide respectively
-
-                // Handle possible slide values
-                if ( base.currentSlideIndex > base.slideIndexCount ) {
-
-                    base.currentSlideIndex = 0;
-                
-                } else if ( base.currentSlideIndex < 0 ) {
-
-                    base.currentSlideIndex = base.slideIndexCount;
-                
-                }; // Handle possible slide values
-
-                // Set values
-                base.$currentSlide      = base.$slides.eq( base.currentSlideIndex );
-                base.currentSlideWidth  = base.$currentSlide.width();
-                base.currentSlideHeight = base.$currentSlide.height();
-                // Values set
-
-                // beforeSlide callback
-                if ( base.options.beforeSlide && typeof( base.options.beforeSlide ) == 'function' ) base.options.beforeSlide( base );
-                // End beforeSlide callback
 
                 if ( base.animating == false ) {
 
                     // Set values
                     base.animating = true;
+                    // Values set
+
+                    // Handling of slide values
+                    if ( slide === 'next' || slide === '' ) {
+
+                        base.currentSlideIndex += 1;
+                    
+                    } else if ( slide === 'prev' ) {
+
+                        base.currentSlideIndex -= 1;
+                    
+                    } else {
+
+                        base.currentSlideIndex = slide;
+
+                    }
+                    // End Handling of slide values
+
+                    // Disable first and last buttons on the first and last slide respectively
+                    if ( ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && base.currentSlideIndex < 0 ) || ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && base.currentSlideIndex > base.slideIndexCount )) {
+                         return;
+                    }  // End Disable first and last buttons on the first and last slide respectively
+
+                    // Handle possible slide values
+                    if ( base.currentSlideIndex > base.slideIndexCount ) {
+
+                        base.currentSlideIndex = 0;
+                    
+                    } else if ( base.currentSlideIndex < 0 ) {
+
+                        base.currentSlideIndex = base.slideIndexCount;
+                    
+                    }; // Handle possible slide values
+
+                    // Set values
+                    base.$currentSlide      = base.$slides.eq( base.currentSlideIndex );
+                    base.currentSlideWidth  = base.$currentSlide.width();
+                    base.currentSlideHeight = base.$currentSlide.height();
                     // Values set
 
                     // onSlide callback
@@ -162,10 +159,10 @@
                             base.animating = false;
                             // Values set
 
-                            // afterSlide and onEnd callback
+                            // afterSlide and onSlideEnd callback
                             if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
-                            if ( base.options.onEnd && typeof( base.options.onEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onEnd( base );
-                            // End afterSlide and onEnd callback
+                            if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
+                            // End afterSlide and onSlideEnd callback
 
                         });
 
@@ -199,10 +196,10 @@
                             base.animating = false;
                             // Values set
 
-                            // afterSlide and onEnd callback
+                            // afterSlide and onSlideEnd callback
                             if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
-                            if ( base.options.onEnd && typeof( base.options.onEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onEnd( base );
-                            // End afterSlide and onEnd callback
+                            if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
+                            // End afterSlide and onSlideEnd callback
 
                         });
 
@@ -233,9 +230,9 @@
 
                 if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
         
-            // onStart callback
-            if ( base.options.onStart && typeof( base.options.onStart ) == 'function' ) base.options.onStart( base );
-            // End onStart callback
+            // onInit callback
+            if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
+            // End onInit callback
 
             // DOM manipulations
 
@@ -431,8 +428,8 @@
         sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
         disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
         fullWidth           : false, // sets the width of the slider to 100% of the parent container
-        width               : null,
-        height              : null,
+        width               : null, // Set the width of the slider
+        height              : null, // Set the height of the slider
         
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
@@ -457,11 +454,10 @@
         paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
         /* Callbacks */
-        onStart             : null, // Callback function: On slider initialize
-        beforeSlide         : null, // Callback function: Before the slide begins
+        onInit              : null, // Callback function: On slider initialize
         onSlide             : null, // Callback function: As the slide starts to animate
         afterSlide          : null, // Callback function: As the slide completes the animation
-        onEnd               : null // Callback function: Once the slider reaches the last slide
+        onSlideEnd          : null // Callback function: Once the slider reaches the last slide
 
     }; // $.plusSlider
 
