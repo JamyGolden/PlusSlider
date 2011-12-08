@@ -109,7 +109,7 @@
                     
                     } else {
 
-                        base.currentSlideIndex = slide;
+                        base.currentSlideIndex = parseInt(slide);
 
                     }
                     // End Handling of slide values
