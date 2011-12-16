@@ -208,12 +208,12 @@
                 }; // Don't slide while animated
 
                 // Clear Timer
-                if ( base.options.autoSlide ) {
+                if ( base.options.autoPlay ) {
 
                     base.clearTimer();
                     base.beginTimer();
 
-                }; // if base.options.autoSlide 
+                }; // if base.options.autoPlay 
 
             }; // base.toSlide
 
@@ -222,7 +222,7 @@
             // Handle dependant options
                 if ( base.slideCount === 1 ) {
 
-                    base.options.autoSlide = false;
+                    base.options.autoPlay = false;
                     base.options.createArrows = false;
                     base.options.createPagination = false;
 
@@ -364,8 +364,8 @@
 
                 }; // base.options.createArrows
 
-                // base.options.autoSlide
-                if ( base.options.autoSlide ) {
+                // base.options.autoPlay
+                if ( base.options.autoPlay ) {
 
                     base.beginTimer();
 
@@ -384,7 +384,7 @@
 
                     }; //  base.options.pauseOnHover
 
-                }; // base.options.autoSlide
+                }; // base.options.autoPlay
                 
                 // Keyboard navigation
                 if ( base.options.keyboardNavigation ) {
@@ -433,14 +433,14 @@
         
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
-        displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+        displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         sliderEasing        : 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         speed               : 500, // The amount of time it takes for a slide to fade into another slide
 
         /* Functioanlity related */
-        autoSlide           : true, // Creats a times, looped 'slide-show'
+        autoPlay           : true, // Creats a times, looped 'slide-show'
         keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
-        pauseOnHover        : true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
+        pauseOnHover        : true, // AutoPlay does not continue ifsomeone hovers over Plus Slider.
 
         /* Arrow related */
         createArrows        : true, // Creates forward and backward navigation
