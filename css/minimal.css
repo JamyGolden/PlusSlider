@@ -8,7 +8,7 @@
 		padding: 60px 0; /* The height / width of the slider should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
 	}
 
-	.plusslide-container {
+	.plusslider-container {
 		position: relative;
 	}
 

@@ -26,7 +26,7 @@
         base.init = function () {
 
             base.options = $.extend( {}, $.plusSlider.defaults, options );
-            base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
+            base.$el.addClass('plusslider-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
             base.$wrap                  = base.$el.parent();
             base.$slides                = base.$el.children();
             base.$wrapContainer         = base.$wrap.parent();
