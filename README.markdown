@@ -39,12 +39,13 @@ A jQuery content slider that is easily configurable and can easily be switched b
 
         /* Arrow related */
         createArrows : true, // Creates forward and backward navigation
+        arrowsPosition : 'prepend' //Where to insert arrows in relation to the slider ('before', 'prepend', 'append', or 'after')
         nextText : 'Next', // Adds text to the 'next' trigger
         prevText : 'Previous', // Adds text to the 'prev' trigger
 
         /* Pagination related */
         createPagination : true, // Creates Numbered pagination
-        paginationBefore : false, // Place the pagination above the slider within the HTML
+        paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after').
         paginationWidth : false, // Automatically gives the pagination a dynamic width
         paginationTitle : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 

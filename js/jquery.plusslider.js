@@ -289,13 +289,31 @@
 
                     base.$sliderControls = $('<ul />', {
 
-                            'class': 'plusslider-controls'
+                            'class': 'plusslider-pagination'
 
                         });
 
-                    base.options.paginationBefore ? base.$sliderControls.prependTo( base.$wrap ) : base.$sliderControls.appendTo( base.$wrap ); // base.options.paginationBefore
+                    switch (base.options.paginationPosition) {
 
-                    base.$sliderControls.wrap('<div class="plusslider-controls-wrapper" />');
+                        case 'before':
+                            base.$sliderControls.insertBefore( base.$wrap );
+                            break;
+
+                        case 'prepend':
+                            base.$sliderControls.prependTo( base.$wrap );
+                            break;
+
+                        case 'after':
+                            base.$sliderControls.insertAfter( base.$wrap );
+                            break;
+
+                        default: //'append'
+                            base.$sliderControls.appendTo( base.$wrap );
+                            break;
+
+                    }
+
+                    base.$sliderControls.wrap('<div class="plusslider-pagination-wrapper" />');
 
                     // Create Pagination
                     for ( var i = 0; i < base.slideCount; i++ ) {
@@ -325,18 +343,36 @@
 
                 }; // End settings.pagination
 
-                if ( base.options.paginationContainer ) {
-                    console.log(true);
-                }
-
                 // Create Arrows
                 if ( base.options.createArrows ) {
 
-                    $('<ul />', {
-                        'class': 'plusnav'
-                    }).prependTo(base.$wrap);
+                    base.$arrows = $('<ul />', {
 
-                    base.$arrows = base.$wrap.find('.plusnav');
+                        'class': 'plusslider-arrows'
+
+                    });
+
+                    switch (base.options.arrowsPosition) {
+
+                        case 'before':
+                            base.$arrows.insertBefore( base.$wrap );
+                            break;
+
+                        case 'append':
+                            base.$arrows.appendTo( base.$wrap );
+                            break;
+
+                        case 'after':
+                            base.$arrows.insertAfter( base.$wrap );
+                            break;
+
+                        default: //'prepend'
+                            base.$arrows.prependTo( base.$wrap );
+                            break;
+
+                    }
+
+                    base.$arrows.wrap('<div class="plusslider-arrows-wrapper" />');
 
                     // Prepend Next Arrow
                     $('<li />', {
@@ -438,18 +474,19 @@
         speed               : 500, // The amount of time it takes for a slide to fade into another slide
 
         /* Functioanlity related */
-        autoPlay           : true, // Creats a times, looped 'slide-show'
+        autoPlay            : true, // Creats a times, looped 'slide-show'
         keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover        : true, // AutoPlay does not continue ifsomeone hovers over Plus Slider.
 
         /* Arrow related */
         createArrows        : true, // Creates forward and backward navigation
+        arrowsPosition      : 'prepend', //Where to insert arrows in relation to the slider ('before', 'prepend', 'append', or 'after')
         nextText            : 'Next', // Adds text to the 'next' trigger
         prevText            : 'Previous', // Adds text to the 'prev' trigger
 
         /* Pagination related */
         createPagination    : true, // Creates Numbered pagination
-        paginationBefore    : false, // Place the pagination above the slider within the HTML
+        paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after')
         paginationWidth     : false, // Automatically gives the pagination a dynamic width
         paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 

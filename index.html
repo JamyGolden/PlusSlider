@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/plusslider.css" />
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-	<script type='text/javascript' src='js/jquery.plusslider-min.js'></script>
+	<script type='text/javascript' src='js/jquery.plusslider.js'></script>
 	<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
 	<script type='text/javascript'>
 	$(document).ready(function(){
@@ -17,7 +17,7 @@
 		$('#slider').plusSlider({
 			sliderEasing: 'easeInOutExpo', // Anything other than 'linear' and 'swing' requires the easing plugin
 			autoPlay: false,
-			paginationBefore: false,
+			paginationPosition: 'append',
 			sliderType: 'slider' // Choose whether the carousel is a 'slider' or a 'fader'
 		});
 
@@ -137,7 +137,7 @@
 
             /* Pagination related */
             createPagination: true, // Creates Numbered pagination
-            paginationBefore: false, // Place the pagination above the slider within the HTML
+            paginationPosition: 'prepend', // Place the pagination above the slider within the HTML
             paginationWidth: false, // Automatically gives the pagination a dynamic width
             paginationTitle: false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
