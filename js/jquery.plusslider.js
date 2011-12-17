@@ -320,7 +320,6 @@
 
                         $('<li />', {
 
-                            href: '#',
                             'data-index': i,
                             text: base.options.paginationTitle ? base.$slides.eq( i ).attr('data-title') : i + 1
 
