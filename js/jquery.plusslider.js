@@ -40,6 +40,7 @@
             base.$currentSlide          = base.$slides.eq( base.currentSlideIndex );
             base.currentSlideWidth      = base.$currentSlide.outerWidth();
             base.currentSlideHeight     = base.$currentSlide.outerHeight();
+
             // base.functions
             base.calculateSliderWidth   = function() {
 
@@ -49,6 +50,7 @@
                 };
 
             }; // base.calculateSliderWidth
+
             base.beginTimer             = function() {
 
                 base.timer = window.setInterval( function () {
@@ -56,6 +58,7 @@
                 }, base.options.displayTime);
 
             }; // base.beginTimer
+
             base.clearTimer             = function() {
                 
                 if ( base.timer) { // If the timer is set, clear it
@@ -63,6 +66,7 @@
                 };
 
             }; // base.clearTimer
+
             base.setSliderDimensions    = function() {
 
                 // Set values
@@ -90,6 +94,7 @@
                 }
 
             }; // base.setSliderDimensions
+
             base.toSlide                = function( slide ) {
 
                 if ( base.animating == false ) {
@@ -231,8 +236,7 @@
                 if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
         
             // onInit callback
-            if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
-            // End onInit callback
+                if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
 
             // DOM manipulations
 
