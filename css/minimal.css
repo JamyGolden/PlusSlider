@@ -8,7 +8,7 @@
 		padding: 60px 0; /* The height / width of the slider should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
 	}
 
-	.plusslide-container {
+	.plusslider-container {
 		position: relative;
 	}
 
@@ -47,5 +47,5 @@
 
 	.plusslider a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
 
-	.plusslider-controls { position: absolute; left: 0; bottom: 0; }
-	.plusslider-controls li { float: left; list-style: none; margin-left: 5px; }
+	.plusslider-pagination { position: absolute; left: 0; bottom: 0; }
+	.plusslider-pagination li { float: left; list-style: none; margin-left: 5px; }

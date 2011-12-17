@@ -12,7 +12,7 @@ img { display: block; }
 
 .quote:after, .quote2:after, .quote3:after { content: '100% width'; position: absolute; right: 0; top: 0; }
 
-.plusslider.slider3, .plusslider.slider3 .plusslider-controls-wrapper { border: none; border-radius: 0; }
+.plusslider.slider3, .plusslider.slider3 .plusslider-pagination-wrapper { border: none; border-radius: 0; }
 
 /* Page Styling */
 body { background: #333; color: #fff; font: 14px Verdana, sans-serif; }
