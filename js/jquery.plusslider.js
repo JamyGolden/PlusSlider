@@ -26,7 +26,7 @@
         base.init = function () {
 
             base.options = $.extend( {}, $.plusSlider.defaults, options );
-            base.$el.addClass('plusslide-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
+            base.$el.addClass('plusslider-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
             base.$wrap                  = base.$el.parent();
             base.$slides                = base.$el.children();
             base.$wrapContainer         = base.$wrap.parent();
@@ -40,6 +40,7 @@
             base.$currentSlide          = base.$slides.eq( base.currentSlideIndex );
             base.currentSlideWidth      = base.$currentSlide.outerWidth();
             base.currentSlideHeight     = base.$currentSlide.outerHeight();
+
             // base.functions
             base.calculateSliderWidth   = function() {
 
@@ -49,6 +50,7 @@
                 };
 
             }; // base.calculateSliderWidth
+
             base.beginTimer             = function() {
 
                 base.timer = window.setInterval( function () {
@@ -56,6 +58,7 @@
                 }, base.options.displayTime);
 
             }; // base.beginTimer
+
             base.clearTimer             = function() {
                 
                 if ( base.timer) { // If the timer is set, clear it
@@ -63,6 +66,7 @@
                 };
 
             }; // base.clearTimer
+
             base.setSliderDimensions    = function() {
 
                 // Set values
@@ -90,6 +94,7 @@
                 }
 
             }; // base.setSliderDimensions
+
             base.toSlide                = function( slide ) {
 
                 if ( base.animating == false ) {
@@ -208,12 +213,12 @@
                 }; // Don't slide while animated
 
                 // Clear Timer
-                if ( base.options.autoSlide ) {
+                if ( base.options.autoPlay ) {
 
                     base.clearTimer();
                     base.beginTimer();
 
-                }; // if base.options.autoSlide 
+                }; // if base.options.autoPlay 
 
             }; // base.toSlide
 
@@ -222,7 +227,7 @@
             // Handle dependant options
                 if ( base.slideCount === 1 ) {
 
-                    base.options.autoSlide = false;
+                    base.options.autoPlay = false;
                     base.options.createArrows = false;
                     base.options.createPagination = false;
 
@@ -231,8 +236,7 @@
                 if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
         
             // onInit callback
-            if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
-            // End onInit callback
+                if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
 
             // DOM manipulations
 
@@ -289,20 +293,37 @@
 
                     base.$sliderControls = $('<ul />', {
 
-                            'class': 'plusslider-controls'
+                            'class': 'plusslider-pagination'
 
                         });
 
-                    base.options.paginationBefore ? base.$sliderControls.prependTo( base.$wrap ) : base.$sliderControls.appendTo( base.$wrap ); // base.options.paginationBefore
+                    switch (base.options.paginationPosition) {
 
-                    base.$sliderControls.wrap('<div class="plusslider-controls-wrapper" />');
+                        case 'before':
+                            base.$sliderControls.insertBefore( base.$wrap );
+                            break;
+
+                        case 'prepend':
+                            base.$sliderControls.prependTo( base.$wrap );
+                            break;
+
+                        case 'after':
+                            base.$sliderControls.insertAfter( base.$wrap );
+                            break;
+
+                        default: //'append'
+                            base.$sliderControls.appendTo( base.$wrap );
+                            break;
+
+                    }
+
+                    base.$sliderControls.wrap('<div class="plusslider-pagination-wrapper" />');
 
                     // Create Pagination
                     for ( var i = 0; i < base.slideCount; i++ ) {
 
                         $('<li />', {
 
-                            href: '#',
                             'data-index': i,
                             text: base.options.paginationTitle ? base.$slides.eq( i ).attr('data-title') : i + 1
 
@@ -325,18 +346,36 @@
 
                 }; // End settings.pagination
 
-                if ( base.options.paginationContainer ) {
-                    console.log(true);
-                }
-
                 // Create Arrows
                 if ( base.options.createArrows ) {
 
-                    $('<ul />', {
-                        'class': 'plusnav'
-                    }).prependTo(base.$wrap);
+                    base.$arrows = $('<ul />', {
 
-                    base.$arrows = base.$wrap.find('.plusnav');
+                        'class': 'plusslider-arrows'
+
+                    });
+
+                    switch (base.options.arrowsPosition) {
+
+                        case 'before':
+                            base.$arrows.insertBefore( base.$wrap );
+                            break;
+
+                        case 'append':
+                            base.$arrows.appendTo( base.$wrap );
+                            break;
+
+                        case 'after':
+                            base.$arrows.insertAfter( base.$wrap );
+                            break;
+
+                        default: //'prepend'
+                            base.$arrows.prependTo( base.$wrap );
+                            break;
+
+                    }
+
+                    base.$arrows.wrap('<div class="plusslider-arrows-wrapper" />');
 
                     // Prepend Next Arrow
                     $('<li />', {
@@ -364,8 +403,8 @@
 
                 }; // base.options.createArrows
 
-                // base.options.autoSlide
-                if ( base.options.autoSlide ) {
+                // base.options.autoPlay
+                if ( base.options.autoPlay ) {
 
                     base.beginTimer();
 
@@ -384,7 +423,7 @@
 
                     }; //  base.options.pauseOnHover
 
-                }; // base.options.autoSlide
+                }; // base.options.autoPlay
                 
                 // Keyboard navigation
                 if ( base.options.keyboardNavigation ) {
@@ -433,23 +472,24 @@
         
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
-        displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoSlide: true'
+        displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
         sliderEasing        : 'linear', // Anything other than 'linear' and 'swing' requires the easing plugin
         speed               : 500, // The amount of time it takes for a slide to fade into another slide
 
         /* Functioanlity related */
-        autoSlide           : true, // Creats a times, looped 'slide-show'
+        autoPlay            : true, // Creats a times, looped 'slide-show'
         keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
-        pauseOnHover        : true, // AutoSlide does not continue ifsomeone hovers over Plus Slider.
+        pauseOnHover        : true, // AutoPlay does not continue ifsomeone hovers over Plus Slider.
 
         /* Arrow related */
         createArrows        : true, // Creates forward and backward navigation
+        arrowsPosition      : 'prepend', //Where to insert arrows in relation to the slider ('before', 'prepend', 'append', or 'after')
         nextText            : 'Next', // Adds text to the 'next' trigger
         prevText            : 'Previous', // Adds text to the 'prev' trigger
 
         /* Pagination related */
         createPagination    : true, // Creates Numbered pagination
-        paginationBefore    : false, // Place the pagination above the slider within the HTML
+        paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after')
         paginationWidth     : false, // Automatically gives the pagination a dynamic width
         paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
