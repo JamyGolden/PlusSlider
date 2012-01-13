@@ -235,9 +235,6 @@
 
                 if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
         
-            // onInit callback
-                if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
-
             // DOM manipulations
 
                 base.$slides.addClass('child').eq( base.currentSlideIndex ).addClass('current');
@@ -453,6 +450,10 @@
                     }); // window.keyup
 
                 }; // base.options.keyboardNavigation
+                
+            // onInit callback
+                if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
+
 
         }; // base.init
 
