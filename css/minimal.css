@@ -8,13 +8,12 @@
 		padding: 60px 0; /* The height / width of the slider should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
 	}
 
-	.plusslider-container {
-		position: relative;
-	}
+	.plusslider-container { position: relative; }
+	
+	/* Slides must have a set width - even though they may be dynamic. If no width is set on <img> slides, the default image size will be assumed */
+	div.child { width: 550px; }
 
-	.plusslider .child {
-		float: left;
-	}
+	.plusslider .child { float: left; }
 
 	/* PlusFader Specific (not needed with plustype:slider */
 	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
@@ -23,7 +22,7 @@
 
 	/* No-javascript fallback -- change "#slider" and "#slider2" identifiers as needed for your html */
 	#slider > * { display: none; }
-	#slider > *:first-child, #slider2 > *:first-child {	display: block;	}
+	#slider > *:first-child, #slider2 > *:first-child { display: block; }
 	/* End no-javascript fallback */
 
 /* End essential styles*/
@@ -36,7 +35,7 @@
 	#slider .slide1 { padding-left: 40px; padding-right: 40px; margin-left: 0; margin-right: 0; } 
 	#slider .slide1 { height: 210px; padding-top: 20px; padding-bottom: 20px; margin-top: 0; margin-bottom: 0; } 
 
-	.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px; }
+	.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; }
 	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
 	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
 
