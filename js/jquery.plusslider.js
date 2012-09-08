@@ -252,6 +252,7 @@
 				}; // base.slideCount === 1
 
 				if ( base.options.sliderType == 'fader' ) {
+					base.$slides.not('.current').hide(); // Hide non-active slides
 					base.options.infiniteSlide = false;
 					base.options.fullWidth = false;
 				}
