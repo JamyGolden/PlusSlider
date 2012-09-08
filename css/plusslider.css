@@ -5,7 +5,7 @@
 **/
 
 /* plusslider Styling */
-#slider, #slider2, #slider3 { position: relative; left: 0; }
+.plusslider-container { position: relative; left: 0; }
 
 .plusslider {
 	-webkit-background-clip: padding;
@@ -112,8 +112,8 @@
 .plusslider-arrows .next:hover {background-position: -33px -42px; }
 
 /* PlusFader Specific */
-.plustype-fader .current { z-index: 2; }
 .plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
+.plustype-fader .current { z-index: 2; }
 .plustype-fader .plusslider-pagination { position: relative; z-index: 200; }
 
 /* no-javascript fallback */
