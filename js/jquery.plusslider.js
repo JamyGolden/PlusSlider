@@ -265,7 +265,7 @@
 
 				// infinite Slide
 				if ( base.options.infiniteSlide === true ) {
-					base.$slideCloneFirst = base.$slides.first().clone().insertAfter( base.$slides.eq(base.slideIndexCount) );
+					base.$slideCloneFirst = base.$slides.first().clone().removeClass('current').insertAfter( base.$slides.eq(base.slideIndexCount) );
 					base.$slideCloneLast = base.$slides.last().clone().insertBefore( base.$slides.eq(0) );
 				}
 
@@ -474,7 +474,7 @@
 
 		/* General */
 		sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
-		infiniteSlide       : true,
+		infiniteSlide       : true, // Gives the effect that the slider doesn't ever "repeat" and just continues forever
 		disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
 		fullWidth           : false, // sets the width of the slider to 100% of the parent container
 		width               : null, // Set the width of the slider
