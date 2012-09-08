@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.5
+ * jQuery Plus Slider 1.4.6
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
@@ -84,10 +84,19 @@
 				
 				if ( base.options.fullWidth ) {
 
-					base.sliderWidth        = base.wrapContainerWidth * base.slideCount;
+					base.sliderWidth = base.wrapContainerWidth * base.slideCount;
+					if ( base.options.infiniteSlide == true ) {
+						base.sliderWidth = base.wrapContainerWidth * base.slideCount + 2;
+					}
 					base.wrapContainerWidth = base.$wrapContainer.width();
 
 					base.$slides.width( base.wrapContainerWidth );
+
+					if ( base.options.infiniteSlide ) {
+						base.$slideCloneFirst.width( base.wrapContainerWidth );
+						base.$slideCloneLast.width( base.wrapContainerWidth );
+					}
+
 					base.calculateSliderWidth();
 
 					base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
@@ -247,7 +256,7 @@
 					base.options.fullWidth = false;
 				}
 				if ( base.options.fullWidth == true ) {
-					base.options.infiniteSlide = false;
+					//base.options.infiniteSlide = false;
 				}
 		
 			// DOM manipulations
