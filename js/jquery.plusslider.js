@@ -27,24 +27,24 @@
 
 			base.options = $.extend( {}, $.plusSlider.defaults, options );
 			base.$el.addClass('plusslider-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
-			base.$wrap                  = base.$el.parent();
-			base.$slides                = base.$el.children();
-			base.$slideCloneFirst; // First clone needed for infinite slide
-			base.$slideCloneLast; // Last clone needed for infinite slide
-			base.$wrapContainer         = base.$wrap.parent();
-			base.slideCount             = base.$slides.length;
-			base.slideIndexCount        = base.slideCount - 1;
-			base.sliderWidth            = 0;
-			base.animating              = false;
-			base.wrapContainerWidth     = base.$wrapContainer.width();
-			base.wrapContainerHeight    = base.$wrapContainer.height();
-			base.currentSlideIndex      = base.options.defaultSlide;
-			base.$currentSlide          = base.$slides.eq( base.currentSlideIndex );
-			base.currentSlideWidth      = base.$currentSlide.outerWidth();
-			base.currentSlideHeight     = base.$currentSlide.outerHeight();
+			base.$wrap                  = base.$el.parent();              // References the .plusslider jQuery object
+			base.$slides                = base.$el.children();            // References all slide jQuery slide objects
+			base.$slideCloneFirst;                                        // First clone needed for infinite slide
+			base.$slideCloneLast;                                         // Last clone needed for infinite slide
+			base.$wrapContainer         = base.$wrap.parent();            // References the jQuery object of .plusSlider's container - This object isn't part of PlusSlider
+			base.slideCount             = base.$slides.length;            // A numerical value of the amount of slides
+			base.slideIndexCount        = base.slideCount - 1;            // The index value of the amount of slides
+			base.sliderWidth            = 0;                              //Stores the slider width value. This changes on resize if fullWidth is enableds
+			base.animating              = false;                          // Boolean - true means the slider is busy animating.
+			base.wrapContainerWidth     = base.$wrapContainer.width();    // A numerical value of the width of base.$wrapContainer
+			base.wrapContainerHeight    = base.$wrapContainer.height();   // A numerical value of the height of base.$wrapContainer
+			base.currentSlideIndex      = base.options.defaultSlide;      // References the index number of the current slide
+			base.$currentSlide          = base.$slides.eq( base.currentSlideIndex ); // References the current/active slide's jQuery object
+			base.currentSlideWidth      = base.$currentSlide.outerWidth(); // References a numerical value of the width of the current/active slide
+			base.currentSlideHeight     = base.$currentSlide.outerHeight(); // References a numerical value of the height of the current/active slide
 
 			// base.functions
-			base.calculateSliderWidth 	= function() {
+			base.calculateSliderWidth = function() {
 
 				for ( var i = 0; i < base.slideCount; i++ ) {
 					if ( i == 0 ) base.sliderWidth = 0;
@@ -58,7 +58,7 @@
 
 			}; // base.calculateSliderWidth
 
-			base.beginTimer 			= function() {
+			base.beginTimer = function() {
 
 				base.timer = window.setInterval( function () {
 					base.toSlide('next');
@@ -66,7 +66,7 @@
 
 			}; // base.beginTimer
 
-			base.clearTimer 			= function() {
+			base.clearTimer = function() {
 				
 				if ( base.timer) { // If the timer is set, clear it
 					window.clearInterval(base.timer);
@@ -74,7 +74,7 @@
 
 			}; // base.clearTimer
 
-			base.setSliderDimensions 	= function() {
+			base.setSliderDimensions = function() {
 
 				// Set values
 				base.calculateSliderWidth();
