@@ -104,8 +104,8 @@ Some things to note about widths and heights:
 ## Changelog
 
 ### Version 1.4.6
-* New option added: inifiniteScroll
-* Fixed infiniteScroll to work with option fullWidth
+* New option added: `inifiniteScroll`
+* Fixed infiniteScroll to work with option `fullWidth`
 * Did some minor css adjustments
 
 ### Version 1.4.5
