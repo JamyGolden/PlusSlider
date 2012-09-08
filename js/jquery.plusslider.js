@@ -29,6 +29,8 @@
 			base.$el.addClass('plusslider-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
 			base.$wrap                  = base.$el.parent();
 			base.$slides                = base.$el.children();
+			base.$slideCloneFirst; // First clone needed for infinite slide
+			base.$slideCloneLast; // Last clone needed for infinite slide
 			base.$wrapContainer         = base.$wrap.parent();
 			base.slideCount             = base.$slides.length;
 			base.slideIndexCount        = base.slideCount - 1;
@@ -48,6 +50,11 @@
 					if ( i == 0 ) base.sliderWidth = 0;
 					base.sliderWidth += base.$slides.eq( i ).outerWidth();
 				};
+
+				if ( base.options.infiniteSlide ) {
+					base.sliderWidth += base.$slides.eq(0).outerWidth();
+					base.sliderWidth += base.$slides.eq(base.slideIndexCount).outerWidth();
+				}
 
 			}; // base.calculateSliderWidth
 
@@ -141,11 +148,28 @@
 							base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 						}; // base.options.createPagination
 
+						var toPosition = base.$currentSlide.position().left; // Position for slider position to animate to next
+
+						// Edit animation position to achieve the infinite slide effect
+						if ( base.options.infiniteSlide === true ) {
+							if ( base.currentSlideIndex == 0 && slide == 'next') { // only animate to the clone if toSlide('next') is run.
+								toPosition = base.$slideCloneFirst.position().left;
+							} else if ( base.currentSlideIndex == base.slideIndexCount && slide == 'prev') { // only animate to the clone if toSlide('prev') is run.
+								toPosition = base.$slideCloneLast.position().left;
+							};
+						};
+
 						// Animate slide position
 						base.$el.animate({
 							height: base.$currentSlide.outerHeight(),
-							left: base.$currentSlide.position().left * -1 + 'px'
+							left: toPosition * -1 + 'px'
 						}, base.options.speed, base.options.sliderEasing, function() {
+
+							if ( base.currentSlideIndex == 0 ) {
+								base.$el.css('left', base.$slides.eq(0).position().left * -1);
+							} else if ( base.currentSlideIndex == base.slideIndexCount ) {
+								base.$el.css('left', base.$slides.eq(base.slideIndexCount).position().left * -1);
+							}
 
 							// Set values
 							base.animating = false;
@@ -218,11 +242,24 @@
 
 				}; // base.slideCount === 1
 
-				if ( base.options.sliderType == 'fader' ) base.options.fullWidth = false;
+				if ( base.options.sliderType == 'fader' ) {
+					base.options.infiniteSlide = false;
+					base.options.fullWidth = false;
+				}
+				if ( base.options.fullWidth == true ) {
+					base.options.infiniteSlide = false;
+				}
 		
 			// DOM manipulations
 
 				base.$slides.addClass('child').eq( base.currentSlideIndex ).addClass('current');
+
+				// infinite Slide
+				if ( base.options.infiniteSlide === true ) {
+					base.$slideCloneFirst = base.$slides.first().clone().insertAfter( base.$slides.eq(base.slideIndexCount) );
+					base.$slideCloneLast = base.$slides.last().clone().insertBefore( base.$slides.eq(0) );
+				}
+
 				base.setSliderDimensions();
 
 				// Overide default CSS width and height
@@ -428,6 +465,7 @@
 
 		/* General */
 		sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
+		infiniteSlide       : true,
 		disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
 		fullWidth           : false, // sets the width of the slider to 100% of the parent container
 		width               : null, // Set the width of the slider
