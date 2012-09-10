@@ -273,8 +273,14 @@
 				base.setSliderDimensions();
 
 				// Overide default CSS width and height
-				if ( base.options.width) base.$wrap.width( base.options.width );
-				if ( base.options.height) base.$wrap.height( base.options.height );
+				if ( base.options.width) {
+					base.$wrap.width( base.options.width );
+					base.$slides.width( base.options.width );
+				}
+				if ( base.options.height) {
+					base.$wrap.height( base.options.height );
+					base.$slides.height( base.options.height );
+				}
 				// End CSS overide
 
 				// Set values
