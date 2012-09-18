@@ -100,12 +100,12 @@
                     base.calculateSliderWidth();
 
                     base.$wrap.width( base.wrapContainerWidth ).height( base.currentSlideHeight );
-                    base.$el.width( base.sliderWidth ).css('left', base.$currentSlide.position().left * -1 + 'px');
+                    base.$el.width( base.sliderWidth ).height( base.currentSlideHeight ).css('left', base.$currentSlide.position().left * -1 + 'px');
 
                 } else if ( base.options.sliderType == 'slider' ) {
 
-                    base.$wrap.width( base.currentSlideWidth );
-                    base.$wrap.height( base.currentSlideHeight );
+                    // Set wrapper dimensions to equal the slide
+                    base.$wrap.width( base.currentSlideWidth ).height( base.currentSlideHeight );
 
                 }
 
