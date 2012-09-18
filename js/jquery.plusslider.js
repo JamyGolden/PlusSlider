@@ -292,7 +292,7 @@
 
                     base.$wrap.addClass('plustype-slider').find( base.$el ).width( base.sliderWidth );
 
-                    if ( base.options.fullWidth || base.options.forceDimensions ) {
+                    if ( base.options.fullWidth ) {
 
                         base.setSliderDimensions();
                     
