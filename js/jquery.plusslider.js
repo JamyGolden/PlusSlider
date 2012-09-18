@@ -256,9 +256,6 @@
                     base.options.infiniteSlide = false;
                     base.options.fullWidth = false;
                 }
-                if ( base.options.fullWidth == true ) {
-                    //base.options.infiniteSlide = false;
-                }
         
             // DOM manipulations
 
@@ -295,7 +292,7 @@
 
                     base.$wrap.addClass('plustype-slider').find( base.$el ).width( base.sliderWidth );
 
-                    if ( base.options.fullWidth ) {
+                    if ( base.options.fullWidth || base.options.forceDimensions ) {
 
                         base.setSliderDimensions();
                     
