@@ -3,7 +3,7 @@
 /* The following styles are essential to the slider's functionality */
 
 	.plusslider { overflow: hidden; position: relative;
-		padding: 60px 0; /* The height / width of the slider should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
+		padding: 60px 0; /* The height / width of the slide container should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
 	}
 
 	.plusslider-container { position: relative; }
@@ -18,17 +18,17 @@
 		.plustype-fader .current { z-index: 5; }
 	/* End PlusFader Specific */
 
-	/* No-javascript fallback -- change "#slider" and "#slider2" identifiers as needed for your html */
+	/* No-javascript fallback */
 		.plusslider-container > * { display: none; }
 		.plusslider-container > *:first-child { display: block; }
+		.plusslider-container .child { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide
 	/* End no-javascript fallback */
-	.plusslider-container .child { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide
 
 /* End essential styles*/
 
 /* The following styles are not essential for slider functionality. They are specific to the example content.
-   It is important to note that the fading effect does not work correctly with non-image content unless that
-   content area has a solid background (either a background image or a background-color, but not transparent).
+   Note that the fading effect does not work correctly with non-image content unless that content area
+   has a solid background (either a background image or a background-color, but not transparent).
 
 	Slides to not have to be the same width or height, but if you'd like a consistent width and/or height, make sure to set that within the CSS! */
 	#slider .slide1 { padding-left: 40px; padding-right: 40px; margin-left: 0; margin-right: 0; } 
