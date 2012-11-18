@@ -120,6 +120,7 @@
                     // Values set
 
                     // Handling of slide values
+                    var lastSlideIndex = base.currentSlideIndex;
                     if ( slide === 'next' || slide === '' ) {
                         base.currentSlideIndex += 1;
                     } else if ( slide === 'prev' ) {
@@ -151,11 +152,11 @@
                     if ( base.options.onSlide && typeof( base.options.onSlide ) == 'function' ) base.options.onSlide( base );
                     // End onSlide callback
 
-                    if ( base.options.sliderType == 'slider' ) {
+                    if ( base.options.createPagination ) {
+                        base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
+                    }; // base.options.createPagination
 
-                        if ( base.options.createPagination ) {
-                            base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
-                        }; // base.options.createPagination
+                    if ( base.options.sliderType == 'slider' ) {
 
                         var toPosition = base.$currentSlide.position().left; // Position for slider position to animate to next
 
@@ -180,53 +181,34 @@
                                 base.$el.css('left', base.$slides.eq(base.slideIndexCount).position().left * -1);
                             }
 
-                            // Set values
-                            base.animating = false;
-                            // Values set
-
-                            // afterSlide and onSlideEnd callback
-                            if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
-                            if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
-                            // End afterSlide and onSlideEnd callback
+                            base.endToSlide();
 
                         });
-
-                        // Animate wrapper width
-                        base.$wrap.animate({
-                            height: base.$currentSlide.outerHeight(),
-                            width: base.$currentSlide.outerWidth()
-                        }, base.options.speed, base.options.sliderEasing);
-
-                        // Handle current slide
-                        base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 
                     // End slider
 
                     } else { 
                 
-                    // Begin Fader  
-                        if ( base.options.createPagination ) {
+                    // Begin Fader
 
-                            base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
+                        base.$slides.eq( lastSlideIndex ).fadeOut(base.options.speed);
+                        
+                        base.$slides.eq( base.currentSlideIndex ).fadeIn(base.options.speed, function() {
 
-                        }; // base.options.createPagination
-
-                        base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current').fadeIn(base.options.speed, function() {
-
-                            base.$slides.not('.current').hide();
-
-                            // Set values
-                            base.animating = false;
-                            // Values set
-
-                            // afterSlide and onSlideEnd callback
-                            if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
-                            if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
-                            // End afterSlide and onSlideEnd callback
+                            base.endToSlide();
 
                         });
 
                     }; // if sliderType slider/fader
+
+                    // Animate wrapper size (for gradual transition between slides of differing sizes)
+                    base.$wrap.animate({
+                        height: base.$currentSlide.outerHeight(),
+                        width: base.$currentSlide.outerWidth()
+                    }, base.options.speed, base.options.sliderEasing);
+
+                    // Set class on new "current" slide
+                    base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current');
 
                 }; // Don't slide while animated
 
@@ -239,6 +221,17 @@
                 }; // if base.options.autoPlay 
 
             }; // base.toSlide
+
+            base.endToSlide = function() { // perform cleanup operations after toSlide transition has finished (for both slider and fader type)
+
+                base.animating = false;
+
+                // afterSlide and onSlideEnd callback
+                if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
+                if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
+                // End afterSlide and onSlideEnd callback
+
+            }; // base.endToSlide
 
             ////////////////////////////////////////////////////////////////////////////// End of methods
 
