@@ -269,17 +269,6 @@
 
                 base.setSliderDimensions();
 
-                // Overide default CSS width and height
-                if ( base.options.width) {
-                    base.$wrap.width( base.options.width );
-                    base.$slides.width( base.options.width );
-                }
-                if ( base.options.height) {
-                    base.$wrap.height( base.options.height );
-                    base.$slides.height( base.options.height );
-                }
-                // End CSS overide
-
                 // Set values
                 base.currentSlideWidth  = base.$currentSlide.outerWidth();
                 base.currentSlideHeight = base.$currentSlide.outerHeight();
@@ -481,8 +470,6 @@
         infiniteSlide       : true, // Gives the effect that the slider doesn't ever "repeat" and just continues forever
         disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
         fullWidth           : false, // sets the width of the slider to 100% of the parent container
-        width               : null, // Set the width of the slider
-        height              : null, // Set the height of the slider
         
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
