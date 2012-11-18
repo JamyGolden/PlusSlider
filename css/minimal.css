@@ -1,36 +1,53 @@
-* { margin: 0; padding: 0; } /* Hard reset */
-
-/* The following styles are essential to the slider's functionality */
-
-	.plusslider { overflow: hidden; position: relative;
-		padding: 60px 0; /* The height / width of the slide container should never be set via the CSS. The padding increases the slider box-model while keeping it dynamic */
-	}
-
+/* The following styles are essential to the slider's functionality, and never need to be changed */
+	.plusslider { overflow: hidden; position: relative; }
 	.plusslider-container { position: relative; }
-	
-	/* Slides must have a set width - even though they may be dynamic. If no width is set on <img> slides, the default image size will be assumed */
-	div.child { width: 550px; } /* div is specified here because images are used in this example and the default width should be used for those */
-
 	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
 
-	/* PlusFader Specific (not needed with .plustype-slider) */
-		.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
-		.plustype-fader .current { z-index: 5; }
-	/* End PlusFader Specific */
 
-	/* No-javascript fallback */
-		.plusslider-container > * { display: none; }
-		.plusslider-container > *:first-child { display: block; }
-		.plusslider-container .child { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide
-	/* End no-javascript fallback */
+/* The following styles are essential to the slider's functionality, but might need to be changed by you */
 
-/* End essential styles*/
+	/* Slides that are just <img> tags should *not* have an explicit width set in CSS
+	 * (the js code will figure out the width from the image itself). If you set it here in CSS
+	 * the slider will still work okay, but the slide effect will not look as cool.
+	 *
+	 * All other slides (<div>, <li>, <a>... anything other than <img>) MUST have
+	 * an explicit width declared in CSS -- even though they may be dynamic
+	 * (different from each other or responsive/fluid).
+	 * 
+	 * TODO: WHAT ABOUT RESPONSIVE IMAGES THAT DON'T HAVE W/H ATTRIBUTES SET? HOW DOES JS CODE KNOW ITS WIDTH?
+	 *
+	 * NOTE that while non-<img> slides need explicit widths set in CSS,
+	 * the slide container (the one wrapper around *all* the slides)
+	 * does *not* need an explicit width (or height) to be set.
+	 * If you do, it will cause problems for slides of different sizes or responsive slides.
+	 *
+	 * TODO: DOES THIS STUFF ONLY APPLY TO THE SLIDER TYPE (NOT FADER)?
+	 * TODO: WHY ONLY WIDTH? WHAT ABOUT HEIGHT??
+	 */
+	.plusslider div.child { /* if we didn't have any <img> slides, we could just use ".plusslider .child", but we don't want the width to apply to <img>'s so restrict this to the <div> */
+		width: 550px;
+	}
+	/* TODO: MAKE THE EXAMPLE LESS CONFUSING! DON'T COMBINE <IMG> AND <DIV> EXAMPLES IN THE SAME PAGE... MAKE DIFFERENT ONES!
+	
+	/* No-javascript fallback...
+	 * You must either add the .slider class to each slider CONTAINER,
+	 * OR change the ".slider" selectors below to something that will
+	 * identify your slider container.
+	 */
+		.slider > * { display: none; }
+		.slider > .first { display: block; } /* If you don't care about IE6/7, you could just use ".slider > :first-child" as a selector */
+		.slider .child { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide (DON'T CHANGE THIS) */
+
+
 
 /* The following styles are not essential for slider functionality. They are specific to the example content.
    Note that the fading effect does not work correctly with non-image content unless that content area
-   has a solid background (either a background image or a background-color, but not transparent).
-
-	Slides to not have to be the same width or height, but if you'd like a consistent width and/or height, make sure to set that within the CSS! */
+   has a solid background (either a background image or a background-color, but not transparent). */
+   
+	* { margin: 0; padding: 0; } /* Hard reset */
+   
 	#slider .slide1 { padding-left: 40px; padding-right: 40px; margin-left: 0; margin-right: 0; } 
 	#slider .slide1 { height: 210px; padding-top: 20px; padding-bottom: 20px; margin-top: 0; margin-bottom: 0; } 
 
@@ -45,5 +62,9 @@
 
 	.plusslider a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
 
+	/* Pagination controls styles... */
+	.plusslider {
+		padding: 60px 0; /* Create some space above and below the slides for the pagination controls */
+	}
 	.plusslider-pagination { position: absolute; left: 0; bottom: 0; }
 	.plusslider-pagination li { float: left; list-style: none; margin-left: 5px; }
