@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 3</title>
+
+	<link rel="stylesheet" type="text/css" href="03.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/jquery.plusslider.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			createArrows: false,
+			createPagination: false,
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 3 - Unstyled Slider</h1>
+		<p>Now we have added the essential PlusSlider CSS to the stylesheet, included JQuery and PlusSlider javascript files, and activated the PlusSlider in the &lt;header&gt; of our document.</p>
+		<p>Note that we've set a few options on the PlusSlider via the JS initialization code in the &lt;head&gt; of the document -- we've specified the 'slider' type (as opposed to 'fader'), and we've told PlusSlider to *not* output arrows or pagination controls (because they require more CSS styles to position properly, and we're trying to keep the stylesheet as simple as possible for now).</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="../images/image2.jpg" alt="" height="250" width="630" class="first" />
+
+			<img src="../images/image3.jpg" alt="" height="250" width="630" />
+
+			<img src="../images/image4.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<p><a href="04.html">continue to part 4 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>

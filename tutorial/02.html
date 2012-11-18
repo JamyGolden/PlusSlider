@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 2</title>
+	
+	<link rel="stylesheet" type="text/css" href="02.css" />
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 2 - Non-JS Fallback</h1>
+		<p>Before we implement the slider functionality, let's make sure things will look okay for people without javascript enabled.
+		The easiest thing to do (in terms of not breaking the rest of our page layout) is to show the first slide and hide all the rest.</p>
+		<p>To achieve this, we hide all slides, then show the "first" one. This requires adding a "first" class to the first slide.</p>
+		<p>If you don't care about IE6 or IE7 compatibility, you could simply use the :first-child pseudo-selector to identify
+		the first slide (which would save you from having to add the "first" class to the first slide), but since we're going through
+		the trouble to accommodate people without javascript enabled, we might as well also go through the trouble to accommodate
+		people using IE6 and IE7.</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="../images/image2.jpg" alt="" height="250" width="630" class="first" />
+
+			<img src="../images/image3.jpg" alt="" height="250" width="630" />
+
+			<img src="../images/image4.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<p><a href="03.html">continue to part 3 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>
