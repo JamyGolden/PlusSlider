@@ -26,7 +26,7 @@
         base.init = function () {
 
             base.options = $.extend( {}, $.plusSlider.defaults, options );
-            base.$el.addClass('plusslider-container').wrap('<div class="plusslider ' + base.$el.attr('id') + '" />');
+            base.$el.addClass('plusslider-container').wrap('<div class="plusslider" />');
             base.$wrap                  = base.$el.parent();              // References the .plusslider jQuery object
             base.$slides                = base.$el.children();            // References all slide jQuery slide objects
             base.$slideCloneFirst;                                        // First clone needed for infinite slide
