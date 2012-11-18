@@ -342,7 +342,7 @@
 
                         $('<li />', {
                             'data-index': i,
-                            text: base.options.paginationTitle ? base.$slides.eq( i ).attr('data-title') : i + 1
+                            text: (typeof base.$slides.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$slides.eq( i ).attr('data-title')
                         }).appendTo(base.$sliderControls);
 
                     }; // Pagination appended
@@ -492,7 +492,6 @@
         createPagination    : true, // Creates Numbered pagination
         paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after')
         paginationWidth     : false, // Automatically gives the pagination a dynamic width
-        paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
         /* Callbacks */
         onInit              : null, // Callback function: On slider initialize

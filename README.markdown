@@ -47,7 +47,6 @@ A jQuery content slider that is easily configurable and can easily be switched b
 		createPagination    : true, // Creates Numbered pagination
 		paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after')
 		paginationWidth     : false, // Automatically gives the pagination a dynamic width
-		paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
 		/* Callbacks */
 		onInit              : null, // Callback function: On slider initialize
