@@ -191,7 +191,9 @@
                 
                     // Begin Fader
 
-                        base.$slides.eq( lastSlideIndex ).fadeOut(base.options.speed);
+                        if (lastSlideIndex !== base.currentSlideIndex) {
+                            base.$slides.eq( lastSlideIndex ).fadeOut(base.options.speed);
+                        }
                         
                         base.$slides.eq( base.currentSlideIndex ).fadeIn(base.options.speed, function() {
 
