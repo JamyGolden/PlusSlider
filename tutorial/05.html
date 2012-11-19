@@ -14,8 +14,7 @@
 		$('#slider1').plusSlider({
 			createArrows: false,
 			createPagination: false,
-			infiniteSlide: false,
-			sliderType: 'slider' //'slider' or 'fader'
+			sliderType: 'fader' //'slider' or 'fader'
 		});
 	});
 	</script>
@@ -24,8 +23,6 @@
 	<div id="content">
 		<h1>Part 5 - Examining the Slider HTML</h1>
 		<p>Before we continue on with more advanced code, let's examine what goes on with our HTML after PlusSlider is initiated.</p>
-		<p><i>Note that we've turned off the "infiniteSlide" feature for this example (by setting the 'infiniteSlide' option to false in the javascript)<br>
-			-- this will make it easier to understand the HTML.</i></p>
 		
 		<hr>
 		
@@ -48,20 +45,20 @@
 	&lt;img src="../images/image4.jpg" alt="" height="250" width="630" /&gt;
 &lt;/div&gt;</code></pre>
 		<p>If you use your browser's developer tools to inspect the page (Web Inspector for Chrome/Safari, Firebug for Firefox, F12 Developer Tools for IE, or Dragonfly for Opera), you'll see the "generated source" for the slides after PlusSlider has taken effect:</p>
-<pre><code>&lt;div class="plusslider plustype-slider" style="width: 630px; height: 250px;"&gt;
-	&lt;div id="slider1" class="plusslider-container" style="width: 1890px; left: -630px; height: 250px;"&gt;
-		&lt;img src="../images/image2.jpg" alt="" height="250" width="630" class="first child" style=""&gt;
+<pre><code>&lt;div class="plusslider plustype-fader" style="width: 630px; height: 250px;"&gt;
+	&lt;div id="slider1" class="plusslider-container"&gt;
+		&lt;img src="../images/image2.jpg" alt="" height="250" width="630" class="first child" style="display: none;"&gt;
 		&lt;img src="../images/image3.jpg" alt="" height="250" width="630" class="child current" style="display: inline-block;"&gt;
-		&lt;img src="../images/image4.jpg" alt="" height="250" width="630" class="child" style="display: inline-block;"&gt;
+		&lt;img src="../images/image4.jpg" alt="" height="250" width="630" class="child" style="display: none;"&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
 		<p>You can see that a new wrapper div has been added around the original #slider1 div, with some classes and inline styles.<br>
-			You can also see that a new class and some inline styles have been added to the original #slider1 div.<br>
+			You can also see that a new class has been added to the original #slider1 div, and some inline styles have been added to the slides.<br>
 			Don't worry about the new classes or inline styles, as they pertain to the slider functionality and are handled automatically by the PlusSlider code.
 		</p>
 		<p>
-			The only important thing to keep in mind is that your original div gets wrapped in another div by PlusSlider, which will impact the positioning of navigation arrows and pagination controls...
+			The only important thing to keep in mind is that your original div gets wrapped in another div by PlusSlider -- which will impact the positioning of navigation arrows and pagination controls...
 		</p>
 
 		<p><a href="06.html">continue to part 6 --&gt;</a></p>
