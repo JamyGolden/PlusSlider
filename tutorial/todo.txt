@@ -1,15 +1,12 @@
-
-		<ul>
-			<li>TEST: w/ infiniteScroll, click on 2st pagiantion control FROM 3nd slide -- does is do infinitescroll, or go backwards?? What about from 3 to 1? etc.</li>
-			<li>pagination controls (unstyled, but positioned properly)</li>
-			<li>style pagination controls w/ bg images</li>
-			<li>next: different sizes of images</li>
-			<li>next: a tag around images</li>
-			<li>next: div instead of images</li>
-			<li>next: note that for fader type, you want solid bg color or bg image -- transparent bgs will make fade look silly IN FACT, GO THROUGH ALL NOTES IN THE README AND IN MINIMAL.CSS TO MAKE SURE YOU NOTE ALL OF THEM HERE. MEBBE PUT THEM ALL INTO ONE BIG COMMENT AT BOTTOM OF CSS FILE?</li>
-			<li>next: responsive</li>
-			<li>next: using callbacks (to implement thumbnail <img> tags for pagination?)</li>
-		</ul>
+<ul>
+	<li>prettier pagination controls (bg images and hidden text)</li>
+	<li>next: different sizes of images</li>
+	<li>next: a tag around images</li>
+	<li>next: div instead of images</li>
+	<li>next: note that for fader type, you want solid bg color or bg image -- transparent bgs will make fade look silly IN FACT, GO THROUGH ALL NOTES IN THE README AND IN MINIMAL.CSS TO MAKE SURE YOU NOTE ALL OF THEM HERE. MEBBE PUT THEM ALL INTO ONE BIG COMMENT AT BOTTOM OF CSS FILE?</li>
+	<li>next: responsive</li>
+	<li>next: using callbacks (to implement thumbnail <img> tags for pagination?)</li>
+</ul>
 		
 CHANGE ALL TUT PAGES TO USE .MIN.JS!!!
 delete minimal.html and minimal.css from repo

@@ -68,17 +68,16 @@
 			The "overflow:hidden" style on the .plusslider wrapper is also why you can't see the pagination controls (because they are below the slides, and hence also get "cut off" by being outside the boundary of the .plusslider wrapper div).
 		</p>
 		
-		<p>There are a few solutions to this problem:
+		<p>There are several potential solutions to this problem:
 			<ol>
 				<li><strike>Remove the "overflow: hidden" style from the ".plusslider" div in the CSS</strike> <i>&larr;this would break the slider functionality</i></li>
 				<li><strike>Set an explicit width and height on the #slider1 div in the CSS</strike> <i>&larr;this has no effect because PlusSlider overwrites width/height based on slide sizes (so the slider works with slides of differing sizes)</i></li>
-				<li>Absolutely position the controls so they appear "in front of" the slider</li>
-				<li>Add padding to the #slider1 div so there is "breathing room" around it for the controls</li>
-				<li>Tell PlusSlider to put the arrows/pagination divs <b>outside</b> the ".plusslider" wrapper div (using the "arrowsPosition" and "paginationPosition" javascript options)</li>
+				<li><strike>Add padding to the #slider1 div so there is "breathing room" around it for the controls</strike> <i>&larr;this causes previous and next slides to "peek through" when using the slider type</i></li>
+				<li>Absolutely position the controls so they appear "in front of" or "floating above" the slider</li>
+				<li>Put the arrows/pagination divs <b>outside</b> the ".plusslider" wrapper div (using the "arrowsPosition" and "paginationPosition" javascript options) and position them against a new outer wrapper div that has the "position:relative" style.</li>
 			</ol>
-			For most sliders, options #3 and #4 are good solutions (depending on whether you want the arrows/controls to sit above the slider or appear outside of it).<br>
-			#5 is also a fine solution, especially if you want to position the arrows/controls relative to the overall page (and not just to where the slider is).<br>
-			You can even use one technique for the arrows and another for the pagination (as you'll see in the next part of the tutorial).<br>
+			Option #4 is simpler, but can only position the arrows/controls within the visual boundary of the slider.<br>
+			Option #5 is more complex (and requires you to add a non-semantic wrapper div), but works in all situations.
 		</p>
 		<p><i>One final note before we move on: if all this talk about positioning elements has you confused, I highly recommend going through <a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/">this quick tutorial on CSS positioning</a>. You will be enlightened!</i></p>
 		</p>

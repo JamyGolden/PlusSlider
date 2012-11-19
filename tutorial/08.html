@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 8</title>
+
+	<link rel="stylesheet" type="text/css" href="08.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/jquery.plusslider.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			arrowsPosition: 'before',
+			paginationPosition: 'after',
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 8 - Navigation Arrows and Pagination Controls (Positioned Outside)</h1>
+		<p>And here is our skeleton slider with the nav arrows and pagination controls outside the slider div.</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+			
+			<div id="slider1">
+
+				<img src="../images/image2.jpg" alt="" height="250" width="630" class="first" />
+
+				<img src="../images/image3.jpg" alt="" height="250" width="630" />
+
+				<img src="../images/image4.jpg" alt="" height="250" width="630" />
+
+			</div>
+			
+		</div>
+		
+		<hr>
+		
+		<p>As discussed in part 6 of the tutorial, we've changed the 'arrowsPosition' and 'paginationPosition' options in the javascript,<br>
+			and we've added an outer wrapper div (with "position: relative") to the HTML.</p>
+		
+		<p><a href="09.html">continue to part 9 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>
