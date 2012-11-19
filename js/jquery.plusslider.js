@@ -258,6 +258,7 @@
 
                 // infinite Slide
                 if ( base.options.infiniteSlide === true ) {
+                    base.$slides.css('display', 'block'); //prevent weirdness when transitioning from first slide back to last slide
                     base.$slideCloneFirst = base.$slides.first().clone().removeClass('current').insertAfter( base.$slides.eq(base.slideIndexCount) );
                     base.$slideCloneLast = base.$slides.last().clone().insertBefore( base.$slides.eq(0) );
                 }
