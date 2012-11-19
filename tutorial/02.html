@@ -13,11 +13,9 @@
 		<h1>Part 2 - Non-JS Fallback</h1>
 		<p>Before we implement the slider functionality, let's make sure things will look okay for people without javascript enabled.
 		The easiest thing to do (in terms of not breaking the rest of our page layout) is to show the first slide and hide all the rest.</p>
-		<p>To achieve this, we hide all slides, then show the "first" one. This requires adding a "first" class to the first slide.</p>
-		<p>If you don't care about IE6 or IE7 compatibility, you could simply use the :first-child pseudo-selector to identify
-		the first slide (which would save you from having to add the "first" class to the first slide), but since we're going through
-		the trouble to accommodate people without javascript enabled, we might as well also go through the trouble to accommodate
-		people using IE6 and IE7.</p>
+		<p>To achieve this, we hide all slides, then show the "first" one. This requires adding a "first" class to the first slide.<br>
+		<i>Note: it may be tempting to use the *:first-child pseudo-selector so you can avoid adding a class to the first slide,<br>
+			but don't do this -- it will cause problems with the "infiniteSlide" feature later on. (Also, it's incompatible with IE6/7.)</i></p>
 		
 		<hr>
 		

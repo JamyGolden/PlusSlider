@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 5</title>
+
+	<link rel="stylesheet" type="text/css" href="05.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/jquery.plusslider.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			createArrows: false,
+			createPagination: false,
+			infiniteSlide: false,
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 5 - Examining the Slider HTML</h1>
+		<p>Before we continue on with more advanced code, let's examine what goes on with our HTML after PlusSlider is initiated.</p>
+		<p><i>Note that we've turned off the "infiniteSlide" feature for this example (by setting the 'infiniteSlide' option to false in the javascript)<br>
+			-- this will make it easier to understand the HTML.</i></p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="../images/image2.jpg" alt="" height="250" width="630" class="first" />
+
+			<img src="../images/image3.jpg" alt="" height="250" width="630" />
+
+			<img src="../images/image4.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<p>If you "view source" on this page, you'll see the raw HTML (before PlusSlider takes effect) for the slides:</p>
+		<pre><code>&lt;div id="slider1"&gt;
+	&lt;img src="../images/image2.jpg" alt="" height="250" width="630" class="first" /&gt;
+	&lt;img src="../images/image3.jpg" alt="" height="250" width="630" /&gt;
+	&lt;img src="../images/image4.jpg" alt="" height="250" width="630" /&gt;
+&lt;/div&gt;</code></pre>
+		<p>If you use your browser's developer tools to inspect the page (Web Inspector for Chrome/Safari, Firebug for Firefox, F12 Developer Tools for IE, or Dragonfly for Opera), you'll see the "generated source" for the slides after PlusSlider has taken effect:</p>
+<pre><code>&lt;div class="plusslider plustype-slider" style="width: 630px; height: 250px;"&gt;
+	&lt;div id="slider1" class="plusslider-container" style="width: 1890px; left: -630px; height: 250px;"&gt;
+		&lt;img src="../images/image2.jpg" alt="" height="250" width="630" class="first child" style=""&gt;
+		&lt;img src="../images/image3.jpg" alt="" height="250" width="630" class="child current" style="display: inline-block;"&gt;
+		&lt;img src="../images/image4.jpg" alt="" height="250" width="630" class="child" style="display: inline-block;"&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+		<p>You can see that a new wrapper div has been added around the original #slider1 div, with some classes and inline styles.<br>
+			You can also see that a new class and some inline styles have been added to the original #slider1 div.<br>
+			Don't worry about the new classes or inline styles, as they pertain to the slider functionality and are handled automatically by the PlusSlider code.
+		</p>
+		<p>
+			The only important thing to keep in mind is that your original div gets wrapped in another div by PlusSlider, which will impact the positioning of navigation arrows and pagination controls...
+		</p>
+
+		<p><a href="06.html">continue to part 6 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>
