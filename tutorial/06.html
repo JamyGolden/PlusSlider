@@ -28,7 +28,7 @@
 		
 		<div id="slider1">
 
-			<img src="../images/image2.jpg" alt="" height="250" width="630" class="first" />
+			<img src="../images/image2.jpg" alt="" height="250" width="630" />
 
 			<img src="../images/image3.jpg" alt="" height="250" width="630" />
 
@@ -36,8 +36,8 @@
 
 		</div>
 		
-		<hr>
 		
+		<hr>
 		<p>Hmm... something doesn't look right here. We only see the navigation arrows ("Previous" and "Next"), but not the pagination controls. And the bottom of the slides are cut off. What's going on?</p>
 		<p>If you inspect the page (with your developer tools, not "view source"), you'll see that some more HTML elements have been added by PlusSlider:</p>
 		
@@ -72,7 +72,7 @@
 			<ol>
 				<li><strike>Remove the "overflow: hidden" style from the ".plusslider" div in the CSS</strike> <i>&larr;this would break the slider functionality</i></li>
 				<li><strike>Set an explicit width and height on the #slider1 div in the CSS</strike> <i>&larr;this has no effect because PlusSlider overwrites width/height based on slide sizes (so the slider works with slides of differing sizes)</i></li>
-				<li><strike>Add padding to the #slider1 div so there is "breathing room" around it for the controls</strike> <i>&larr;this causes previous and next slides to "peek through" when using the slider type</i></li>
+				<li><strike>Add padding to the #slider1 div so there is "breathing room" around it for the controls</strike> <i>&larr;this causes previous and next slides to "peek through" when using the slide effect</i></li>
 				<li>Absolutely position the controls so they appear "in front of" or "floating above" the slider</li>
 				<li>Put the arrows/pagination divs <b>outside</b> the ".plusslider" wrapper div (using the "arrowsPosition" and "paginationPosition" javascript options) and position them against a new outer wrapper div that has the "position:relative" style.</li>
 			</ol>
