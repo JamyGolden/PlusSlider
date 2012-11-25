@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 9</title>
+
+	<link rel="stylesheet" type="text/css" href="09.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/jquery.plusslider.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			arrowsPosition: 'before',
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 9 - Styled Arrows and Pagination</h1>
+		<p>Now that we undestand how to position the nav arrows and pagination contorls, let's make them look good.<br>
+		Note that we've kept the nav arrows "outside" the slide boundary, but are moving the pagination controls back "inside" the slide boundary.
+		</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+
+			<div id="slider1">
+
+				<img src="../images/image2.jpg" alt="" height="250" width="630" />
+
+				<img src="../images/image3.jpg" alt="" height="250" width="630" />
+
+				<img src="../images/image4.jpg" alt="" height="250" width="630" />
+
+			</div>
+
+		</div>
+		
+		<hr>
+		
+		<p><a href="10.html">continue to part 10 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>

@@ -21,22 +21,26 @@
 	}
 	
 	.plusslider {
-		margin: 0 75px 30px 75px; /* create space for nav arrows and pagination controls */
+		/* create space for nav arrows and pagination controls */
+		margin: 0 75px 40px 75px;
 	}
 	
-	.plusslider-arrows .prev { /* place "prev" arrow to the left of the slider */
+	.plusslider-arrows .prev {
+		/* place "prev" arrow to the left of the slider */
 		position: absolute;
 		top: 40%;
 		left: 0;
 	}
 	
-	.plusslider-arrows .next { /* place "next" arrow to the right of the slider */
+	.plusslider-arrows .next {
+		/* place "next" arrow to the right of the slider */
 		position: absolute;
 		top: 40%;
 		right: 0;
 	}
 	
-	.plusslider-pagination-wrapper { /* place pagination controls below the slider */
+	.plusslider-pagination-wrapper {
+		/* place pagination controls below the slider */
 		position: absolute;
 		bottom: 0;
 		left: 50%; /* center horizontally (works with child's "position:relative; left:-50%;") */
@@ -68,9 +72,17 @@
 	
 	.plusslider-pagination li {
 		/* line these up in a row and make them clearly visible over the slides */
-		display: inline;
+		float: left;
 		margin-left: 5px;
 		padding: 5px;
 		border: 1px solid black;
 		cursor: pointer;
+	}
+
+/* Put borders around the wrapper divs (for demonstration purposes only) */
+	#slider1-wrapper {
+		border: 1px dashed orange; /* just for demo purposes */
+	}
+	.plusslider {
+		border: 1px dashed red; /* just for demo purposes */
 	}

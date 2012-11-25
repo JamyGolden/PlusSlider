@@ -13,13 +13,23 @@
 
 
 /* Position the nav arrows & pagination controls */
+	#slider1-wrapper {
+		position: relative; /* so child elements (nav arrows) can be positioned absolutely against this */
+		
+		display: inline-block; /* make wrapper div the size of its contents */
+		zoom: 1; *display: inline; /* make inline-block work in IE6/7 */
+	}
+	
+	.plusslider {
+		/* create space for nav arrows */
+		margin: 0 24px; /* matches the width of the arrow background-images */
+	}
 	
 	.plusslider-arrows .prev {
 		/* place "prev" arrow to the left of the slider */
 		position: absolute;
 		top: 40%;
 		left: 0;
-		z-index: 6;
 	}
 	
 	.plusslider-arrows .next {
@@ -27,11 +37,10 @@
 		position: absolute;
 		top: 40%;
 		right: 0;
-		z-index: 6;
 	}
 	
 	.plusslider-pagination-wrapper {
-		/* place the pagination controls over the bottom-center of the slider */
+		/* place the pagination controls near the bottom-center of the slider */
 		position: absolute;
 		z-index: 6; /* ensure this appears "in front" of the slider */
 		bottom: 10px;
@@ -44,7 +53,6 @@
 		left: -50%;
 	}
 
-
 /* Style the nav arrows & pagination controls */
 	.plusslider-arrows,
 	.plusslider-pagination {
@@ -55,20 +63,37 @@
 	}
 	
 	.plusslider-arrows li {
-		/* make these look like basic buttons, and make them clearly visible over the slides */
-		margin: 5px;
-		padding: 5px;
-		text-align: center;
-		border: 1px solid black;
-		background-color: white;
+		text-indent: -999px; /* hide the text */
 		cursor: pointer;
 	}
 	
+	.plusslider-arrows .prev {
+		background: url(images/09-arrow-prev.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-arrows .next {
+		background: url(images/09-arrow-next.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
 	.plusslider-pagination li {
-		/* line these up in a row and make them clearly visible over the slides */
+		/* line these up in a row */
 		float: left;
 		margin-left: 5px;
-		padding: 5px;
-		background-color: white;
+		
+		
+		/* make them look like little buttons */
+		text-indent: -999px;
+		background: url(images/09-pagination.png) no-repeat 0 0;
+		width: 24px;
+		height: 24px;
 		cursor: pointer;
+		
+		
+	}
+	.plusslider-pagination li.current {
+		background-position: 0 -26px;
 	}

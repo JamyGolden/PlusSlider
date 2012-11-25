@@ -1,11 +1,10 @@
 NEXT PARTS:
- * prettier pagination controls (bg images and hidden text)
  * different sizes of images
  * a tag around images
  * div instead of images
  * note that for fader type, you want solid bg color or bg image -- transparent bgs will make fade look silly IN FACT, GO THROUGH ALL NOTES IN THE README AND IN MINIMAL.CSS TO MAKE SURE YOU NOTE ALL OF THEM HERE. MEBBE PUT THEM ALL INTO ONE BIG COMMENT AT BOTTOM OF CSS FILE?
  * responsive
- * using callbacks (to implement thumbnail <img> tags for pagination?)
+ * using callbacks (to implement thumbnail <img> tags for pagination? To make caption "pop up" (and down) when slide transitions)
 
 WHEN DONE:
  * CHANGE ALL TUT PAGES TO USE .MIN.JS!!!
