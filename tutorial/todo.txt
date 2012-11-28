@@ -10,3 +10,4 @@ WHEN DONE:
  * CHANGE ALL TUT PAGES TO USE .MIN.JS!!!
  * delete minimal.html and minimal.css from repo
  * update readme / docs
+ * PUT ALL THE CODE **IN** THE TUTORIAL (down at the bottom? or inline with the explanations?)
