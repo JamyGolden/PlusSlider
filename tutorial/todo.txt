@@ -1,13 +1,12 @@
 NEXT PARTS:
- * different sizes of images
- * a tag around images
- * div instead of images
- * note that for fader type, you want solid bg color or bg image -- transparent bgs will make fade look silly IN FACT, GO THROUGH ALL NOTES IN THE README AND IN MINIMAL.CSS TO MAKE SURE YOU NOTE ALL OF THEM HERE. MEBBE PUT THEM ALL INTO ONE BIG COMMENT AT BOTTOM OF CSS FILE?
- * responsive
+ * different sizes of slides
+ * responsive (noting that you still need to declare widths/heights)
  * using callbacks (to implement thumbnail <img> tags for pagination? To make caption "pop up" (and down) when slide transitions)
-
+ * mention all the other js options?
+ 
 WHEN DONE:
  * CHANGE ALL TUT PAGES TO USE .MIN.JS!!!
  * delete minimal.html and minimal.css from repo
  * update readme / docs
+ * somewhere note that slides need solid bg color or bg image for fade effect (transparent bgs will make fade look bad)
  * PUT ALL THE CODE **IN** THE TUTORIAL (down at the bottom? or inline with the explanations?)

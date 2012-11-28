@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 10</title>
+
+	<link rel="stylesheet" type="text/css" href="10.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/jquery.plusslider.js'></script>
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			arrowsPosition: 'before',
+			paginationPosition: 'after',
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 10 - HTML Content</h1>
+		<p>One of the great things about PlusSlider is that you're not limited to just images for the slides<br>
+			-- you can have any kind of HTML element be a slide (for example, a &lt;div&gt; with more HTML inside).
+		</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+
+			<div id="slider1">
+
+				<div id="winning-slide" class="slide1">
+					<h2>PlusSlider</h2>
+					<p>
+						A content slider that simply works...<br />
+						The right way
+					</p>
+				</div>
+
+				<a href="#"><img src="content/image1.jpg" alt="" height="250" width="630" /></a>
+				
+				<img src="content/image2.jpg" alt="" />
+
+				<div class="quotation">
+					<p>
+					The difference between the right word<br />
+					and the almost right word is the difference<br />
+					between lightning and a lightning bug.<br />
+					- Mark Twain
+					</p>
+				</div>
+				
+				<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+			</div>
+
+		</div>
+		
+		<hr>
+		
+		<p>An important thing to keep in mind when dealing with non-image slides<br>
+			is that you <b>must</b> explicitly set a width and height on each slide in CSS.<br>
+			The easiest way to do this is to put a width and height on the ".plusslider .child" selector.
+		</p>
+		<p>If you want to add margin or padding to a particular slide, you'll need to either<br>
+			reduce the width/height on that slide (thus overriding the general width/height on<br>
+			".plusslider .child"), or add another wrapper element inside the slide contents<br>
+			and put the margin/padding on that inner element.<br>
+			Examples of both techniques can be seen in this part's CSS.
+		</p>
+		
+		<p><a href="11.html">continue to part 11 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>
