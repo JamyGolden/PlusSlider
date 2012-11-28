@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 11</title>
+
+	<link rel="stylesheet" type="text/css" href="11.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#slider1').plusSlider({
+			arrowsPosition: 'before',
+			paginationPosition: 'after',
+			sliderType: 'slider' //'slider' or 'fader'
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<h1>Part 11 - Differently-Sized Slides</h1>
+		<p>In previous examples, we've been working with slides that are all the same size.<br>
+			But PlusSlider works just fine with slides of different sizes too!<br>
+			You still need to set an explicit width/height on each slide,<br>
+			but this width/height can be different and the PlusSlider will grow and shrink to accommodate.
+		</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+
+			<div id="slider1">
+
+				<div id="winning-slide" class="slide1">
+					<h2>PlusSlider</h2>
+					<p>
+						A content slider that simply works...<br />
+						The right way
+					</p>
+				</div>
+
+				<a href="#"><img src="content/image1.jpg" alt="" height="125" width="315" /></a>
+				
+				<img src="content/image2.jpg" alt="" />
+
+				<div class="quotation">
+					<p>
+					The difference between the right word<br />
+					and the almost right word is the difference<br />
+					between lightning and a lightning bug.<br />
+					- Mark Twain
+					</p>
+				</div>
+				
+				<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+			</div>
+
+		</div>
+		
+		<hr>
+		
+		<p>Note that in this example, we've changed one of the image's width and height attributes in the html,
+			then in the CSS we've removed the overall width/height on ".plusslider .child" and instead
+			set a different width/height for each non-image slide.
+		</p>
+		
+		<p><a href="12.html">continue to part 12 --&gt;</a></p>
+	</div><!-- #content -->
+</body>
+</html>

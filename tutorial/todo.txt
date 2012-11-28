@@ -1,5 +1,5 @@
 NEXT PARTS:
- * different sizes of slides
+ * Why is infiniteScroll not working between last and first slide of tutorial 11? Also why is top of first slide appearing under bottom of last slide during the transition from 2nd-last slide to last slide?
  * responsive (noting that you still need to declare widths/heights)
  * using callbacks (to implement thumbnail <img> tags for pagination? To make caption "pop up" (and down) when slide transitions)
  * mention all the other js options?

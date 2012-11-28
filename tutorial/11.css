@@ -98,18 +98,12 @@
 	}
 
 
-/* Slide width/height (required for non-image slides) */
-	.plusslider .child {
-		width: 630px;
-		height: 250px;
-	}
-
 /* Slide contents (non-image slides) */
 	.slide1 {
 		background: url(content/image4.jpg) no-repeat left top;
 		padding: 20px 0 0 40px;
-		width: 590px !important; /* override slide width to compensate for padding */
-		height: 230px !important; /* override slide height to compensate for padding */
+		width: 590px;
+		height: 230px;
 	}
 	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
 	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
@@ -119,6 +113,8 @@
 		font: 24px Georgia, serif;
 		color: #f1f1f1;
 		text-align: center;
+		width: 400px;
+		height: 300px;
 	}
 
 	.quotation p {
