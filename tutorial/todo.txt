@@ -5,8 +5,6 @@ NEXT PARTS:
  * mention all the other js options?
  
 WHEN DONE:
- * CHANGE ALL TUT PAGES TO USE .MIN.JS!!!
- * delete minimal.html and minimal.css from repo
  * update readme / docs
  * somewhere note that slides need solid bg color or bg image for fade effect (transparent bgs will make fade look bad)
  * PUT ALL THE CODE **IN** THE TUTORIAL (down at the bottom? or inline with the explanations?)
