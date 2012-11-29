@@ -44,7 +44,7 @@
 
 				<a href="#"><img src="content/image1.jpg" alt="" height="125" width="315" /></a>
 				
-				<img src="content/image2.jpg" alt="" />
+				<img src="content/image2.jpg" alt="" height="250" width="500" />
 
 				<div class="quotation">
 					<p>
@@ -63,9 +63,11 @@
 		
 		<hr>
 		
-		<p>Note that in this example, we've changed one of the image's width and height attributes in the html,
-			then in the CSS we've removed the overall width/height on ".plusslider .child" and instead
-			set a different width/height for each non-image slide.
+		<p>Note that in this example, we've removed the overall width/height setting<br>
+			(by deleting the ".plusslider .child" selector from the CSS),<br>
+			and instead set a specific width/height on each non-image slide<br>
+			(via their own CSS selectors). As always, image slide widths/heights<br>
+			are set directly in the &lt;img&gt; tag attributes.
 		</p>
 		
 		<p><a href="12.html">continue to part 12 --&gt;</a></p>
