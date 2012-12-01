@@ -1,5 +1,5 @@
 /*
- * jQuery Plus Slider 1.4.6
+ * jQuery Plus Slider 1.4.7
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden

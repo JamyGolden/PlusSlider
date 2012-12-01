@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>PlusSlider Tutorial - Part 10</title>
+	<title>PlusSlider Tutorial - Part 12</title>
 
-	<link rel="stylesheet" type="text/css" href="10.css" />
+	<link rel="stylesheet" type="text/css" href="12.css" />
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
@@ -14,6 +14,7 @@
 		$('#slider1').plusSlider({
 			arrowsPosition: 'before',
 			paginationPosition: 'after',
+			fullWidth: true,
 			sliderType: 'slider' //'slider' or 'fader'
 		});
 	});
@@ -21,9 +22,13 @@
 </head>
 <body>
 	<div id="content">
-		<h1>Part 10 - HTML Content</h1>
-		<p>One of the great things about PlusSlider is that you're not limited to just images for the slides<br>
-			-- you can have any kind of HTML element be a slide (for example, a &lt;div&gt; with more HTML inside).
+		<h1>Part 12 - Responsive Design</h1>
+		<p>PlusSlider also has the ability to be responsive!<br>
+			All you have to do is set the 'fullWidth' option to true in the initialization javascript<br>
+			<i>Note that even though the size of the slides will change based on the size of its container,<br>
+			you still need to set an explicit width and height on all slides<br>
+			(either in &lt;img&gt; tag attributes for image-only slides,<br>
+			or in the CSS for everything else).</i>
 		</p>
 		
 		<hr>
@@ -31,7 +36,6 @@
 		<div id="slider1-wrapper">
 
 			<div id="slider1">
-
 				<div id="winning-slide" class="slide1">
 					<h2>PlusSlider</h2>
 					<p>
@@ -52,7 +56,7 @@
 					- Mark Twain
 					</p>
 				</div>
-				
+
 				<img src="content/image3.jpg" alt="" height="250" width="630" />
 
 			</div>
@@ -61,21 +65,8 @@
 		
 		<hr>
 		
-		<p>An important thing to keep in mind when dealing with non-image slides<br>
-			is that you <b>must</b> explicitly set a width and height on each slide in CSS.<br>
-			The easiest way to do this is to put a width and height on the ".plusslider .child" selector.
-		</p>
-		<p><i>Note that you also need to set an explicit width/height on image slides,<br>
-				but this must be done via the "width" and "height" attributes of the &lt;img&gt; tag itself.</i>
-		</p>
-		<p>If you want to add margin or padding to a particular slide, you'll need to either<br>
-			reduce the width/height on that slide (thus overriding the general width/height on<br>
-			the ".plusslider .child"), or add another wrapper element inside the slide contents<br>
-			and put the margin/padding on that inner element.<br>
-			Examples of both techniques can be seen in this part's CSS.
-		</p>
+		<p>THE END!</p>
 		
-		<p><a href="11.html">continue to part 11 --&gt;</a></p>
 	</div><!-- #content -->
 </body>
 </html>

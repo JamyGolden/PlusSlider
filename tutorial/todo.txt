@@ -1,5 +1,4 @@
 NEXT PARTS:
- * Why is infiniteScroll not working between last and first slide of tutorial 11? Also why is top of first slide appearing under bottom of last slide during the transition from 2nd-last slide to last slide?
  * responsive (noting that you still need to declare widths/heights)
  * using callbacks (to implement thumbnail <img> tags for pagination? To make caption "pop up" (and down) when slide transitions)
  * mention all the other js options?
@@ -7,4 +6,5 @@ NEXT PARTS:
 WHEN DONE:
  * update readme / docs
  * somewhere note that slides need solid bg color or bg image for fade effect (transparent bgs will make fade look bad)
+   (maybe make another sample slide w/out solid bg, and show the fade effect?)
  * PUT ALL THE CODE **IN** THE TUTORIAL (down at the bottom? or inline with the explanations?)
