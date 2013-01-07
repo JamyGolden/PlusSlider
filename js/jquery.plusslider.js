@@ -299,8 +299,10 @@
                         $(window).resize( function () {
 
                             // Reset timer
-                            base.clearTimer();
-                            base.beginTimer();
+                            if ( base.options.autoPlay ) {
+                                base.clearTimer();
+                                base.beginTimer();
+                            }; // if base.options.autoPlay 
 
                             // Reset dimensions
                             base.setSliderDimensions();
