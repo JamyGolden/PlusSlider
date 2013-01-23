@@ -25,8 +25,6 @@ A jQuery content slider that is easily configurable and can easily be switched b
 		infiniteSlide       : true, // Gives the effect that the slider doesn't ever "repeat" and just continues forever
 		disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
 		fullWidth           : false, // sets the width of the slider to 100% of the parent container
-		width               : null, // Set the width of the slider
-		height              : null, // Set the height of the slider
 		
 		/* Display related */
 		defaultSlide        : 0, // Sets the default starting slide - Number based on item index
@@ -49,7 +47,6 @@ A jQuery content slider that is easily configurable and can easily be switched b
 		createPagination    : true, // Creates Numbered pagination
 		paginationPosition  : 'append', // Where to insert pagination in relation to the slider element ('before', 'prepend', 'append', or 'after')
 		paginationWidth     : false, // Automatically gives the pagination a dynamic width
-		paginationTitle     : false, // Checks for attribute 'data-title' on each slide and names the pagination accordingly
 
 		/* Callbacks */
 		onInit              : null, // Callback function: On slider initialize
@@ -97,16 +94,20 @@ If you wish to make use of the slider methods and properties outside of the call
 ## Customizing PlusSlider
 
 The default example is a great demonstration of what you can do with PlusSlider, but you probably want to customize the slider to match your site's design.
-To see the bare minimum of styles that are required for a functioning slider, look at the "minimal.html" and "minimal.css" example files. These have all but the most essential styles stripped away so you can easily identify what is and isn't needed for your own custom slider design.
-
-Some things to note about widths and heights:
-
-* A set slider width and height effect can be achieved by giving each slide the same width and height. If they vary, the slider will accomodate the different slide width and height. Since each slide is given a `.child` class, a set width and height on that class would force a static sized PlusSlider.
-* When using the "fader" effect ( `sliderType: 'fader'` ), setting the width/height via javascript options will do some resizing/clipping of images and content (which can be helpful if you have variably-sized content from a CMS, for example).
-* When using the "slider" effect, the slider width/height will adjust depending on the width/height of the slide. A static width/height can be achieved by setting the width/height CSS properties of `.child`.
-* When using the "fader" effect ( `sliderType: 'fader`' ) with non-image content, you will want some kind of background (either a non-transparent background-image or a solid background-color) otherwise the effect will not be smooth.
+Check out this easy 12-step tutorial on <a href="tutorial/index.html">how to customize the design of PlusSlider</a>.
 
 ## Changelog
+
+### Version 1.4.7
+* Fader effect works better with slides of differing sizes:
+  - Wrapper dimensions are set to slide width/height (just like they are with slider type)
+  - Fade out last slide as new slide fades in (so transition between slides of different sizes looks better).
+* Simplified styling and options:
+  - Removed "width" and "height" javascript options (because all sizing can now be done via CSS)
+  - Removed "paginationTitle" option -- now automatically uses "data-title" attribute where found.
+  - Container ID no longer added as a class to dynamic PlusSlider wrapper
+  - infiniteSlide now automatically overrides no-js fallback "display" settings (so you don't need to do so in your CSS file)
+* Replaced "minimal" examples with new tutorial
 
 ### Version 1.4.6
 * New option added: `inifiniteScroll`

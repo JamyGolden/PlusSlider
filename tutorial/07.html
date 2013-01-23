@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 7</title>
+
+	<link rel="stylesheet" type="text/css" href="07.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				sliderType: 'slider' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 7 - Navigation Arrows and Pagination Controls (Positioned Inside)</h1>
+		<p>Cool! We now have a functioning slider "skeleton".</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1&quot;&gt;
+	&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+	
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+
+
+/* Position the nav arrows &amp; pagination controls */
+	
+	.plusslider-arrows .prev {
+		/* place &quot;prev&quot; arrow to the left of the slider */
+		position: absolute;
+		top: 40%;
+		left: 0;
+		z-index: 6;
+	}
+	
+	.plusslider-arrows .next {
+		/* place &quot;next&quot; arrow to the right of the slider */
+		position: absolute;
+		top: 40%;
+		right: 0;
+		z-index: 6;
+	}
+	
+	.plusslider-pagination-wrapper {
+		/* place the pagination controls over the bottom-center of the slider */
+		position: absolute;
+		z-index: 6; /* ensure this appears &quot;in front&quot; of the slider */
+		bottom: 10px;
+		left: 50%; /* center horizontally (works with child&#x27;s &quot;position:relative; left:-50%;&quot;) */
+	}
+	
+	.plusslider-pagination {
+		/* center horizontally (works with parent&#x27;s &quot;position:absolute; left:50%;&quot; -- see http://stackoverflow.com/a/1777282/477513 ) */
+		position: relative;
+		left: -50%;
+	}
+
+
+/* Style the nav arrows &amp; pagination controls */
+	.plusslider-arrows,
+	.plusslider-pagination {
+		/* reset default list styles */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.plusslider-arrows li {
+		/* make these look like basic buttons, and make them clearly visible over the slides */
+		margin: 5px;
+		padding: 5px;
+		text-align: center;
+		border: 1px solid black;
+		background-color: white;
+		cursor: pointer;
+	}
+	
+	.plusslider-pagination li {
+		/* line these up in a row and make them clearly visible over the slides */
+		float: left;
+		margin-left: 5px;
+		padding: 5px;
+		background-color: white;
+		cursor: pointer;
+	}
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			sliderType: &#x27;slider&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="06.html">&larr; back to part 6</a> | <a href="08.html">continue to part 8 &rarr;</a></p>
+		
+	</div><!-- #content -->
+</body>
+</html>

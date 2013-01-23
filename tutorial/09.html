@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 9</title>
+
+	<link rel="stylesheet" type="text/css" href="09.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				arrowsPosition: 'before',
+				paginationPosition: 'after',
+				sliderType: 'slider' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 9 - Styled Arrows and Pagination</h1>
+		<p>Now that we undestand how to position the nav arrows and pagination controls, let's make them look good.</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+
+			<div id="slider1">
+
+				<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+				<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+				<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+			</div>
+
+		</div>
+		
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1-wrapper&quot;&gt;
+	&lt;div id=&quot;slider1&quot;&gt;
+		&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+		&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+		&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+	
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+
+
+/* Position the nav arrows &amp; pagination controls */
+	#slider1-wrapper {
+		position: relative; /* so child elements (nav arrows and pagination controls) can be positioned absolutely against this */
+		
+		display: inline-block; /* make wrapper div the size of its contents */
+		zoom: 1; *display: inline; /* make inline-block work in IE6/7 */
+	}
+	
+	.plusslider {
+		/* create space for nav arrows */
+		margin: 0 24px 34px 24px;
+	}
+	
+	.plusslider-arrows .prev {
+		/* place &quot;prev&quot; arrow to the left of the slider */
+		position: absolute;
+		top: 40%;
+		left: 0;
+	}
+	
+	.plusslider-arrows .next {
+		/* place &quot;next&quot; arrow to the right of the slider */
+		position: absolute;
+		top: 40%;
+		right: 0;
+	}
+	
+	.plusslider-pagination-wrapper {
+		/* place pagination controls below the slider */
+		position: absolute;
+		bottom: 0;
+		left: 50%; /* center horizontally (works with child&#x27;s &quot;position:relative; left:-50%;&quot;) */
+	}
+	
+	.plusslider-pagination {
+		/* center horizontally (works with parent&#x27;s &quot;position:absolute; left:50%;&quot; -- see http://stackoverflow.com/a/1777282/477513 ) */
+		position: relative;
+		left: -50%;
+	}
+
+/* Style the nav arrows &amp; pagination controls */
+	.plusslider-arrows,
+	.plusslider-pagination {
+		/* reset default list styles */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.plusslider-arrows li {
+		text-indent: -9999px; /* hide the text */
+		cursor: pointer;
+	}
+	
+	.plusslider-arrows .prev {
+		background: url(images/arrow-prev.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-arrows .next {
+		background: url(images/arrow-next.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-pagination li {
+		/* line these up in a row */
+		float: left;
+		margin-left: 5px;
+		
+		
+		/* make them look like little buttons */
+		text-indent: -9999px;
+		background: url(images/pagination.png) no-repeat 0 0;
+		width: 24px;
+		height: 24px;
+		cursor: pointer;
+		
+		
+	}
+	.plusslider-pagination li.current {
+		background-position: 0 -26px;
+	}
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			arrowsPosition: &#x27;before&#x27;,
+			paginationPosition: &#x27;after&#x27;,
+			sliderType: &#x27;slider&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="08.html">&larr; back to part 8</a> | <a href="10.html">continue to part 10 &rarr;</a></p>
+		
+	</div><!-- #content -->
+</body>
+</html>

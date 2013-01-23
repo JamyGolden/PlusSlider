@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 6</title>
+
+	<link rel="stylesheet" type="text/css" href="06.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				sliderType: 'fader' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 6 - Navigation Arrows and Pagination Controls (Unstyled)</h1>
+		<p>In this example, we've told PlusSlider to output navigation arrows ("Previous" and "Next" links that users can click to advance the slider forwards or backwards by 1 slide) and pagination controls (numbers "1", "2", and "3" that users can click on to advance to a specific slide).<br>
+		<i>Note that PlusSlider outputs these controls by default, so we can simply remove the "createArrows: false" and "createPagination: false" options from the initialization javascript to make them appear.</i>
+		</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		
+		<hr>
+		<p>Hmm... something doesn't look right here. We only see the navigation arrows ("Previous" and "Next"), but not the pagination controls. And the bottom of the slides are cut off. What's going on?</p>
+		<p>If you inspect the page (with your developer tools, not "view source"), you'll see that some more HTML elements have been added by PlusSlider:</p>
+		
+		<pre><code>&lt;div class="plusslider plustype-fader" style="width: 630px; height: 250px;"&gt;
+	&lt;div class="plusslider-arrows-wrapper"&gt;
+		&lt;ul class="plusslider-arrows"&gt;
+			&lt;li class="prev"&gt;Previous&lt;/li&gt;
+			&lt;li class="next"&gt;Next&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	&lt;div id="slider1" class="plusslider-container"&gt;
+		&lt;img src="content/image1.jpg" alt="" height="250" width="630" class="child" style="display: none;"&gt;
+		&lt;img src="content/image2.jpg" alt="" height="250" width="630" class="child current" style="display: inline-block;"&gt;
+		&lt;img src="content/image3.jpg" alt="" height="250" width="630" class="child" style="display: none;"&gt;
+	&lt;/div&gt;
+	&lt;div class="plusslider-pagination-wrapper"&gt;
+		&lt;ul class="plusslider-pagination"&gt;
+			&lt;li data-index="0" class=""&gt;1&lt;/li&gt;
+			&lt;li data-index="1" class="current"&gt;2&lt;/li&gt;
+			&lt;li data-index="2" class=""&gt;3&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+		
+		<p>A "plusslider-arrows-wrapper" div was added above our #slider1 div, and a "plusslider-pagination-wrapper" div was added below our #slider1 div.<br>
+			The "arrows" div is pushing down the #slider1 div, and because the ".plusslider" wrapper div that surrounds everything has the "overflow: hidden" style set in CSS,
+			the bottom of the slides get cut off.<br>
+			The "overflow:hidden" style on the .plusslider wrapper is also why you can't see the pagination controls (because they are below the slides, and hence also get "cut off" by being outside the boundary of the .plusslider wrapper div).
+		</p>
+		
+		<p>There are several potential solutions to this problem:
+			<ol>
+				<li><strike>Remove the "overflow: hidden" style from the ".plusslider" div in the CSS</strike> <i>&larr;this would break the slider functionality</i></li>
+				<li><strike>Set an explicit width and height on the #slider1 div in the CSS</strike> <i>&larr;this has no effect because PlusSlider overwrites width/height based on slide sizes (so the slider works with slides of differing sizes)</i></li>
+				<li><strike>Add padding to the #slider1 div so there is "breathing room" around it for the controls</strike> <i>&larr;this causes previous and next slides to "peek through" when using the slide effect</i></li>
+				<li>Absolutely position the controls so they appear "in front of" or "floating above" the slider</li>
+				<li>Put the arrows/pagination divs <b>outside</b> the ".plusslider" wrapper div (using the "arrowsPosition" and "paginationPosition" javascript options) and position them against a new outer wrapper div that has the "position:relative" style.</li>
+			</ol>
+			Option #4 is simpler, but can only position the arrows/controls within the visual boundary of the slider.<br>
+			Option #5 is more complex (and requires you to add a non-semantic wrapper div), but works in all situations.
+		</p>
+		<p><i>One final note before we move on: if all this talk about positioning elements has you confused, I highly recommend going through <a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/">this quick tutorial on CSS positioning</a>. You will be enlightened!</i></p>
+		</p>
+		
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1&quot;&gt;
+	&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+	
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			sliderType: &#x27;fader&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+
+		<hr>
+		
+		<p><a href="05.html">&larr; back to part 5</a> | <a href="07.html">continue to part 7 &rarr;</a></p>
+				
+	</div><!-- #content -->
+</body>
+</html>

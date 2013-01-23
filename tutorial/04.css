@@ -1,0 +1,13 @@
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break "slider" type by altering the spacing */
+
+	
+/* No-javascript fallback (change "#slider1" selectors below to suit your html) */
+	#slider1 > * { display: none; }
+	#slider1 > *:first-child { display: block; }
+
