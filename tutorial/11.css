@@ -62,7 +62,7 @@
 	}
 	
 	.plusslider-arrows li {
-		text-indent: -999px; /* hide the text */
+		text-indent: -9999px; /* hide the text */
 		cursor: pointer;
 	}
 	
@@ -85,7 +85,7 @@
 		
 		
 		/* make them look like little buttons */
-		text-indent: -999px;
+		text-indent: -9999px;
 		background: url(images/pagination.png) no-repeat 0 0;
 		width: 24px;
 		height: 24px;
