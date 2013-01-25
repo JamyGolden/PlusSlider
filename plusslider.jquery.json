@@ -5,32 +5,32 @@
     "description": "A responsive and agnostic jQuery content slider/fader plugin",
     "author": {
         "name": "Jamy Golden",
+        "email": "jamygolden@gmail.com",
         "url": "https://github.com/JamyGolden"
     },
     "maintainers": [
         {
             "name": "Jamy Golden",
-            "url": "https://github.com/JamyGolden",
-            "email": "jamygolden@gmail.com"
+            "email": "jamygolden@gmail.com",
+            "url": "https://github.com/JamyGolden"
         },
         {
             "name": "Jordan Lev",
-            "url": "https://github.com/jordanlev",
-            "email": "jordanlev@gmail.com"
+            "email": "jordanlev@gmail.com",
+            "url": "https://github.com/jordanlev"
         }
     ],
     "licenses": [
         {
-            "type": "GPL3",
+            "type": "GPLv3",
             "url": "https://github.com/JamyGolden/PlusSlider/blob/master/license.txt"
         }
     ],
     "bugs": "https://github.com/JamyGolden/PlusSlider/issues",
     "homepage": "http://css-plus.com/examples/plugins/PlusSlider/",
     "docs": "https://github.com/JamyGolden/PlusSlider/wiki",
-    "demo": "http://css-plus.com/examples/plugins/PlusSlider/",
     "dependencies": {
-        "jquery": ">=1.4.2"
+        "jquery": ">=1.5"
     },
     "keywords": [
         "customizable",

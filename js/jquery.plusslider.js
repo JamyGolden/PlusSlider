@@ -4,9 +4,8 @@
  * http://css-plus.com
  * @jamygolden
  *
- * Copyright 2011
- * Free to use under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
+ * Re: Licensing read license.txt. 
+ * tl;dr GPLv3
  */
 ( function( $ ) {
 
