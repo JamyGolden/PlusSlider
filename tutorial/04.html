@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 4</title>
+
+	<link rel="stylesheet" type="text/css" href="04.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				createArrows: false,
+				createPagination: false,
+				sliderType: 'fader' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 4 - Unstyled Fader</h1>
+		<p>This is pretty much the same as the last example, but we've switched the transition effect from 'slider' to 'fader' in the javascript initialization code.</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1&quot;&gt;
+	&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+	
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			createArrows: false,
+			createPagination: false,
+			sliderType: &#x27;fader&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="03.html">&larr; back to part 3</a> | <a href="05.html">continue to part 5 &rarr;</a></p>
+		
+	</div><!-- #content -->
+</body>
+</html>

@@ -1,0 +1,4 @@
+/* No-javascript fallback (change "#slider1" selectors below to suit your html) */
+	#slider1 > * { display: none; }
+	#slider1 > *:first-child { display: block; }
+

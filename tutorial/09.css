@@ -1,0 +1,98 @@
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break "slider" type by altering the spacing */
+
+	
+/* No-javascript fallback (change "#slider1" selectors below to suit your html) */
+	#slider1 > * { display: none; }
+	#slider1 > *:first-child { display: block; }
+
+
+/* Position the nav arrows & pagination controls */
+	#slider1-wrapper {
+		position: relative; /* so child elements (nav arrows and pagination controls) can be positioned absolutely against this */
+		
+		display: inline-block; /* make wrapper div the size of its contents */
+		zoom: 1; *display: inline; /* make inline-block work in IE6/7 */
+	}
+	
+	.plusslider {
+		/* create space for nav arrows */
+		margin: 0 24px 34px 24px;
+	}
+	
+	.plusslider-arrows .prev {
+		/* place "prev" arrow to the left of the slider */
+		position: absolute;
+		top: 40%;
+		left: 0;
+	}
+	
+	.plusslider-arrows .next {
+		/* place "next" arrow to the right of the slider */
+		position: absolute;
+		top: 40%;
+		right: 0;
+	}
+	
+	.plusslider-pagination-wrapper {
+		/* place pagination controls below the slider */
+		position: absolute;
+		bottom: 0;
+		left: 50%; /* center horizontally (works with child's "position:relative; left:-50%;") */
+	}
+	
+	.plusslider-pagination {
+		/* center horizontally (works with parent's "position:absolute; left:50%;" -- see http://stackoverflow.com/a/1777282/477513 ) */
+		position: relative;
+		left: -50%;
+	}
+
+/* Style the nav arrows & pagination controls */
+	.plusslider-arrows,
+	.plusslider-pagination {
+		/* reset default list styles */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.plusslider-arrows li {
+		text-indent: -9999px; /* hide the text */
+		cursor: pointer;
+	}
+	
+	.plusslider-arrows .prev {
+		background: url(images/arrow-prev.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-arrows .next {
+		background: url(images/arrow-next.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-pagination li {
+		/* line these up in a row */
+		float: left;
+		margin-left: 5px;
+		
+		
+		/* make them look like little buttons */
+		text-indent: -9999px;
+		background: url(images/pagination.png) no-repeat 0 0;
+		width: 24px;
+		height: 24px;
+		cursor: pointer;
+		
+		
+	}
+	.plusslider-pagination li.current {
+		background-position: 0 -26px;
+	}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 5</title>
+
+	<link rel="stylesheet" type="text/css" href="05.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				createArrows: false,
+				createPagination: false,
+				sliderType: 'fader' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 5 - Examining the Slider HTML</h1>
+		<p>Before we continue on with more advanced code, let's examine what goes on with our HTML after PlusSlider is initiated.</p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+		</div>
+		
+		<hr>
+		
+		<p>If you use your browser's developer tools to inspect the page (Web Inspector for Chrome/Safari, Firebug for Firefox, F12 Developer Tools for IE, or Dragonfly for Opera), you'll see the "generated source" for the slides after PlusSlider has taken effect:</p>
+<pre><code>&lt;div class="plusslider plustype-fader" style="width: 630px; height: 250px;"&gt;
+	&lt;div id="slider1" class="plusslider-container"&gt;
+		&lt;img src="content/image1.jpg" alt="" height="250" width="630" class="child" style="display: none;"&gt;
+		&lt;img src="content/image2.jpg" alt="" height="250" width="630" class="child current" style="display: inline-block;"&gt;
+		&lt;img src="content/image3.jpg" alt="" height="250" width="630" class="child" style="display: none;"&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+		<p>Notice that this differs from the original "source HTML" -- a new wrapper div has been added around the original #slider1 div, with some classes and inline styles.<br>
+			A new class has been added to the original #slider1 div, and some inline styles have been added to the slides.<br>
+			Don't worry about the new classes or inline styles, as they pertain to the slider functionality and are handled automatically by the PlusSlider code.
+		</p>
+		<p>
+			The only important thing to keep in mind is that your original div gets wrapped in another div by PlusSlider, which will impact the positioning of navigation arrows and pagination controls (as you'll see in the next part of the tutorial...)
+		</p>
+
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1&quot;&gt;
+	&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+	
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			createArrows: false,
+			createPagination: false,
+			sliderType: &#x27;fader&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="04.html">&larr; back to part 4</a> | <a href="06.html">continue to part 6 &rarr;</a></p>
+		
+	</div><!-- #content -->
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 11</title>
+
+	<link rel="stylesheet" type="text/css" href="11.css" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.plusslider-min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#slider1').plusSlider({
+				arrowsPosition: 'before',
+				paginationPosition: 'after',
+				sliderType: 'slider' //'slider' or 'fader'
+			});
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 11 - Differently-Sized Slides</h1>
+		<p>In previous examples, we've been working with slides that are all the same size.<br>
+			But PlusSlider works just fine with slides of different sizes too!<br>
+			You still need to set an explicit width/height on each slide,<br>
+			but this width/height can be different and the PlusSlider will grow and shrink to accommodate.
+		</p>
+		
+		<hr>
+		
+		<div id="slider1-wrapper">
+
+			<div id="slider1">
+
+				<div id="winning-slide" class="slide1">
+					<h2>PlusSlider</h2>
+					<p>
+						A content slider that simply works...<br />
+						The right way
+					</p>
+				</div>
+
+				<a href="#"><img src="content/image1.jpg" alt="" height="125" width="315" /></a>
+				
+				<img src="content/image2.jpg" alt="" height="250" width="500" />
+
+				<div class="quotation">
+					<p>
+					The difference between the right word<br />
+					and the almost right word is the difference<br />
+					between lightning and a lightning bug.<br />
+					- Mark Twain
+					</p>
+				</div>
+				
+				<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+			</div>
+
+		</div>
+		
+		<hr>
+		
+		<p>Note that in this example, we've removed the overall width/height setting<br>
+			(by deleting the ".plusslider .child" selector from the CSS),<br>
+			and instead set a specific width/height on each non-image slide<br>
+			(via their own CSS selectors). As always, image slide widths/heights<br>
+			are set directly in the &lt;img&gt; tag attributes.
+		</p>
+		
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1-wrapper&quot;&gt;
+	&lt;div id=&quot;slider1&quot;&gt;
+
+		&lt;div id=&quot;winning-slide&quot; class=&quot;slide1&quot;&gt;
+			&lt;h2&gt;PlusSlider&lt;/h2&gt;
+			&lt;p&gt;
+				A content slider that simply works...&lt;br /&gt;
+				The right way
+			&lt;/p&gt;
+		&lt;/div&gt;
+
+		&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;125&quot; width=&quot;315&quot; /&gt;&lt;/a&gt;
+		
+		&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;500&quot; /&gt;
+
+		&lt;div class=&quot;quotation&quot;&gt;
+			&lt;p&gt;
+			The difference between the right word&lt;br /&gt;
+			and the almost right word is the difference&lt;br /&gt;
+			between lightning and a lightning bug.&lt;br /&gt;
+			- Mark Twain
+			&lt;/p&gt;
+		&lt;/div&gt;
+		
+		&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+
+	&lt;/div&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break &quot;slider&quot; type by altering the spacing */
+
+
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+
+
+/* Position the nav arrows &amp; pagination controls */
+	#slider1-wrapper {
+		position: relative; /* so child elements (nav arrows and pagination controls) can be positioned absolutely against this */
+		
+		display: inline-block; /* make wrapper div the size of its contents */
+		zoom: 1; *display: inline; /* make inline-block work in IE6/7 */
+	}
+	
+	.plusslider {
+		/* create space for nav arrows */
+		margin: 0 24px 34px 24px;
+	}
+	
+	.plusslider-arrows .prev {
+		/* place &quot;prev&quot; arrow to the left of the slider */
+		position: absolute;
+		top: 40%;
+		left: 0;
+	}
+	
+	.plusslider-arrows .next {
+		/* place &quot;next&quot; arrow to the right of the slider */
+		position: absolute;
+		top: 40%;
+		right: 0;
+	}
+	
+	.plusslider-pagination-wrapper {
+		/* place pagination controls below the slider */
+		position: absolute;
+		bottom: 0;
+		left: 50%; /* center horizontally (works with child&#x27;s &quot;position:relative; left:-50%;&quot;) */
+	}
+	
+	.plusslider-pagination {
+		/* center horizontally (works with parent&#x27;s &quot;position:absolute; left:50%;&quot; -- see http://stackoverflow.com/a/1777282/477513 ) */
+		position: relative;
+		left: -50%;
+	}
+
+/* Style the nav arrows &amp; pagination controls */
+	.plusslider-arrows,
+	.plusslider-pagination {
+		/* reset default list styles */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.plusslider-arrows li {
+		text-indent: -9999px; /* hide the text */
+		cursor: pointer;
+	}
+	
+	.plusslider-arrows .prev {
+		background: url(images/arrow-prev.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-arrows .next {
+		background: url(images/arrow-next.png) no-repeat 0 0;
+		width: 24px;
+		height: 43px;
+	}
+	
+	.plusslider-pagination li {
+		/* line these up in a row */
+		float: left;
+		margin-left: 5px;
+		
+		
+		/* make them look like little buttons */
+		text-indent: -9999px;
+		background: url(images/pagination.png) no-repeat 0 0;
+		width: 24px;
+		height: 24px;
+		cursor: pointer;
+		
+		
+	}
+	.plusslider-pagination li.current {
+		background-position: 0 -26px;
+	}
+
+
+/* Slide contents (non-image slides) */
+	.slide1 {
+		background: url(content/image4.jpg) no-repeat left top;
+		padding: 20px 0 0 40px;
+		width: 590px;
+		height: 210px;
+	}
+	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
+	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
+	
+	.quotation {
+		background: #333;
+		font: 24px Georgia, serif;
+		color: #f1f1f1;
+		text-align: center;
+		width: 400px;
+		height: 300px;
+	}
+
+	.quotation p {
+		padding: 50px; /* Unlike the .slide1 example, we do *not* need to override slide width/height (because this padding is on an inner element, not the slide itself) */
+	}
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/jquery.plusslider-min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function(){
+		$(&#x27;#slider1&#x27;).plusSlider({
+			arrowsPosition: &#x27;before&#x27;,
+			paginationPosition: &#x27;after&#x27;,
+			sliderType: &#x27;slider&#x27; //&#x27;slider&#x27; or &#x27;fader&#x27;
+		});
+	});
+&lt;/script&gt;
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="10.html">&larr; back to part 10</a> | <a href="12.html">continue to part 12 &rarr;</a></p>
+		
+	</div><!-- #content -->
+</body>
+</html>

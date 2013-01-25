@@ -1,0 +1,111 @@
+/* Essential slider functionality (never changes) */
+	.plusslider { overflow: hidden; position: relative; }
+	.plusslider-container { position: relative; }
+	.plusslider .child { float: left; }
+	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+	.plusslider a img { border: none; } /* prevent blue borders in IE, which break "slider" type by altering the spacing */
+
+	
+/* No-javascript fallback (change "#slider1" selectors below to suit your html) */
+	#slider1 > * { display: none; }
+	#slider1 > *:first-child { display: block; }
+
+
+/* Position the nav arrows & pagination controls */
+	
+	.plusslider-arrows .prev {
+		/* place "prev" arrow to the left of the slider */
+		position: absolute;
+		top: 40%;
+		left: 0;
+		z-index: 6;
+	}
+	
+	.plusslider-arrows .next {
+		/* place "next" arrow to the right of the slider */
+		position: absolute;
+		top: 40%;
+		right: 0;
+		z-index: 6;
+	}
+	
+	.plusslider-pagination-wrapper {
+		/* place the pagination controls over the bottom-center of the slider */
+		position: absolute;
+		z-index: 6; /* ensure this appears "in front" of the slider */
+		bottom: 10px;
+		left: 50%; /* center horizontally (works with child's "position:relative; left:-50%;") */
+	}
+	
+	.plusslider-pagination {
+		/* center horizontally (works with parent's "position:absolute; left:50%;" -- see http://stackoverflow.com/a/1777282/477513 ) */
+		position: relative;
+		left: -50%;
+	}
+
+
+/* Style the nav arrows & pagination controls */
+	.plusslider-arrows,
+	.plusslider-pagination {
+		/* reset default list styles */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.plusslider-arrows li {
+		/* make these look like basic buttons, and make them clearly visible over the slides */
+		margin: 5px;
+		padding: 5px;
+		text-align: center;
+		border: 1px solid black;
+		background-color: white;
+		cursor: pointer;
+	}
+	
+	.plusslider-pagination li {
+		/* line these up in a row and make them clearly visible over the slides */
+		float: left;
+		margin-left: 5px;
+		padding: 5px;
+		background-color: white;
+		cursor: pointer;
+	}
+
+
+/* Slide width/height (required for non-image slides) */
+	.plusslider .child {
+		width: 530px;
+		height: 250px;
+	}
+
+/* Slide contents (non-image slides) */
+	.slide1 {
+		background: #191303 url(content/image4.jpg) no-repeat right top;
+	}
+	.slide1 .wrap { padding: 20px 0 0 40px; }
+	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
+	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
+	
+	.quotation {
+		background: #333;
+		font: 24px Georgia, serif;
+		color: #f1f1f1;
+		text-align: center;
+	}
+
+	.quotation p {
+		padding: 50px; /* Unlike the .slide1 example, we do *not* need to override slide width/height (because this padding is on an inner element, not the slide itself) */
+	}
+
+
+/* Reponsive! (Here for demo purposes -- it is assumed that responsive styles would already exist in your site-wide CSS) */
+	#slider1 {
+		width: 50%;
+	}
+
+	.child img {
+		max-width: 100%;
+		height: auto;
+	}

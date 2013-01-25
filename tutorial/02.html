@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>PlusSlider Tutorial - Part 2</title>
+	
+	<link rel="stylesheet" type="text/css" href="02.css" />
+	
+</head>
+<body>
+	<div id="content">
+		<h1>Part 2 - Non-JS Fallback</h1>
+		<p>Before we implement the slider functionality, let's make sure things will look okay for people without javascript enabled.<br>
+		The easiest thing to do (in terms of not breaking the rest of our page layout) is to show the first slide and hide all the rest (in our CSS).</p>
+		<p><i>Note that this technique doesn't work in IE6 because of the "&gt;" and the ":first-child". If you need to support non-javascript fallback in IE6,<br>
+		you'll have to add one class to the first slide and another class to the remaining slides -- then set the first class to "display:block" and the<br>
+		other class to "display:none" in the CSS.</i></p>
+		
+		<hr>
+		
+		<div id="slider1">
+
+			<img src="content/image1.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image2.jpg" alt="" height="250" width="630" />
+
+			<img src="content/image3.jpg" alt="" height="250" width="630" />
+
+		</div>
+			
+		<hr>
+		
+		<h3>HTML Source:</h3>
+		<pre><code>
+&lt;div id=&quot;slider1&quot;&gt;
+	&lt;img src=&quot;content/image1.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image2.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+	&lt;img src=&quot;content/image3.jpg&quot; alt=&quot;&quot; height=&quot;250&quot; width=&quot;630&quot; /&gt;
+&lt;/div&gt;
+		</code></pre>
+		
+		<h3>CSS Source:</h3>
+		<pre><code>
+/* No-javascript fallback (change &quot;#slider1&quot; selectors below to suit your html) */
+	#slider1 &gt; * { display: none; }
+	#slider1 &gt; *:first-child { display: block; }
+		</code></pre>
+
+		<h3>Javascript Source (in html &lt;head&gt;):</h3>
+		<pre><code>
+<i>none</i>
+		</code></pre>
+		
+		<hr>
+		
+		<p><a href="01.html">&larr; back to part 1</a> | <a href="03.html">continue to part 3 &rarr;</a></p>
+			
+	</div><!-- #content -->
+</body>
+</html>
