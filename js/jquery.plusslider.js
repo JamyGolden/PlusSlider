@@ -4,8 +4,8 @@
  * http://css-plus.com
  * @jamygolden
  *
- * Re: Licensing read license.txt. 
- * tl;dr GPLv3
+ * Regarding licensing read license.txt. 
+ * tl;dr MIT
  */
 ( function( $ ) {
 
