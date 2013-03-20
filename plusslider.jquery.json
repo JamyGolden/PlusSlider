@@ -1,28 +1,25 @@
 {
     "name": "plusslider",
     "title": "PlusSlider",
-    "version": "1.4.8",
+    "version": "1.4.7",
     "description": "A responsive and agnostic jQuery content slider/fader plugin",
     "author": {
         "name": "Jamy Golden",
-        "email": "jamygolden@gmail.com",
         "url": "https://github.com/JamyGolden"
     },
     "maintainers": [
         {
             "name": "Jamy Golden",
-            "email": "jamygolden@gmail.com",
             "url": "https://github.com/JamyGolden"
         },
         {
             "name": "Jordan Lev",
-            "email": "jordanlev@gmail.com",
             "url": "https://github.com/jordanlev"
         }
     ],
     "licenses": [
         {
-            "type": "GPLv3",
+            "type": "MIT",
             "url": "https://github.com/JamyGolden/PlusSlider/blob/master/license.txt"
         }
     ],
@@ -34,9 +31,9 @@
     },
     "keywords": [
         "customizable",
-        "effects",
+        "fader",
         "slider",
-        "video"
+        "content slider"
     ],
     "files": [
         "css/plusslider.css",
