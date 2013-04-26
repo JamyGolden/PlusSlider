@@ -258,8 +258,8 @@
                 // infinite Slide
                 if ( base.options.infiniteSlide === true ) {
                     base.$slides.css('display', 'block'); //override no-js fallback in CSS that hides non-first slides (otherwise infiniteSlide effect won't work when moving backwards from first to last slide)
-                    base.$slideCloneFirst = base.$slides.first().clone().removeClass('current').insertAfter( base.$slides.eq(base.slideIndexCount) );
-                    base.$slideCloneLast = base.$slides.last().clone().insertBefore( base.$slides.eq(0) );
+                    base.$slideCloneFirst = base.$slides.first().clone().addClass('plusslider-clone').removeClass('current').insertAfter( base.$slides.eq(base.slideIndexCount) );
+                    base.$slideCloneLast = base.$slides.last().clone().addClass('plusslider-clone').insertBefore( base.$slides.eq(0) );
                 }
 
                 base.setSliderDimensions();
