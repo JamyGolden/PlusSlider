@@ -18,8 +18,7 @@
     "keywords": [
         "customizable",
         "fader",
-        "slider",
-        "content slider"
+        "slider"
     ],
     "description": "A responsive and agnostic jQuery content slider/fader plugin",
     "homepage": "http://css-plus.com/examples/plugins/PlusSlider/",
