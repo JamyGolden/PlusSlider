@@ -1,57 +1,57 @@
 /* The following styles are essential to the slider's functionality, and never need to be changed */
-	.plusslider { overflow: hidden; position: relative; }
-	.plusslider-container { position: relative; }
-	.plusslider .child { float: left; }
-	.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
-	.plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+    .plusslider { overflow: hidden; position: relative; }
+    .plusslider-container { position: relative; }
+    .plusslider .child { float: left; }
+    .plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+    .plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
 
-	/* Slides that are just <img> tags should *not* have an explicit width set in CSS
-	 * (the js code will figure out the width from the image itself). If you set it here in CSS
-	 * the slider will still work okay, but the slide effect will not look as cool.
-	 *
-	 * All other slides (<div>, <li>, <a>... anything other than <img>) MUST have
-	 * an explicit width declared in CSS -- even though they may be dynamic
-	 * (different from each other or responsive/fluid).
-	 * 
-	 * TODO: WHAT ABOUT RESPONSIVE IMAGES THAT DON'T HAVE W/H ATTRIBUTES SET? HOW DOES JS CODE KNOW ITS WIDTH?
-	 *
-	 * NOTE that while non-<img> slides need explicit widths set in CSS,
-	 * the slide container (the one wrapper around *all* the slides)
-	 * does *not* need an explicit width (or height) to be set.
-	 * If you do, it will cause problems for slides of different sizes or responsive slides.
-	 */
-	.plusslider .child { /* Keep in mind this will resize <img /> slides too */
-		height: 250px;
-		width: 630px;
-	}
-	
-	/* No-javascript fallback... */
-		.plusslider-container > * { display: none; }
-		.plusslider-container > *:first-child { display: block; }
-		.plusslider-container .child { display: block; } /* Necesary for slides to display: DO NOT REMOVE */
+    /* Slides that are just <img> tags should *not* have an explicit width set in CSS
+     * (the js code will figure out the width from the image itself). If you set it here in CSS
+     * the slider will still work okay, but the slide effect will not look as cool.
+     *
+     * All other slides (<div>, <li>, <a>... anything other than <img>) MUST have
+     * an explicit width declared in CSS -- even though they may be dynamic
+     * (different from each other or responsive/fluid).
+     *
+     * TODO: WHAT ABOUT RESPONSIVE IMAGES THAT DON'T HAVE W/H ATTRIBUTES SET? HOW DOES JS CODE KNOW ITS WIDTH?
+     *
+     * NOTE that while non-<img> slides need explicit widths set in CSS,
+     * the slide container (the one wrapper around *all* the slides)
+     * does *not* need an explicit width (or height) to be set.
+     * If you do, it will cause problems for slides of different sizes or responsive slides.
+     */
+    .plusslider .child { /* Keep in mind this will resize <img /> slides too */
+        height: 250px;
+        width: 630px;
+    }
+
+    /* No-javascript fallback... */
+        .plusslider-container > * { display: none; }
+        .plusslider-container > *:first-child { display: block; }
+        .plusslider-container .child { display: block; } /* Necesary for slides to display: DO NOT REMOVE */
 
 
 /* The following styles are NOT ESSENTIAL for slider functionality. They are specific to the example content.
    Note that the fading effect does not work correctly with non-image content unless that content area
    has a solid background (either a background image or a background-color, but not transparent). */
-	
-	* { margin: 0; padding: 0; } /* Hard reset */
-	
-	#slider .child img { width: 100%; }
-	.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; margin: 0; padding: 20px 40px; } 
-	.slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
-	.slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
-		
-	.quote, .quote2, .quote3 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
-	.quote { background: #f1f1f1; color: #333; }
-	.quote2 { background: #333; color: #f1f1f1; }
-	.quote3 { background: #666; color: #f1f1f1; }
 
-	.plusslider a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
+    * { margin: 0; padding: 0; } /* Hard reset */
 
-	/* Pagination controls styles... */
-	.plusslider {
-		padding: 60px 0; /* Create some space above and below the slides for the pagination controls */
-	}
-	.plusslider-pagination { position: absolute; left: 0; bottom: 0; }
-	.plusslider-pagination li { float: left; list-style: none; margin-left: 5px; }
+    #slider .child img { width: 100%; }
+    .slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; margin: 0; padding: 20px 40px; }
+    .slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
+    .slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
+
+    .quote, .quote2, .quote3 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
+    .quote { background: #f1f1f1; color: #333; }
+    .quote2 { background: #333; color: #f1f1f1; }
+    .quote3 { background: #666; color: #f1f1f1; }
+
+    .plusslider a img { border: none; } /* Prevent blue borders in IE (not only does it look ugly, but it messes up spacing which breaks the "slider" type */
+
+    /* Pagination controls styles... */
+    .plusslider {
+        padding: 60px 0; /* Create some space above and below the slides for the pagination controls */
+    }
+    .plusslider-pagination { position: absolute; left: 0; bottom: 0; }
+    .plusslider-pagination li { float: left; list-style: none; margin-left: 5px; }
