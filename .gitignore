@@ -1,0 +1,21 @@
+# Temp files
+.sass-cache/
+.cache/
+*.TMP
+*.dmp
+
+# Grunt
+node_modules/
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
