@@ -5,7 +5,7 @@
 **/
 
 /* plusslider Styling */
-.plusslider-container { position: relative; left: 0; }
+.plusslider__slide-list { position: relative; left: 0; }
 
 .plusslider {
 	-webkit-background-clip: padding;
@@ -23,10 +23,10 @@
 	position: relative;
 }
 
-.plusslider .child { float: left; }
+.plusslider__slide-item { float: left; }
 
 /* Controls */
-.plusslider-pagination-wrapper {
+.plusslider__pagi {
 	background-color: #f1f1f1; /* fallback color */
 	background-image: url(../images/svg-gradient.svg); /* Gradient support for IE9 and Opera */
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#ccc));
@@ -51,13 +51,13 @@
 	z-index: 500;
 }
 
-.plusslider-pagination {
+.plusslider__pagi-list {
 	display: table;
 	margin: 0 auto;
 	padding: 15px 0;
 }
 
-.plusslider-pagination li {
+.plusslider__pagi-item {
 	background: url(../images/plus-sprite.png) no-repeat left top;
 	cursor: pointer;
 	display: block;
@@ -70,11 +70,11 @@
 	position: relative;
 }
 
-.plusslider-pagination .current, .plusslider-pagination li:hover {
+.plusslider__pagi-item--active, .plusslider__pagi-item:hover {
 	background-position: -10px 0;
 }
 
-.plusslider-arrows li {
+.plusslider__arrow-item {
 	background: url(../images/plus-sprite.png) no-repeat left top;
 	cursor: pointer;
 	display: block;
@@ -105,19 +105,19 @@
 			transition-timing-function: ease-in;
 }
 
-.plusslider:hover .plusslider-arrows li {opacity: 1; }
-.plusslider-arrows .prev {background-position: 0 -10px; left: 10px; }
-.plusslider-arrows .prev:hover {background-position: 0 -42px; left: 10px; }
-.plusslider-arrows .next {background-position: -33px -10px; right: 10px; }
-.plusslider-arrows .next:hover {background-position: -33px -42px; }
+.plusslider:hover .plusslider__arrow-item {opacity: 1; }
+.plusslider__arrow-item--prev {background-position: 0 -10px; left: 10px; }
+.plusslider__arrow-item--prev:hover {background-position: 0 -42px; left: 10px; }
+.plusslider__arrow-item--next {background-position: -33px -10px; right: 10px; }
+.plusslider__arrow-item--next:hover {background-position: -33px -42px; }
 
 /* PlusFader Specific */
-.plustype-fader .child { display: none; position: absolute; left: 0; top: 0; }
-.plustype-fader .current { z-index: 2; }
-.plustype-fader .plusslider-pagination { position: relative; z-index: 200; }
+.plusslider--type-fader .child { display: none; position: absolute; left: 0; top: 0; }
+.plusslider--type-fader .current { z-index: 2; }
+.plusslider--type-fader .plusslider__pagi-list { position: relative; z-index: 200; }
 
 /* no-javascript fallback */
-	.plusslider-container > * { display: none; }
-	.plusslider-container > *:first-child { display: block; }
+	.plusslider__slide-list > * { display: none; }
+	.plusslider__slide-list > *:first-child { display: block; }
 /* End no-javascript fallback */
-.plusslider-container .child { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide. Without this the DOM doesn't know the position of the element */
+.plusslider__slide-item { display: block; } /* Counter no-js fallback for cloned elements. Necessary for infiniteSlide. Without this the DOM doesn't know the position of the element */

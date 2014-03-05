@@ -1,10 +1,10 @@
 /*
- * jQuery Plus Slider 1.4.8
+ * jQuery Plus Slider 1.5
  * By Jamy Golden
  * http://css-plus.com
  * @jamygolden
  *
- * Regarding licensing read license.txt. 
+ * Regarding licensing read license.txt.
  * tl;dr MIT
  */
 ( function( $ ) {
@@ -21,11 +21,26 @@
 
         // Add a reverse reference to the DOM object
         base.$el.data('plusSlider', base);
-        
-        base.init = function () {
 
-            base.options = $.extend( {}, $.plusSlider.defaults, options );
-            base.$el.addClass('plusslider-container').wrap('<div class="plusslider plusslider-' + base.$el.attr('id') + '" />');
+        // Apply namespace to css classes
+        base._applyCssNamespace = function(attrNames, namespace){
+            var obj = {};
+            $.each(attrNames, function(k, v){
+                if(typeof v === 'string'){
+                    obj[k] = namespace + v;
+                };
+            });
+
+            return obj;
+        }
+
+        base.init = function () {
+            base.o = $.extend( {}, $.plusSlider.defaults, options );
+            // Create css namespace
+            base.o.attrNames = base._applyCssNamespace(base.o.attrNames, base.o.namespace);
+
+            base.$el.addClass(base.o.attrNames.slideListClass)
+                .wrap('<div class="' + base.o.attrNames.elClass + ' ' + base.o.attrNames.elClass + '--id-' + base.$el.attr('id') + '" />');
             base.$wrap                  = base.$el.parent();              // References the .plusslider jQuery object
             base.$slides                = base.$el.children();            // References all slide jQuery slide objects
             base.$slideCloneFirst;                                        // First clone needed for infinite slide
@@ -37,7 +52,7 @@
             base.animating              = false;                          // Boolean - true means the slider is busy animating.
             base.wrapContainerWidth     = base.$wrapContainer.width();    // A numerical value of the width of base.$wrapContainer
             base.wrapContainerHeight    = base.$wrapContainer.height();   // A numerical value of the height of base.$wrapContainer
-            base.currentSlideIndex      = base.options.defaultSlide;      // References the index number of the current slide
+            base.currentSlideIndex      = base.o.defaultSlide;      // References the index number of the current slide
             base.$currentSlide          = base.$slides.eq( base.currentSlideIndex ); // References the current/active slide's jQuery object
             base.currentSlideWidth      = base.$currentSlide.outerWidth(); // References a numerical value of the width of the current/active slide
             base.currentSlideHeight     = base.$currentSlide.outerHeight(); // References a numerical value of the height of the current/active slide
@@ -50,7 +65,7 @@
                     base.sliderWidth += base.$slides.eq( i ).outerWidth();
                 };
 
-                if ( base.options.infiniteSlide ) {
+                if ( base.o.infiniteSlide ) {
                     base.sliderWidth += base.$slides.eq(0).outerWidth();
                     base.sliderWidth += base.$slides.eq(base.slideIndexCount).outerWidth();
                 }
@@ -61,12 +76,12 @@
 
                 base.timer = window.setInterval( function () {
                     base.toSlide('next');
-                }, base.options.displayTime);
+                }, base.o.displayTime);
 
             }; // base.beginTimer
 
             base.clearTimer = function() {
-                
+
                 if ( base.timer) { // If the timer is set, clear it
                     window.clearInterval(base.timer);
                 };
@@ -80,18 +95,18 @@
                 base.currentSlideWidth  = base.$currentSlide.outerWidth();
                 base.currentSlideHeight = base.$currentSlide.outerHeight();
                 // Values Set
-                
-                if ( base.options.fullWidth ) {
+
+                if ( base.o.fullWidth ) {
 
                     base.sliderWidth = base.wrapContainerWidth * base.slideCount;
-                    if ( base.options.infiniteSlide == true ) {
+                    if ( base.o.infiniteSlide == true ) {
                         base.sliderWidth = base.wrapContainerWidth * base.slideCount + 2;
                     }
                     base.wrapContainerWidth = base.$wrapContainer.width();
 
                     base.$slides.width( base.wrapContainerWidth );
 
-                    if ( base.options.infiniteSlide ) {
+                    if ( base.o.infiniteSlide ) {
                         base.$slideCloneFirst.width( base.wrapContainerWidth );
                         base.$slideCloneLast.width( base.wrapContainerWidth );
                     }
@@ -130,7 +145,7 @@
                     // End Handling of slide values
 
                     // Disable first and last buttons on the first and last slide respectively
-                    if ( ( base.options.disableLoop == 'first' || base.options.disableLoop == 'both' && base.currentSlideIndex < 0 ) || ( base.options.disableLoop == 'last' || base.options.disableLoop == 'both' && base.currentSlideIndex > base.slideIndexCount )) {
+                    if ( ( base.o.disableLoop == 'first' || base.o.disableLoop == 'both' && base.currentSlideIndex < 0 ) || ( base.o.disableLoop == 'last' || base.o.disableLoop == 'both' && base.currentSlideIndex > base.slideIndexCount )) {
                          return;
                     }  // End Disable first and last buttons on the first and last slide respectively
 
@@ -148,19 +163,19 @@
                     // Values set
 
                     // onSlide callback
-                    if ( base.options.onSlide && typeof( base.options.onSlide ) == 'function' ) base.options.onSlide( base );
+                    if ( base.o.onSlide && typeof( base.o.onSlide ) == 'function' ) base.o.onSlide( base );
                     // End onSlide callback
 
-                    if ( base.options.createPagination ) {
-                        base.$sliderControls.find('li').removeClass('current').eq( base.currentSlideIndex ).addClass('current');
-                    }; // base.options.createPagination
+                    if ( base.o.createPagination ) {
+                        base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).removeClass(base.o.attrNames.pagiItemActiveClass).eq( base.currentSlideIndex ).addClass(base.o.attrNames.pagiItemActiveClass);
+                    }; // base.o.createPagination
 
-                    if ( base.options.sliderType == 'slider' ) {
+                    if ( base.o.sliderType == 'slider' ) {
 
                         var toPosition = base.$currentSlide.position().left; // Position for slider position to animate to next
 
                         // Edit animation position to achieve the infinite slide effect
-                        if ( base.options.infiniteSlide === true ) {
+                        if ( base.o.infiniteSlide === true ) {
                             if ( base.currentSlideIndex == 0 && slide == 'next') { // only animate to the clone if toSlide('next') is run.
                                 toPosition = base.$slideCloneFirst.position().left;
                             } else if ( base.currentSlideIndex == base.slideIndexCount && slide == 'prev') { // only animate to the clone if toSlide('prev') is run.
@@ -172,7 +187,7 @@
                         base.$el.animate({
                             height: base.$currentSlide.outerHeight(),
                             left: toPosition * -1 + 'px'
-                        }, base.options.speed, base.options.sliderEasing, function() {
+                        }, base.o.speed, base.o.sliderEasing, function() {
 
                             if ( base.currentSlideIndex == 0 ) {
                                 base.$el.css('left', base.$slides.eq(0).position().left * -1);
@@ -186,15 +201,15 @@
 
                     // End slider
 
-                    } else { 
-                
+                    } else {
+
                     // Begin Fader
 
                         if (lastSlideIndex !== base.currentSlideIndex) {
-                            base.$slides.eq( lastSlideIndex ).fadeOut(base.options.speed);
+                            base.$slides.eq( lastSlideIndex ).fadeOut(base.o.speed);
                         }
-                        
-                        base.$slides.eq( base.currentSlideIndex ).fadeIn(base.options.speed, function() {
+
+                        base.$slides.eq( base.currentSlideIndex ).fadeIn(base.o.speed, function() {
 
                             base.endToSlide();
 
@@ -206,20 +221,20 @@
                     base.$wrap.animate({
                         height: base.$currentSlide.outerHeight(),
                         width: base.$currentSlide.outerWidth()
-                    }, base.options.speed, base.options.sliderEasing);
+                    }, base.o.speed, base.o.sliderEasing);
 
                     // Set class on new "current" slide
-                    base.$slides.removeClass('current').eq( base.currentSlideIndex ).addClass('current');
+                    base.$slides.removeClass( base.o.attrNames.slideItemActiveClass ).eq( base.currentSlideIndex ).addClass( base.o.attrNames.slideItemActiveClass );
 
                 }; // Don't slide while animated
 
                 // Clear Timer
-                if ( base.options.autoPlay ) {
+                if ( base.o.autoPlay ) {
 
                     base.clearTimer();
                     base.beginTimer();
 
-                }; // if base.options.autoPlay 
+                }; // if base.o.autoPlay
 
             }; // base.toSlide
 
@@ -228,8 +243,8 @@
                 base.animating = false;
 
                 // afterSlide and onSlideEnd callback
-                if ( base.options.afterSlide && typeof( base.options.afterSlide ) == 'function' ) base.options.afterSlide( base );
-                if ( base.options.onSlideEnd && typeof( base.options.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.options.onSlideEnd( base );
+                if ( base.o.afterSlide && typeof( base.o.afterSlide ) == 'function' ) base.o.afterSlide( base );
+                if ( base.o.onSlideEnd && typeof( base.o.onSlideEnd ) == 'function' && base.currentSlideIndex == base.slideIndexCount ) base.o.onSlideEnd( base );
                 // End afterSlide and onSlideEnd callback
 
             }; // base.endToSlide
@@ -239,27 +254,27 @@
             // Handle dependant options
                 if ( base.slideCount === 1 ) {
 
-                    base.options.autoPlay = false;
-                    base.options.createArrows = false;
-                    base.options.createPagination = false;
+                    base.o.autoPlay = false;
+                    base.o.createArrows = false;
+                    base.o.createPagination = false;
 
                 }; // base.slideCount === 1
 
-                if ( base.options.sliderType == 'fader' ) {
-                    base.$slides.not('.current').hide(); // Hide non-active slides
-                    base.options.infiniteSlide = false;
-                    base.options.fullWidth = false;
+                if ( base.o.sliderType == 'fader' ) {
+                    base.$slides.not('.' + base.o.attrNames.slideItemActiveClass).hide(); // Hide non-active slides
+                    base.o.infiniteSlide = false;
+                    base.o.fullWidth = false;
                 }
-        
+
             // DOM manipulations
 
-                base.$slides.addClass('child').eq( base.currentSlideIndex ).addClass('current');
+                base.$slides.addClass(base.o.attrNames.slideItemClass).eq( base.currentSlideIndex ).addClass(base.o.attrNames.slideItemActiveClass);
 
                 // infinite Slide
-                if ( base.options.infiniteSlide === true ) {
+                if ( base.o.infiniteSlide === true ) {
                     base.$slides.css('display', 'block'); //override no-js fallback in CSS that hides non-first slides (otherwise infiniteSlide effect won't work when moving backwards from first to last slide)
-                    base.$slideCloneFirst = base.$slides.first().clone().addClass('plusslider-clone').removeClass('current').insertAfter( base.$slides.eq(base.slideIndexCount) );
-                    base.$slideCloneLast = base.$slides.last().clone().addClass('plusslider-clone').insertBefore( base.$slides.eq(0) );
+                    base.$slideCloneFirst = base.$slides.first().clone().addClass(base.o.attrNames.slideItemCloneClass).removeClass(base.o.attrNames.slideItemActiveClass).insertAfter( base.$slides.eq(base.slideIndexCount) );
+                    base.$slideCloneLast = base.$slides.last().clone().addClass(base.o.attrNames.slideItemCloneClass).insertBefore( base.$slides.eq(0) );
                 }
 
                 base.setSliderDimensions();
@@ -270,49 +285,49 @@
                 // Values set
 
                 // Slider/Fader Settings
-                if ( base.options.sliderType == 'slider' ) {
+                if ( base.o.sliderType == 'slider' ) {
 
                     base.calculateSliderWidth();
 
-                    base.$wrap.addClass('plustype-slider').find( base.$el ).width( base.sliderWidth );
+                    base.$wrap.addClass(base.o.attrNames.elTypeSliderClass).find( base.$el ).width( base.sliderWidth );
 
-                    if ( base.options.fullWidth ) {
+                    if ( base.o.fullWidth ) {
 
                         base.setSliderDimensions();
-                    
+
                         $(window).resize( function () {
 
                             // Reset timer
-                            if ( base.options.autoPlay ) {
+                            if ( base.o.autoPlay ) {
                                 base.clearTimer();
                                 base.beginTimer();
-                            }; // if base.options.autoPlay 
+                            }; // if base.o.autoPlay
 
                             // Reset dimensions
                             base.setSliderDimensions();
 
                         }); // window.resize
-          
-                    }; // base.options.fullWidth
+
+                    }; // base.o.fullWidth
 
                     base.$slides.show();
                     base.$el.css( 'left', base.$currentSlide.position().left * -1 + 'px' );
 
                 } else {
 
-                    base.$wrap.addClass('plustype-fader');
+                    base.$wrap.addClass(base.o.attrNames.elTypeFaderClass);
                     base.$slides.eq(0).show();
 
-                }; // base.options.sliderType
+                }; // base.o.sliderType
 
                 // Begin pagination
-                if ( base.options.createPagination ) {
+                if ( base.o.createPagination ) {
 
                     base.$sliderControls = $('<ul />', {
-                        'class': 'plusslider-pagination'
+                        'class': base.o.attrNames.pagiListClass
                     });
 
-                    switch (base.options.paginationPosition) {
+                    switch (base.o.paginationPosition) {
 
                         case 'before':
                             base.$sliderControls.insertBefore( base.$wrap );
@@ -332,40 +347,41 @@
 
                     }
 
-                    base.$sliderControls.wrap('<div class="plusslider-pagination-wrapper" />');
+                    base.$sliderControls.wrap('<div class="' + base.o.attrNames.pagiClass + '" />');
 
                     // Create Pagination
                     for ( var i = 0; i < base.slideCount; i++ ) {
 
                         $('<li />', {
                             'data-index': i,
-                            text: (typeof base.$slides.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$slides.eq( i ).attr('data-title')
+                            'class': base.o.attrNames.pagiItemClass,
+                            'text': (typeof base.$slides.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$slides.eq( i ).attr('data-title')
                         }).appendTo(base.$sliderControls);
 
                     }; // Pagination appended
 
                     // Dynamic pagination width
-                    if ( base.options.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('li').outerWidth(true) * base.slideCount );
+                    if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('li').outerWidth(true) * base.slideCount );
 
                     // Pagination functionality
-                    base.$sliderControls.find('li').click( function( ) {
+                    base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).click( function( ) {
 
                         var controlIndex = $(this).index();
                         base.toSlide( controlIndex );
 
-                    }).eq( base.currentSlideIndex ).addClass('current'); 
+                    }).eq( base.currentSlideIndex ).addClass(base.o.attrNames.pagiItemActiveClass);
                     // base.$sliderControls.find('li').click
 
                 }; // End settings.pagination
 
                 // Create Arrows
-                if ( base.options.createArrows ) {
+                if ( base.o.createArrows ) {
 
                     base.$arrows = $('<ul />', {
-                        'class': 'plusslider-arrows'
+                        'class': base.o.attrNames.arrowListClass
                     });
 
-                    switch (base.options.arrowsPosition) {
+                    switch (base.o.arrowsPosition) {
 
                         case 'before':
                             base.$arrows.insertBefore( base.$wrap );
@@ -385,37 +401,37 @@
 
                     }
 
-                    base.$arrows.wrap('<div class="plusslider-arrows-wrapper" />');
+                    base.$arrows.wrap('<div class="' + base.o.attrNames.arrowClass + '" />');
 
                     // Prepend Next Arrow
                     $('<li />', {
-                        'class': 'next',
-                        text: base.options.nextText
+                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemNextClass,
+                        text: base.o.nextText
                     }).prependTo( base.$arrows );
 
                     // Prepend Previous Arrow
                     $('<li />', {
-                        'class': 'prev',
-                        text: base.options.prevText
+                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemPrevClass,
+                        text: base.o.prevText
                     }).prependTo( base.$arrows );
 
-                    base.$arrows.find('.next').click( function() {
+                    base.$arrows.find('.' + base.o.attrNames.arrowItemNextClass).click( function() {
                         base.toSlide('next');
                     }); // .next.click
 
-                    base.$arrows.find('.prev').click( function() {
+                    base.$arrows.find('.' + base.o.attrNames.arrowItemPrevClass).click( function() {
                         base.toSlide('prev');
                     }); // prev.click
 
-                }; // base.options.createArrows
+                }; // base.o.createArrows
 
-                // base.options.autoPlay
-                if ( base.options.autoPlay ) {
+                // base.o.autoPlay
+                if ( base.o.autoPlay ) {
 
                     base.beginTimer();
 
                     // Pause on hover
-                    if ( base.options.pauseOnHover) {
+                    if ( base.o.pauseOnHover) {
 
                         base.$el.hover( function () {
                             base.clearTimer();
@@ -423,22 +439,22 @@
                             base.beginTimer();
                         }); // base.$el.hover
 
-                    }; //  base.options.pauseOnHover
+                    }; //  base.o.pauseOnHover
 
-                }; // base.options.autoPlay
-                
+                }; // base.o.autoPlay
+
                 // Keyboard navigation
-                if ( base.options.keyboardNavigation ) {
+                if ( base.o.keyboardNavigation ) {
 
                     base.$el.click( function () {
-                        $('.active-plusslider').removeClass('active-plusslider');
-                        $(this).addClass('active-plusslider');
+                        $('.' + base.o.attrNames.elActiveClass).removeClass(base.o.attrNames.elActiveClass);
+                        $(this).addClass(base.o.attrNames.elActiveClass);
 
                     });
 
                     $(window).keyup( function ( e ) {
 
-                        if ( base.$el.is('.active-plusslider') ) {
+                        if ( base.$el.is('.' + base.o.attrNames.elActiveClass) ) {
                             if ( e.keyCode == 39 ) { // Right arrow
                                 base.toSlide('next');
                             } else if ( e.keyCode == 37 ) { // Left arrow
@@ -448,10 +464,10 @@
 
                     }); // window.keyup
 
-                }; // base.options.keyboardNavigation
-                
+                }; // base.o.keyboardNavigation
+
             // onInit callback
-                if ( base.options.onInit && typeof( base.options.onInit ) == 'function' ) base.options.onInit( base );
+                if ( base.o.onInit && typeof( base.o.onInit ) == 'function' ) base.o.onInit( base );
 
         }; // base.init
 
@@ -467,7 +483,7 @@
         infiniteSlide       : true, // Gives the effect that the slider doesn't ever "repeat" and just continues forever
         disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
         fullWidth           : false, // sets the width of the slider to 100% of the parent container
-        
+
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
         displayTime         : 4000, // The amount of time the slide waits before automatically moving on to the next one. This requires 'autoPlay: true'
@@ -494,7 +510,28 @@
         onInit              : null, // Callback function: On slider initialize
         onSlide             : null, // Callback function: As the slide starts to animate
         afterSlide          : null, // Callback function: As the slide completes the animation
-        onSlideEnd          : null // Callback function: Once the slider reaches the last slide
+        onSlideEnd          : null, // Callback function: Once the slider reaches the last slide
+
+        namespace: 'plusslider',
+        attrNames: {
+            'elClass'             : '',
+            'elActiveClass'       : '--active',
+            'elTypeSliderClass'   : '--type-slider',
+            'elTypeFaderClass'    : '--type-fader',
+            'slideListClass'      : '__slide-list',
+            'slideItemClass'      : '__slide-item',
+            'slideItemActiveClass': '__slide--active',
+            'slideItemCloneClass' : '__slide--clone',
+            'arrowClass'          : '__arrow',
+            'arrowListClass'      : '__arrow-list',
+            'arrowItemClass'      : '__arrow-item',
+            'arrowItemPrevClass'  : '__arrow-item--prev',
+            'arrowItemNextClass'  : '__arrow-item--next',
+            'pagiClass'           : '__pagi',
+            'pagiListClass'       : '__pagi-list',
+            'pagiItemClass'       : '__pagi-item',
+            'pagiItemActiveClass' : '__pagi-item--active'
+        }
 
     }; // $.plusSlider
 
