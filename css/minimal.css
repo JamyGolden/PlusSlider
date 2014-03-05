@@ -1,9 +1,9 @@
 /* The following styles are essential to the slider's functionality, and never need to be changed */
     .plusslider { overflow: hidden; position: relative; }
-    .plusslider-container { position: relative; }
-    .plusslider .child { float: left; }
-    .plustype-fader .child { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
-    .plustype-fader .current { z-index: 5; } /* only applies to fader type (not slider) */
+    .plusslider__slide-list { position: relative; }
+    .plusslider__slide-item { float: left; }
+    .plusslider--type-fader .plusslider__slide-item { display: none; position: absolute; left: 0; top: 0; } /* only applies to fader type (not slider) */
+    .plusslider--type-fader .plusslider__slide-item--active { z-index: 5; } /* only applies to fader type (not slider) */
 
     /* Slides that are just <img> tags should *not* have an explicit width set in CSS
      * (the js code will figure out the width from the image itself). If you set it here in CSS
@@ -20,15 +20,15 @@
      * does *not* need an explicit width (or height) to be set.
      * If you do, it will cause problems for slides of different sizes or responsive slides.
      */
-    .plusslider .child { /* Keep in mind this will resize <img /> slides too */
+    .plusslider__slide-item { /* Keep in mind this will resize <img /> slides too */
         height: 250px;
         width: 630px;
     }
 
     /* No-javascript fallback... */
-        .plusslider-container > * { display: none; }
-        .plusslider-container > *:first-child { display: block; }
-        .plusslider-container .child { display: block; } /* Necesary for slides to display: DO NOT REMOVE */
+    #slider> * { display: none; }
+    .plusslider__slide-item:first-child { display: block; }
+    .plusslider__slide-item { display: block; } /* Necesary for slides to display: DO NOT REMOVE */
 
 
 /* The following styles are NOT ESSENTIAL for slider functionality. They are specific to the example content.
@@ -53,5 +53,5 @@
     .plusslider {
         padding: 60px 0; /* Create some space above and below the slides for the pagination controls */
     }
-    .plusslider-pagination { position: absolute; left: 0; bottom: 0; }
-    .plusslider-pagination li { float: left; list-style: none; margin-left: 5px; }
+    .plusslider__pagi-list { position: absolute; left: 0; bottom: 0; }
+    .plusslider__pagi-item { float: left; list-style: none; margin-left: 5px; }
