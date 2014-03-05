@@ -323,7 +323,7 @@
                 // Begin pagination
                 if ( base.o.createPagination ) {
 
-                    base.$sliderControls = $('<ul />', {
+                    base.$sliderControls = $('<div />', {
                         'class': base.o.attrNames.pagiListClass
                     });
 
@@ -352,7 +352,7 @@
                     // Create Pagination
                     for ( var i = 0; i < base.slideCount; i++ ) {
 
-                        $('<li />', {
+                        $('<div />', {
                             'data-index': i,
                             'class': base.o.attrNames.pagiItemClass,
                             'text': (typeof base.$slides.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$slides.eq( i ).attr('data-title')
@@ -361,7 +361,7 @@
                     }; // Pagination appended
 
                     // Dynamic pagination width
-                    if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('li').outerWidth(true) * base.slideCount );
+                    if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).outerWidth(true) * base.slideCount );
 
                     // Pagination functionality
                     base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).click( function( ) {
@@ -377,7 +377,7 @@
                 // Create Arrows
                 if ( base.o.createArrows ) {
 
-                    base.$arrows = $('<ul />', {
+                    base.$arrows = $('<div />', {
                         'class': base.o.attrNames.arrowListClass
                     });
 
@@ -404,13 +404,13 @@
                     base.$arrows.wrap('<div class="' + base.o.attrNames.arrowClass + '" />');
 
                     // Prepend Next Arrow
-                    $('<li />', {
+                    $('<div />', {
                         'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemNextClass,
                         text: base.o.nextText
                     }).prependTo( base.$arrows );
 
                     // Prepend Previous Arrow
-                    $('<li />', {
+                    $('<div />', {
                         'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemPrevClass,
                         text: base.o.prevText
                     }).prependTo( base.$arrows );
@@ -512,7 +512,11 @@
         afterSlide          : null, // Callback function: As the slide completes the animation
         onSlideEnd          : null, // Callback function: Once the slider reaches the last slide
 
+        // Slider namespace
         namespace: 'plusslider',
+
+        // Slider class names.
+        // Note: All names are automatically prepended with namespace
         attrNames: {
             'elClass'             : '',
             'elActiveClass'       : '--active',
