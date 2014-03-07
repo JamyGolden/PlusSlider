@@ -24,7 +24,7 @@ img {
 /* Page Styling */
 body { background: #333; color: #fff; font: 14px Verdana, sans-serif; }
 h1 { font: 52px/122px Arial, serif; text-align: center; }
-#page-wrap { margin: 0 auto; max-width: 100%; }
+#page-wrap { margin: 0 auto; max-width: 768px; }
 
 #download {
 	border: 1px solid #485e5b;
