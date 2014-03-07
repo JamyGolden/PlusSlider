@@ -1,6 +1,6 @@
 # PlusSlider jQuery Plugin
 
-A jQuery content slider that is easily configurable and can easily be switched between 'fading' and 'sliding'
+An agnostic, fluid jQuery content slider that is easily configurable and stylable.
 
 ## Features
 * BEM CSS methadology used
