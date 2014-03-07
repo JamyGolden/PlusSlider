@@ -2,7 +2,14 @@
 * { margin: 0; padding: 0; }
 img { display: block; }
 
-.slide1 { background: url(../images/image1.jpg) no-repeat left top; height: 210px; padding: 20px 40px; width: 550px; }
+.slide1 { background: #171105 url(../images/image1.jpg) no-repeat center top; height: 210px; padding: 20px 40px; width: 550px; }
+.slide1 > div {
+	margin: 0 auto;
+	width: 630px;
+}
+img {
+	margin: 0 auto;
+}
 .slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
 .slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
 .quote, .quote2, .quote3 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
@@ -19,25 +26,25 @@ body { background: #333; color: #fff; font: 14px Verdana, sans-serif; }
 h1 { font: 52px/122px Arial, serif; text-align: center; }
 #page-wrap { margin: 0 auto; max-width: 100%; }
 
-#download { 
-	border: 1px solid #485e5b; 
-	padding: 5px 10px; 
-	font: 20px/80px sans-serif; 
-	text-align: center; 
-	position: relative; 
+#download {
+	border: 1px solid #485e5b;
+	padding: 5px 10px;
+	font: 20px/80px sans-serif;
+	text-align: center;
+	position: relative;
 	top: -7px;
-	-webkit-border-radius: 5px; 
-	   -moz-border-radius: 5px; 
-	        border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
 	-webkit-box-shadow: 0 0 10px #666;
-	   -moz-box-shadow: 0 0 10px #666; 
-	        box-shadow: 0 0 10px #666; 
-	background-color: #506663; 
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663)); 
-	background-image:    -moz-linear-gradient(100% 100% 90deg, #506663, #627c78); 
-	background-image:     -ms-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663)); 
-	background-image:      -o-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663)); 
-	background-image:         gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663)); 
+	   -moz-box-shadow: 0 0 10px #666;
+	        box-shadow: 0 0 10px #666;
+	background-color: #506663;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
+	background-image:    -moz-linear-gradient(100% 100% 90deg, #506663, #627c78);
+	background-image:     -ms-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
+	background-image:      -o-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
+	background-image:         gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
 }
 
 #download:hover { background: #435553; border: 1px solid #435553; text-decoration: none; }
