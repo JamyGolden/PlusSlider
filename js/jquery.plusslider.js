@@ -8,6 +8,7 @@
  * tl;dr MIT
  */
 (function($) {
+    "use strict";
 
     $.plusSlider = function(el, options) {
 

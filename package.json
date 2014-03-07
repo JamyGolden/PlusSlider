@@ -1,0 +1,22 @@
+{
+    "name": "PlusSlider",
+    "description": "An agnostic jQuery content slider that is easily configurable",
+    "version": "1.5.5",
+    "author": "Jamy Golden (http://css-plus.com/)",
+    "homepage": "https://github.com/JamyGolden/PlusSlider",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:JamyGolden/PlusSlider.git"
+    },
+    "bugs": {
+        "url": "https://github.com/JamyGolden/PlusSlider/issues"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-watch": "~0.5.0",
+        "grunt-contrib-compass": "~0.7.0",
+        "grunt-version": "~0.3.0",
+        "grunt-contrib-uglify": "~0.4.0"
+    },
+    "license" : "MIT"
+}

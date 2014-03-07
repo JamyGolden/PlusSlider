@@ -1,53 +1,19 @@
 /* Custom Slider Styling */
-* { margin: 0; padding: 0; }
-img { display: block; }
-
+img { border: 0; display: block; margin: 0 auto; }
 .slide1 { background: #171105 url(../images/image1.jpg) no-repeat center top; height: 210px; padding: 20px 40px; width: 550px; }
-.slide1 > div {
-	margin: 0 auto;
-	width: 630px;
-}
-img {
-	margin: 0 auto;
-}
+.slide1 > div { margin: 0 auto; width: 630px; }
 .slide1 h2 { color: #fff; font-size: 20px; margin: 0 0 20px 0; text-align: left; }
 .slide1 p { border-left: 3px solid #fff; color: #fff; padding: 0 0 0 10px; }
+/* Page Styling */
 .quote, .quote2, .quote3 { height: 170px; padding: 20px 0; width: 580px; font: 24px Georgia, serif; text-align: center; width: 100%; position: relative; }
 .quote { background: #f1f1f1; color: #333; }
 .quote2 { background: #333; color: #f1f1f1; }
 .quote3 { background: #666; color: #f1f1f1; }
-
 .quote:after, .quote2:after, .quote3:after { content: '100% width'; position: absolute; right: 0; top: 0; }
-
 .plusslider.slider3, .plusslider.slider3 .plusslider-pagination-wrapper { border: none; border-radius: 0; }
-
-/* Page Styling */
 body { background: #333; color: #fff; font: 14px Verdana, sans-serif; }
 h1 { font: 52px/122px Arial, serif; text-align: center; }
 #page-wrap { margin: 0 auto; max-width: 768px; }
-
-#download {
-	border: 1px solid #485e5b;
-	padding: 5px 10px;
-	font: 20px/80px sans-serif;
-	text-align: center;
-	position: relative;
-	top: -7px;
-	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-	        border-radius: 5px;
-	-webkit-box-shadow: 0 0 10px #666;
-	   -moz-box-shadow: 0 0 10px #666;
-	        box-shadow: 0 0 10px #666;
-	background-color: #506663;
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
-	background-image:    -moz-linear-gradient(100% 100% 90deg, #506663, #627c78);
-	background-image:     -ms-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
-	background-image:      -o-gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
-	background-image:         gradient(linear, 0% 0%, 0% 100%, from(#627c78), to(#506663));
-}
-
-#download:hover { background: #435553; border: 1px solid #435553; text-decoration: none; }
 #features h2 { margin: 20px 0 10px 0; font: 36px Georgia, serif; text-align: left; }
 #features h3 { margin:20px 0 10px 0; font: bold 18px Verdana, sans-serif; }
 #features p { padding: 3px 0; }

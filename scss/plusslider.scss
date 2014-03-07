@@ -1,0 +1,152 @@
+// ==========================================================================
+// PlusSlider
+// Version: "1.5.5"
+// By Jamy Golden
+// http://twitter.com/jamygolden
+// ==========================================================================
+@charset "UTF-8";
+
+// Compass mixins
+@import "mixins";
+@import "compass/css3";
+
+.plusslider {
+    @include background-clip(padding);
+    @include border-radius(15px);
+    @include box-sizing(border-box);
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 15px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+    padding-bottom: 40px;
+    overflow: hidden;
+    position: relative;
+}
+
+    .plusslider__container {
+        overflow: hidden;
+    }
+
+        .plusslider__slide-list {
+            position: relative;
+        }
+            .plusslider__slide-item {
+                @include box-sizing(border-box);
+                float: left;
+                height: 250px;
+            }
+
+        // Pagination
+        // ==========================================================================
+        .plusslider__pagi {
+            background-color: #f1f1f1; /* fallback color */
+            background-image: url(../images/svg-gradient.svg); /* Gradient; support for IE9 and Opera */
+            @include background(linear(100% 100% 90deg, #ccc, #f1f1f1));
+            @include border-radius(0 0 10px 10px);
+            @include background-clip(padding);
+            height: 40px;
+            @include user-select(none);
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 500;
+        }
+
+            .plusslider__pagi-list {
+                display: table;
+                margin: 0 auto;
+                padding: 15px 0;
+            }
+
+                .plusslider__pagi-item {
+                    background: url(../images/plus-sprite.png) no-repeat left top;
+                    cursor: pointer;
+                    display: block;
+                    float: left;
+                    font-size: 0;
+                    height: 10px;
+                    margin: 0 3px;
+                    text-indent: -9999px; /*IE6 fix */
+                    width: 10px;
+                    position: relative;
+                }
+
+            .plusslider__pagi-item--active,
+            .plusslider__pagi-item:hover {
+                background-position: -10px 0;
+            }
+
+        // Arrows
+        // ==========================================================================
+        .plusslider__arrow {
+            @include user-select(none);
+        }
+
+            .plusslider__arrow-item {
+                background: url(../images/plus-sprite.png) no-repeat left top;
+                cursor: pointer;
+                height: 32px;
+                margin-top: -16px;
+                opacity: 0;
+                @include transition(opacity 0.2s ease-in);
+                text-indent: -9999px;
+                width: 32px;
+                position: absolute;
+                top: 50%;
+                z-index: 200;
+
+                .plusslider:hover & {
+                    opacity: 1;
+                }
+            }
+
+            .plusslider__arrow-item--prev {
+                background-position: 0 -10px;
+                left: 10px;
+
+                &:hover {
+                    background-position: 0 -42px;
+                    left: 10px;
+                }
+            }
+
+            .plusslider__arrow-item--next {
+                background-position: -33px -10px;
+                right: 10px;
+
+                &:hover {
+                    background-position: -33px -42px;
+                }
+            }
+
+    // Plus Fader specific
+    // ==========================================================================
+    .plusslider--type-fader {
+        .plusslider__slide-item {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .plusslider__slide-item--active {
+            z-index: 2;
+        }
+
+        .plusslider__pagi-list {
+            position: relative;
+            z-index: 200;
+        }
+    }
+
+
+// Javascript fallback and sorts init loading of images
+// ==========================================================================
+#slider > * {
+    display: none;
+}
+
+#slider > *:first-child,
+.plusslider #slider > * {
+    display: block;
+}
