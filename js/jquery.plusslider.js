@@ -80,6 +80,7 @@
         base.activeSlideHeight   = base.$sliderItemsActive.outerHeight(); // References a numerical value of the height of the current/active slide
         base.$sliderItemsCloneFirst; // First clone needed for infinite slide
         base.$sliderItemsCloneLast; // Last clone needed for infinite slide
+        base.touchEventArr = []; // Used to detect whether a left or right swipe occurred
 
         // DOM manipulations
         ////////////////////
@@ -457,8 +458,42 @@
 
                 }; // base.o.keyboardNavigation
 
+                // Touch event support
+                if ( base.o.touchEvents ) {
+                    if (document.addEventListener) {
+
+                        base.$slider.get(0).addEventListener('touchstart', function(e) {
+                            var touchPosX = e.touches[0].pageX;
+                            base.touchEventArr = [];
+                            base.touchEventArr.push(touchPosX);
+                        }, false);
+
+                        base.$slider.get(0).addEventListener('touchmove', function(e) {
+                            e.preventDefault();
+                            var touchPosX = e.touches[0].pageX;
+                            base.touchEventArr.push(touchPosX);
+                        }, false);
+
+                        base.$slider.get(0).addEventListener('touchend', function(e) {
+                            var firstPosX      = base.touchEventArr[0];
+                            var lastPosX       = base.touchEventArr[base.touchEventArr.length -1];
+                            var differencePosX = lastPosX - firstPosX;
+
+                            // Swipe Right
+                            if(differencePosX < 0) {
+                                base.toSlide('next');
+
+                            // Swipe Right
+                            } else if (differencePosX > 0){
+                                base.toSlide('prev');
+                            }
+                        });
+
+                    }
+                }
+
             // onInit callback
-                if ( base.o.onInit && typeof( base.o.onInit ) == 'function' ) base.o.onInit( base );
+            if ( base.o.onInit && typeof( base.o.onInit ) == 'function' ) base.o.onInit( base );
 
         } // base.init
 
@@ -484,6 +519,7 @@
         autoPlay            : true, // Creats a times, looped 'slide-show'
         keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover        : true, // AutoPlay does not continue ifsomeone hovers over Plus Slider.
+        touchEvents         : true,
 
         /* Arrow related */
         createArrows        : true, // Creates forward and backward navigation
