@@ -16,7 +16,7 @@ An agnostic, fluid jQuery content slider that is easily configurable and stylabl
 * **Next/Previous** Navigation (_Optional_)
 * Titled or numbered **paginated** navigation (_Optional_)
 * Callback available after each slide
-* Tested on *IE 8+* and *modern browsers*
+* Tested on *IE 7+* and *modern browsers*
 
 ## Default Options
 	$('#slider').plusSlider({
