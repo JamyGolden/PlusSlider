@@ -210,7 +210,6 @@
                         base.endToSlide();
 
                     });
-                    $('h1').html(toPosition + ' ' + base.$sliderItemsActive.prev().outerWidth());
 
                 // End slider
                 } else {
