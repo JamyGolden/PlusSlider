@@ -1,11 +1,10 @@
 /*
- * jQuery Plus Slider 1.5.5
- * By Jamy Golden
- * http://css-plus.com
- * @jamygolden
- *
- * Regarding licensing read license.txt.
- * tl;dr MIT
+ * PlusSlider
+ * An agnostic jQuery content slider that is easily configurable
+ * Version: "1.5.7"
+ * Jamy Golden (http://css-plus.com/)
+ * https://github.com/JamyGolden/PlusSlider
+ * License: MIT
  */
 (function($) {
     "use strict";

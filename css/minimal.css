@@ -1,9 +1,10 @@
 /*
-* PlusSlider
-* An agnostic jQuery content slider that is easily configurable
-* Version: "1.5.6"
-* Jamy Golden (http://css-plus.com/)
-* https://github.com/JamyGolden/PlusSlider
-*/
+ * PlusSlider
+ * An agnostic jQuery content slider that is easily configurable
+ * Version: "1.5.7"
+ * Jamy Golden (http://css-plus.com/)
+ * https://github.com/JamyGolden/PlusSlider
+ * License: https://github.com/JamyGolden/PlusSlider
+ */
 
 .plusslider{overflow:hidden;position:relative}.plusslider__slide-list{position:relative}.plusslider__slide-item{float:left;height:250px;width:630px}.plusslider--type-fader .plusslider__slide-item{display:none;position:absolute;left:0;top:0}.plusslider--type-fader .plusslider__slide-item--active{z-index:5}#slider>*{display:none}.plusslider__slide-item:first-child{display:block}.plusslider__slide-item{display:block}#slider .child img{width:100%}.slide1{background:url(../images/image1.jpg) no-repeat left top;height:210px;margin:0;padding:20px 40px}.slide1 h2{color:#fff;font-size:20px;margin:0 0 20px 0;text-align:left}.slide1 p{border-left:3px solid #fff;color:#fff;padding:0 0 0 10px}.quote,.quote2,.quote3{height:170px;padding:20px 0;width:580px;font:24px Georgia, serif;text-align:center;width:100%;position:relative}.quote{background:#f1f1f1;color:#333}.quote2{background:#333;color:#f1f1f1}.quote3{background:#666;color:#f1f1f1}.plusslider a img{border:none}.plusslider{padding:60px 0}.plusslider__pagi-list{position:absolute;left:0;bottom:0}.plusslider__pagi-item{float:left;list-style:none;margin-left:5px}

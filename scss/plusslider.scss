@@ -1,6 +1,6 @@
 // ==========================================================================
 // PlusSlider
-// Version: "1.5.6"
+// Version: "1.5.7"
 // By Jamy Golden
 // http://twitter.com/jamygolden
 // ==========================================================================
@@ -9,6 +9,8 @@
 // Compass mixins
 @import "mixins";
 @import "compass/css3";
+
+$ps-height: 250px;
 
 .plusslider {
     @include background-clip(padding);
@@ -23,6 +25,7 @@
 }
 
     .plusslider__container {
+        height: $ps-height;
         overflow: hidden;
     }
 
@@ -32,7 +35,7 @@
             .plusslider__slide-item {
                 @include box-sizing(border-box);
                 float: left;
-                height: 250px;
+                height: $ps-height;
             }
 
         // Pagination
