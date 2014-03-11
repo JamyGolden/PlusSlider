@@ -76,8 +76,6 @@
         base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
         base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
         base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
-        base.activeSlideWidth    = base.$sliderItemsActive.outerWidth(); // References a numerical value of the width of the current/active slide
-        base.activeSlideHeight   = base.$sliderItemsActive.outerHeight(); // References a numerical value of the height of the current/active slide
         base.$sliderItemsCloneFirst; // First clone needed for infinite slide
         base.$sliderItemsCloneLast; // Last clone needed for infinite slide
         base.touchEventArr = []; // Used to detect whether a left or right swipe occurred
@@ -111,26 +109,32 @@
 
         base.setSliderDimensions = function() {
             // Vars and dom manipulation
-            base._calculateSliderWidth();
-            base.activeSlideWidth   = base.$sliderItemsActive.outerWidth();
-            base.activeSlideHeight  = base.$sliderItemsActive.outerHeight();
-            base.wrapContainerWidth = base.$slider.innerWidth();
-            base.sliderWidth        = base.wrapContainerWidth * base.slideCount;
-            base.$sliderItems.width( base.wrapContainerWidth );
+            base.wrapContainerWidth  = base.$slider.innerWidth();
+            base.sliderWidth         = base.wrapContainerWidth * base.slideCount;
+            base.$sliderItems.css({
+                'width': base.wrapContainerWidth
+            });
 
             if (base.o.infiniteSlide == true) {
-                base.sliderWidth += 2; // Add clones
-                base.$sliderItemsCloneFirst.width( base.wrapContainerWidth );
-                base.$sliderItemsCloneLast.width( base.wrapContainerWidth );
+                base.$sliderItemsCloneFirst.css({
+                    'width': base.wrapContainerWidth
+                });
+                base.$sliderItemsCloneLast.css({
+                    'width': base.wrapContainerWidth
+                });
             }
 
             base._calculateSliderWidth();
 
-            base.$sliderContainer.width( base.wrapContainerWidth ).height( base.activeSlideHeight );
-
-            base.$sliderList.width( base.sliderWidth )
-            base.$sliderList.height( base.activeSlideHeight )
-            base.$sliderList.css('left', base.$sliderItemsActive.position().left * -1 + 'px');
+            base.$sliderContainer.css({
+                'width': base.wrapContainerWidth,
+                'height':  base.activeSlideHeight
+            });
+            base.$sliderList.css({
+                'width': base.sliderWidth,
+                'height':  base.activeSlideHeigh,
+                'left': base.$sliderItemsActive.position().left * -1 + 'px'
+            });
         }
 
         base.toSlide = function(slide) {
@@ -166,8 +170,6 @@
 
                 // Set values
                 base.$sliderItemsActive = base.$sliderItems.eq( base.activeSlideIndex );
-                base.activeSlideWidth   = base.$sliderItemsActive.width();
-                base.activeSlideHeight  = base.$sliderItemsActive.height();
                 // Values set
 
                 // onSlide callback
@@ -180,7 +182,9 @@
 
                 if (base.o.sliderType == 'slider') {
 
-                    var toPosition = base.$sliderItemsActive.position().left; // Position for slider position to animate to next
+                    var toPosition = base.wrapContainerWidth * base.$sliderItemsActive.index(); // Position for slider position to animate to next
+                    // The below was removed due to a weird IE bug
+                    // var toPosition =  base.$sliderItemsActive.position().left;
 
                     // Edit animation position to achieve the infinite slide effect
                     if ( base.o.infiniteSlide === true ) {
@@ -191,21 +195,23 @@
                         };
                     };
 
+
                     // Animate slide position
                     base.$sliderList.animate({
-                        height: base.$sliderItemsActive.outerHeight(),
-                        left: toPosition * -1 + 'px'
+                        'left': toPosition * -1 + 'px'
                     }, base.o.speed, base.o.sliderEasing, function() {
 
-                        if ( base.activeSlideIndex == 0 ) {
+                        // Set current slide to correct position
+                        if (base.activeSlideIndex == 0) {
                             base.$sliderList.css('left', base.$sliderItems.eq(0).position().left * -1);
-                        } else if ( base.activeSlideIndex == base.slideIndexCount ) {
+                        } else if (base.activeSlideIndex == base.slideIndexCount) {
                             base.$sliderList.css('left', base.$sliderItems.eq(base.slideIndexCount).position().left * -1);
                         }
 
                         base.endToSlide();
 
                     });
+                    $('h1').html(toPosition + ' ' + base.$sliderItemsActive.prev().outerWidth());
 
                 // End slider
                 } else {
@@ -220,11 +226,11 @@
 
                 }; // if sliderType slider/fader
 
-                // Animate wrapper size (for gradual transition between slides of differing sizes)
-                base.$sliderContainer.animate({
-                    height: base.$sliderItemsActive.outerHeight(),
-                    width: base.$sliderItemsActive.outerWidth()
-                }, base.o.speed, base.o.sliderEasing);
+                // // Animate wrapper size (for gradual transition between slides of differing sizes)
+                // base.$sliderContainer.animate({
+                //     'height': base.$sliderItemsActive.outerHeight(),
+                //     'width': base.$sliderItemsActive.outerWidth()
+                // }, base.o.speed, base.o.sliderEasing);
 
                 // Set class on new "current" slide
                 base.$sliderItems.removeClass( base.o.attrNames.slideItemActiveClass );
@@ -274,11 +280,6 @@
                 }
 
                 base.setSliderDimensions();
-
-                // Set values
-                base.activeSlideWidth  = base.$sliderItemsActive.outerWidth();
-                base.activeSlideHeight = base.$sliderItemsActive.outerHeight();
-                // Values set
 
                 // Slider/Fader Settings
                 if (base.o.sliderType == 'slider') {
