@@ -7,12 +7,13 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         banner:
             '/*\n' +
-            '* <%= pkg.name %>\n' +
-            '* <%= pkg.description %>\n' +
-            '* Version: "<%= pkg.version %>"\n' +
-            '* <%= pkg.author %>\n' +
-            '* <%= pkg.homepage %>\n' +
-            '*/' +
+            ' * <%= pkg.name %>\n' +
+            ' * <%= pkg.description %>\n' +
+            ' * Version: "<%= pkg.version %>"\n' +
+            ' * <%= pkg.author %>\n' +
+            ' * <%= pkg.homepage %>\n' +
+            ' * License: <%= pkg.homepage %>\n' +
+            ' */' +
             '\n',
         watch: {
             options: {
@@ -53,6 +54,12 @@ module.exports = function(grunt) {
                     prefix: '"version"\:\\s+[\'"]'
                 },
                 src: ['plusslider.jquery.json']
+            },
+            js_files: {
+                options: {
+                    prefix: 'Version\:\\s+[\'"]'
+                },
+                src: ['js/jquery.plusslider.js']
             }
         },
 
