@@ -458,32 +458,43 @@
                 }; // base.o.keyboardNavigation
 
                 // Touch event support
-                if ( base.o.touchEvents ) {
-                    if (document.addEventListener) {
+                if (base.o.touchEvents) {
+                    if (document.addEventListener) { // Supports addEventListener. Basically ignores IE.
 
                         base.$slider.get(0).addEventListener('touchstart', function(e) {
                             var touchPosX = e.touches[0].pageX;
+                            var touchPosY = e.touches[0].pageY;
+                            var touchObj = {
+                                'posX': touchPosX,
+                                'posY': touchPosY
+                            };
                             base.touchEventArr = [];
-                            base.touchEventArr.push(touchPosX);
+
+                            base.touchEventArr.push(touchObj);
                         }, false);
 
                         base.$slider.get(0).addEventListener('touchmove', function(e) {
-                            e.preventDefault();
                             var touchPosX = e.touches[0].pageX;
-                            base.touchEventArr.push(touchPosX);
+                            var touchPosY = e.touches[0].pageY;
+                            var touchObj = {
+                                'posX': touchPosX,
+                                'posY': touchPosY
+                            };
+
+                            base.touchEventArr.push(touchObj);
                         }, false);
 
                         base.$slider.get(0).addEventListener('touchend', function(e) {
-                            var firstPosX      = base.touchEventArr[0];
-                            var lastPosX       = base.touchEventArr[base.touchEventArr.length -1];
+                            var firstPosX      = base.touchEventArr[0]['posX'];
+                            var lastPosX       = base.touchEventArr[base.touchEventArr.length -1]['posX'];
                             var differencePosX = lastPosX - firstPosX;
 
                             // Swipe Right
-                            if(differencePosX < 0) {
+                            if(differencePosX < 0 && Math.abs(differencePosX) > 80) {
                                 base.toSlide('next');
 
                             // Swipe Right
-                            } else if (differencePosX > 0){
+                            } else if (differencePosX > 0 && Math.abs(differencePosX) > 80){
                                 base.toSlide('prev');
                             }
                         });
