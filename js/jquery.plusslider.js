@@ -74,10 +74,11 @@
         base.wrapContainerWidth  = base.$slider.innerWidth(); // A numerical value of the width of base.$slider
         base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
         base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
+        base.touchEventArr       = []; // Used to detect whether a left or right swipe occurred
+        base.initTouchPos; // Used to detect whether a left or right swipe occurred
         base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
         base.$sliderItemsCloneFirst; // First clone needed for infinite slide
         base.$sliderItemsCloneLast; // Last clone needed for infinite slide
-        base.touchEventArr = []; // Used to detect whether a left or right swipe occurred
 
         // DOM manipulations
         ////////////////////
@@ -474,6 +475,10 @@
                         }, false);
 
                         base.$slider.get(0).addEventListener('touchmove', function(e) {
+                            if (base.o.touchEventScroll === false) {
+                                e.preventDefault();
+                            }
+
                             var touchPosX = e.touches[0].pageX;
                             var touchPosY = e.touches[0].pageY;
                             var touchObj = {
@@ -530,6 +535,7 @@
         keyboardNavigation  : true, // The keyboard's directional left and right arrows function as next and previous buttons
         pauseOnHover        : true, // AutoPlay does not continue ifsomeone hovers over Plus Slider.
         touchEvents         : true,
+        touchEventScroll    : true,
 
         /* Arrow related */
         createArrows        : true, // Creates forward and backward navigation
