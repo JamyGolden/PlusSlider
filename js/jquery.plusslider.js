@@ -462,7 +462,7 @@
                 if (base.o.touchEvents) {
                     if (document.addEventListener) { // Supports addEventListener. Basically ignores IE.
 
-                        base.$slider.get(0).addEventListener('touchstart', function(e) {
+                        base.$sliderList.get(0).addEventListener('touchstart', function(e) {
                             var touchPosX = e.touches[0].pageX;
                             var touchPosY = e.touches[0].pageY;
                             var touchObj = {
@@ -474,7 +474,7 @@
                             base.touchEventArr.push(touchObj);
                         }, false);
 
-                        base.$slider.get(0).addEventListener('touchmove', function(e) {
+                        base.$sliderList.get(0).addEventListener('touchmove', function(e) {
                             if (base.o.touchEventScroll === false) {
                                 e.preventDefault();
                             }
@@ -489,7 +489,7 @@
                             base.touchEventArr.push(touchObj);
                         }, false);
 
-                        base.$slider.get(0).addEventListener('touchend', function(e) {
+                        base.$sliderList.get(0).addEventListener('touchend', function(e) {
                             var firstPosX      = base.touchEventArr[0]['posX'];
                             var lastPosX       = base.touchEventArr[base.touchEventArr.length -1]['posX'];
                             var differencePosX = lastPosX - firstPosX;
