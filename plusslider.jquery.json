@@ -16,7 +16,8 @@
         "jquery": ">=1.5"
     },
     "keywords": [
-        "customizable",
+        "responsive",
+        "touch",
         "fader",
         "slider"
     ],
