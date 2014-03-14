@@ -137,7 +137,7 @@
             });
         }
 
-        base.toSlide = function(slide) {
+        base.toSlide = function(slide, callback) {
 
             if (base.animating == false) {
 
@@ -208,7 +208,7 @@
                             base.$sliderList.css('left', base.$sliderItems.eq(base.slideIndexCount).position().left * -1);
                         }
 
-                        base.endToSlide();
+                        base.endToSlide(callback);
 
                     });
 
@@ -220,7 +220,7 @@
                     }
 
                     base.$sliderItems.eq( base.activeSlideIndex ).fadeIn(base.o.speed, function() {
-                        base.endToSlide();
+                        base.endToSlide(callback);
                     });
 
                 }; // if sliderType slider/fader
@@ -245,11 +245,12 @@
 
         }; // base.toSlide
 
-        base.endToSlide = function() { // perform cleanup operations after toSlide transition has finished (for both slider and fader type)
+        base.endToSlide = function(toSlideCallback) { // perform cleanup operations after toSlide transition has finished (for both slider and fader type)
 
             base.animating = false;
 
             // afterSlide and onSlideEnd callback
+            if (toSlideCallback && typeof toSlideCallback == 'function') toSlideCallback(base);
             if (base.o.afterSlide && typeof( base.o.afterSlide ) == 'function') base.o.afterSlide(base);
             if (base.o.onSlideEnd && typeof( base.o.onSlideEnd ) == 'function' && base.activeSlideIndex == base.slideIndexCount) base.o.onSlideEnd(base);
             // End afterSlide and onSlideEnd callback
