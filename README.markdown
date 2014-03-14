@@ -100,7 +100,7 @@ The following are the PlusSlider values you may use within the callback function
     base.activeSlideHeight   // References a numerical value of the height of the current/active slide
     base.beginTimer()             // Method that begins the autoPlay timer
     base.clearTimer()             // Method that resets the autoPlay timer
-    base.toSlide()                // Method that will change the current/active slide - Accepts 'next', 'prev' or an index number value
+    base.toSlide()                // Will change the current/active slide - Accepts 'next', 'prev' or an index number value as well as a callback
 
 ### Accessing properties and methods from outside the callback functions
 If you wish to make use of the slider methods and properties outside of the callback functions, you would need to initialize the slider in a slightly different way:
@@ -111,7 +111,9 @@ If you wish to make use of the slider methods and properties outside of the call
         slider = new $.plusSlider($('#slider'), {});
     });
     slider.toSlide('next); //move slider to next slide
-    slider.toSlide('prev'); //move slider to previous slide
+    slider.toSlide('prev', function(){
+        // callback here
+    }); //move slider to previous slide
     slider.toSlide(3); //move slider to arbitrary index (first slide is 0, second is 1, etc.)
 
 ## Customizing PlusSlider
