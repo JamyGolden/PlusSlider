@@ -144,7 +144,16 @@
             });
         }
 
-        base.toSlide = function(slide, callback) {
+        base.toSlide = function(obj) {
+             var slide;
+
+             // Determine what has been passed in as a parameter
+            if (typeof obj === 'object') {
+                slide = obj['slide'];
+                var callback = obj['callback'];
+            } else {
+                slide = obj;
+            }
 
             if (base.animating == false) {
 
