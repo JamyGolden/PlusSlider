@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             ' * Version: "<%= pkg.version %>"\n' +
             ' * <%= pkg.author %>\n' +
             ' * <%= pkg.homepage %>\n' +
-            ' * License: <%= pkg.homepage %>\n' +
+            ' * License: <%= pkg.license %>\n' +
             ' */' +
             '\n',
         watch: {
