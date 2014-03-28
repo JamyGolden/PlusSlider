@@ -6,7 +6,7 @@
  * https://github.com/JamyGolden/PlusSlider
  * License: MIT
  */
-(function($) {
+ (function($) {
     "use strict";
 
     $.plusSlider = function(el, options) {
@@ -42,53 +42,60 @@
             }
         }
 
-        // Vars and DOM environment
-        // ==========================================================================
-        base.o = $.extend( {}, $.plusSlider.defaults, options );
-        // Create css namespace
-        base.o.attrNames = base._applyCssNamespace(base.o.attrNames, base.o.namespace);
+        base._setupVars = function() {
 
-        // Access to jQuery and DOM versions of element
-        base.$sliderList = $(el);
+            // Vars and DOM environment
+            // ==========================================================================
+            base.o = $.extend( {}, $.plusSlider.defaults, options );
+            // Create css namespace
+            base.o.attrNames = base._applyCssNamespace(base.o.attrNames, base.o.namespace);
 
-        // Create elements
-        //////////////////
+            // Access to jQuery and DOM versions of element
+            base.$sliderList = $(el);
 
-        // Slider class - contains all
-        base.$slider = $('<div />', {
-            'class': base.o.attrNames.elClass
-        });
+            // Add reverse reference object
+            base.$sliderList.data('plusSlider', base);
 
-        // Slider container class - wraps list
-        base.$sliderContainer = $('<div />', {
-            'class': base.o.attrNames.containerClass
-        });
+            // Create elements
+            //////////////////
 
-        // Set plugin vars
-        //////////////////
-        base.$sliderItems        = base.$sliderList.children();
-        base.slideCount          = base.$sliderItems.length; // A numerical value of the amount of slides
-        base.slideIndexCount     = base.slideCount - 1; // The index value of the amount of slides
-        base.sliderWidth         = 0; //Stores the slider width value. This changes on resize
-        base.animating           = false; // Boolean - true means the slider is busy animating.
-        base.wrapContainerWidth  = base.$slider.innerWidth(); // A numerical value of the width of base.$slider
-        base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
-        base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
-        base.touchEventArr       = []; // Used to detect whether a left or right swipe occurred
-        base.initTouchPos; // Used to detect whether a left or right swipe occurred
-        base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
-        base.$sliderItemsCloneFirst; // First clone needed for infinite slide
-        base.$sliderItemsCloneLast; // Last clone needed for infinite slide
+            // Slider class - contains all
+            base.$slider = $('<div />', {
+                'class': base.o.attrNames.elClass
+            });
 
-        // DOM manipulations
-        ////////////////////
-        base.$slider.insertBefore(base.$sliderList);
-        base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
-        base.$sliderList.addClass(base.o.attrNames.slideListClass);
-        base.$sliderContainer.appendTo(base.$slider); // Append new Container
-        base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
-        base.$sliderItems.eq(base.activeSlideIndex);
-        base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
+            // Slider container class - wraps list
+            base.$sliderContainer = $('<div />', {
+                'class': base.o.attrNames.containerClass
+            });
+
+            // Set plugin vars
+            //////////////////
+            base.$sliderItems        = base.$sliderList.children();
+            base.slideCount          = base.$sliderItems.length; // A numerical value of the amount of slides
+            base.slideIndexCount     = base.slideCount - 1; // The index value of the amount of slides
+            base.sliderWidth         = 0; //Stores the slider width value. This changes on resize
+            base.animating           = false; // Boolean - true means the slider is busy animating.
+            base.wrapContainerWidth  = base.$slider.innerWidth(); // A numerical value of the width of base.$slider
+            base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
+            base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
+            base.touchEventArr       = []; // Used to detect whether a left or right swipe occurred
+            base.initTouchPos; // Used to detect whether a left or right swipe occurred
+            base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
+            base.$sliderItemsCloneFirst; // First clone needed for infinite slide
+            base.$sliderItemsCloneLast; // Last clone needed for infinite slide
+
+            // DOM manipulations
+            ////////////////////
+            base.$slider.insertBefore(base.$sliderList);
+            base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
+            base.$sliderList.addClass(base.o.attrNames.slideListClass);
+            base.$sliderContainer.appendTo(base.$slider); // Append new Container
+            base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
+            base.$sliderItems.eq(base.activeSlideIndex);
+            base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
+        }
+
 
         // Public Methods
         // ==========================================================================
@@ -258,6 +265,7 @@
         } // base.endToSlide
 
         base.init = function () {
+            base._setupVars()
             // Handle dependant options
                 if (base.slideCount === 1) {
 
@@ -513,8 +521,23 @@
 
         } // base.init
 
-        // Run initializer
-        base.init();
+        // Check to see if plugin has run before
+        // If so then modify the existing plugin with the options supplied
+        // Otherwise initialize it with those options
+
+        var oldBase = $(el).data('plusSlider');
+        if (typeof oldBase === 'object') {
+            $.each(options, function(k, v) {
+                if(typeof oldBase[k] === 'function') {
+                    oldBase[k](v);
+                } else {
+                    oldBase[k] = v;
+                }
+            });
+        } else {
+            // Run initializer
+            base.init();
+        }
 
     };
 
@@ -523,7 +546,7 @@
         /* General */
         sliderType          : 'slider', // Choose whether the carousel is a 'slider' or a 'fader'
         infiniteSlide       : true, // Gives the effect that the slider doesn't ever "repeat" and just continues forever
-        disableLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
+        disabelLoop         : false, // Disables prev or next buttons if they are on the first or last slider respectively. 'first' only disables the previous button, 'last' disables the next and 'both' disables both
 
         /* Display related */
         defaultSlide        : 0, // Sets the default starting slide - Number based on item index
@@ -583,9 +606,19 @@
 
     }; // $.plusSlider
 
-    $.fn.plusSlider = function(options) {
+    $.fn.plusSlider = function(key, val) {
 
         return this.each( function () {
+            var options;
+
+            // Allow for passing in an object or a single key and value
+            if (typeof key !== 'object' && typeof val !== 'undefined') {
+                options = {};
+                options[key] = val;
+            } else {
+                options = key;
+            }
+
             (new $.plusSlider(this, options));
         }); // this.each
 
