@@ -99,9 +99,9 @@ The following are the PlusSlider values you may use within the callback function
     base.$sliderItemsActive  // References the current/active slide's jQuery object
     base.activeSlideWidth    // References a numerical value of the width of the current/active slide
     base.activeSlideHeight   // References a numerical value of the height of the current/active slide
-    base.beginTimer()             // Method that begins the autoPlay timer
-    base.clearTimer()             // Method that resets the autoPlay timer
-    base.toSlide()                // Will change the current/active slide - Accepts 'next', 'prev' or an index number value as well as a callback
+    base.beginTimer()        // Method that begins the autoPlay timer
+    base.clearTimer()        // Method that resets the autoPlay timer
+    base.toSlide()           // Will change the current/active slide - Accepts 'next', 'prev' or an index number value as well as a callback
 
 ### Accessing properties and methods from outside the callback functions
 If you wish to make use of the slider methods and properties outside of the callback functions, you would need to initialize the slider in a slightly different way:
@@ -123,6 +123,14 @@ The default example is a great demonstration of what you can do with PlusSlider,
 Check out this easy 12-step tutorial on <a href="tutorial/index.html">how to customize the design of PlusSlider</a>.
 
 ## Changelog
+
+## Version 1.5.16 - 1.5.12
+* Added the ability to access PlusSlider through the jQuery object. Eg: `$('#slider').plusSlider('toSlide', 2)`
+* Converted class names to work with BEM
+* Changed all elements into `<div>`s.
+* Added swipe touch functionality
+* Added toSlide method callback. Eg: `$(el).plusSlider('toSlide', { slide: 'next', callback: function(base){} })`
+* Bug fixes and stability improvements
 
 ## Version 1.5.5
 * `fullWidth` option was integrated into the plugin by default
