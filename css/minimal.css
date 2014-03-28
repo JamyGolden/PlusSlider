@@ -1,7 +1,7 @@
 /*
  * PlusSlider
  * An agnostic jQuery content slider that is easily configurable
- * Version: "1.5.12"
+ * Version: "1.5.13"
  * Jamy Golden (http://css-plus.com/)
  * https://github.com/JamyGolden/PlusSlider
  * License: MIT
