@@ -23,22 +23,22 @@ module.exports = function(grunt) {
                 }
             },
             scripts: {
-                files: ['scss/plusslider.scss', 'scss/minimal.scss', 'js/jquery.plusslider.js'],
-                tasks: ['version', 'compass', 'uglify']
+                files: ['js/jquery.plusslider.js'],
+                tasks: ['version', 'uglify']
             },
+            scss: {
+                files: ['scss/plusslider.scss', 'scss/minimal.scss'],
+                tasks: ['version', 'sass']
+            }
         },
 
-        compass: {
-            dist: {
-                options: { // Target options
-                    specify: 'scss/*.scss',
-                    banner: '<%= banner %>',
-                    relativeAssets: true,
-                    cssDir: 'css',
-                    sassDir: 'scss',
-                    imagesDir: 'img',
-                    outputStyle: 'compressed'
-                }
+        sass: {
+            options: {
+                outputStyle: 'compressed'
+            },
+            files: {
+                'scss/plusslider.css': 'css/plusslider.scss',
+                'scss/minimal.css': 'css/minimal.scss',
             }
         },
 
@@ -77,10 +77,10 @@ module.exports = function(grunt) {
 
     // Load tasks
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-version');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // Register tasks for the `grunt` terminal command
-    grunt.registerTask('default', ['watch', 'compass', 'version', 'uglify']);
+    grunt.registerTask('default', ['watch', 'sass']);
 };

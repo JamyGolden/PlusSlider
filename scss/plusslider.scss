@@ -5,17 +5,12 @@
 // http://twitter.com/jamygolden
 // ==========================================================================
 @charset "UTF-8";
-
-// Compass mixins
-@import "mixins";
-@import "compass/css3";
-
 $ps-height: 250px;
 
 .plusslider {
-    @include background-clip(padding);
-    @include border-radius(15px);
-    @include box-sizing(border-box);
+    background-clip: padding;
+    border-radius: 15px;
+    box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.3);
     border: 15px solid rgba(255, 255, 255, 0.3);
     margin: 0 auto;
@@ -33,7 +28,7 @@ $ps-height: 250px;
             position: relative;
         }
             .plusslider__slide-item {
-                @include box-sizing(border-box);
+                box-sizing: border-box;
                 float: left;
                 height: $ps-height;
             }
@@ -43,16 +38,21 @@ $ps-height: 250px;
         .plusslider__pagi {
             background-color: #f1f1f1; /* fallback color */
             background-image: url(../images/svg-gradient.svg); /* Gradient; support for IE9 and Opera */
-            @include background(linear(100% 100% 90deg, #ccc, #f1f1f1));
-            @include border-radius(0 0 10px 10px);
-            @include background-clip(padding);
+            background: linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
+            border-radius: 0 0 10px 10px;
+            background-clip: padding;
             height: 40px;
-            @include user-select(none);
             width: 100%;
             position: absolute;
             left: 0;
             bottom: 0;
             z-index: 500;
+
+            -webkit-touch-callout: $val;
+            -webkit-user-select: $val;
+            -moz-user-select: $val;
+            -ms-user-select: $val;
+            user-select: $val;
         }
 
             .plusslider__pagi-list {
@@ -82,7 +82,11 @@ $ps-height: 250px;
         // Arrows
         // ==========================================================================
         .plusslider__arrow {
-            @include user-select(none);
+            -webkit-touch-callout: $val;
+            -webkit-user-select: $val;
+            -moz-user-select: $val;
+            -ms-user-select: $val;
+            user-select: $val;
         }
 
             .plusslider__arrow-item {
@@ -91,7 +95,7 @@ $ps-height: 250px;
                 height: 32px;
                 margin-top: -16px;
                 opacity: 0;
-                @include transition(opacity 0.2s ease-in);
+                transition: opacity 0.2s ease-in;
                 text-indent: -9999px;
                 width: 32px;
                 position: absolute;
