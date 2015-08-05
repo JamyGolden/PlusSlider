@@ -1,7 +1,7 @@
 /*
  * PlusSlider
  * An agnostic jQuery content slider that is easily configurable
- * Version: "1.5.13"
+ * Version: "1.5.14"
  * Jamy Golden (http://css-plus.com/)
  * https://github.com/JamyGolden/PlusSlider
  * License: MIT
@@ -88,6 +88,40 @@
 
         // Public Methods
         // ==========================================================================
+        base.destroy = function () {
+            // Click events
+            base.$sliderControls.off('click.' + base.o.eventNamespace);
+            base.$arrows.off('click.' + base.o.eventNamespace);
+            base.$sliderList.off('click.' + base.o.eventNamespace);
+
+            // Hover events
+            base.$sliderList.off('click.hover');
+
+            // Keyup events
+            $(window).off('keyup.' + base.o.eventNamespace);
+
+            // Resize events
+            $(window).off('resize.' + base.o.eventNamespace);
+
+            base.$slider.removeAttr('style');
+            base.$sliderList.removeAttr('style');
+            base.$sliderContainer.removeAttr('style');
+            base.$sliderItems.removeAttr('style');
+            base.$sliderControls.removeAttr('style');
+
+            // Remove added classes
+            base.$sliderList.removeClass(base.o.attrNames.slideListClass);
+            base.$sliderList.removeClass(base.o.attrNames.elActiveClass);
+            base.$sliderItems.removeClass(base.o.attrNames.slideItemClass);
+            base.$sliderItems.removeClass(base.o.attrNames.slideItemActiveClass);
+
+            // Move element out of wrapper
+            base.$sliderList.insertBefore(base.$slider);
+
+            // Remove wrapper
+            base.$slider.remove();
+        }
+
         base.beginTimer = function() {
             base.clearTimer(); // Clear if it is already set
 
