@@ -6,7 +6,7 @@
  * https://github.com/JamyGolden/PlusSlider
  * License: MIT
  */
- (function($) {
+ (function($, window, undefined) {
     "use strict";
 
     $.plusSlider = function(el, options) {
@@ -631,4 +631,4 @@
 
     }; // $.fn.plusSlider
 
-})(jQuery);
+})(jQuery, window);
