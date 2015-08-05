@@ -84,18 +84,7 @@
             base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
             base.$sliderItemsCloneFirst; // First clone needed for infinite slide
             base.$sliderItemsCloneLast; // Last clone needed for infinite slide
-
-            // DOM manipulations
-            ////////////////////
-            base.$slider.insertBefore(base.$sliderList);
-            base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
-            base.$sliderList.addClass(base.o.attrNames.slideListClass);
-            base.$sliderContainer.appendTo(base.$slider); // Append new Container
-            base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
-            base.$sliderItems.eq(base.activeSlideIndex);
-            base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
         }
-
 
         // Public Methods
         // ==========================================================================
@@ -275,6 +264,16 @@
 
         base.init = function () {
             base._setupVars()
+            // DOM manipulations
+            ////////////////////
+            base.$slider.insertBefore(base.$sliderList);
+            base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
+            base.$sliderList.addClass(base.o.attrNames.slideListClass);
+            base.$sliderContainer.appendTo(base.$slider); // Append new Container
+            base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
+            base.$sliderItems.eq(base.activeSlideIndex);
+            base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
+
             // Handle dependant options
                 if (base.slideCount === 1) {
 
@@ -547,7 +546,6 @@
             // Run initializer
             base.init();
         }
-
     };
 
     $.plusSlider.defaults = {
