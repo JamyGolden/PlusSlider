@@ -56,6 +56,7 @@ An agnostic, fluid jQuery content slider that is easily configurable and stylabl
 
         // Slider namespace
         namespace: 'plusslider',
+        eventNamespace: 'plusslider',
 
         // Slider class names.
         // Note: All names are automatically prepended with namespace
@@ -124,7 +125,11 @@ Check out this easy 12-step tutorial on <a href="tutorial/index.html">how to cus
 
 ## Changelog
 
-## Version 1.5.16 - 1.5.12
+## Version 1.5.14
+* Added a destroy method. This is needed to wrap PlusSlider in an Angular module.
+* Added ability to namespace events
+
+## Version 1.5.6 - 1.5.13
 * Added the ability to access PlusSlider through the jQuery object. Eg: `$('#slider').plusSlider('toSlide', 2)`
 * Converted class names to work with BEM
 * Changed all elements into `<div>`s.
