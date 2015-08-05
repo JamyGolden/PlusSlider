@@ -306,7 +306,7 @@
 
                     base.setSliderDimensions();
 
-                    $(window).resize(function() {
+                    $(window).on('resize.' + base.o.eventNamespace, function() {
 
                         // Reset timer
                         if (base.o.autoPlay) {
@@ -373,7 +373,7 @@
                     if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).outerWidth(true) * base.slideCount );
 
                     // Pagination functionality
-                    base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).click( function( ) {
+                    base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).on( 'click.' + base.o.eventNamespace, function( ) {
 
                         var controlIndex = $(this).index();
                         base.toSlide( controlIndex );
@@ -424,11 +424,11 @@
                         text: base.o.prevText
                     }).prependTo( base.$arrows );
 
-                    base.$arrows.find('.' + base.o.attrNames.arrowItemNextClass).click( function() {
+                    base.$arrows.find('.' + base.o.attrNames.arrowItemNextClass).on( 'click.' + base.o.eventNamespace, function() {
                         base.toSlide('next');
                     }); // .next.click
 
-                    base.$arrows.find('.' + base.o.attrNames.arrowItemPrevClass).click( function() {
+                    base.$arrows.find('.' + base.o.attrNames.arrowItemPrevClass).on( 'click.' + base.o.eventNamespace, function() {
                         base.toSlide('prev');
                     }); // prev.click
 
@@ -442,11 +442,11 @@
                     // Pause on hover
                     if ( base.o.pauseOnHover) {
 
-                        base.$sliderList.hover( function () {
+                        base.$sliderList.on( 'hover.' + base.o.eventNamespace, function () {
                             base.clearTimer();
                         }, function() {
                             base.beginTimer();
-                        }); // base.$sliderList.hover
+                        }); // base.$sliderList hover
 
                     }; //  base.o.pauseOnHover
 
@@ -455,13 +455,13 @@
                 // Keyboard navigation
                 if ( base.o.keyboardNavigation ) {
 
-                    base.$sliderList.click( function () {
+                    base.$sliderList.on( 'click.' + base.o.eventNamespace, function () {
                         $('.' + base.o.attrNames.elActiveClass).removeClass(base.o.attrNames.elActiveClass);
                         $(this).addClass(base.o.attrNames.elActiveClass);
 
                     });
 
-                    $(window).keyup( function ( e ) {
+                    $(window).on( 'keyup.' + base.o.eventNamespace, function ( e ) {
 
                         if ( base.$sliderList.is('.' + base.o.attrNames.elActiveClass) ) {
                             if ( e.keyCode == 39 ) { // Right arrow
@@ -587,6 +587,7 @@
 
         // Slider namespace
         namespace: 'plusslider',
+        eventNamespace: 'plusslider',
 
         // Slider class names.
         // Note: All names are automatically prepended with namespace
