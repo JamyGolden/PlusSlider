@@ -55,11 +55,6 @@
 // does *not* need an explicit width (or height) to be set.
 // If you do, it will cause problems for slides of different sizes or responsive slides.
 
-// No-javascript fallback...
-#slider> * { display: none; }
-.plusslider__slide-item:first-child { display: block; }
-.plusslider__slide-item { display: block; } // Necesary for slides to display: DO NOT REMOVE
-
 
 // The following styles are NOT ESSENTIAL for slider functionality. They are specific to the example content.
 // Note that the fading effect does not work correctly with non-image content unless that content area

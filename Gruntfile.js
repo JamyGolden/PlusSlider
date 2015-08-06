@@ -2,6 +2,8 @@
 module.exports = function(grunt) {
     'use strict';
 
+    require('load-grunt-tasks')(grunt);
+
     // Module configs
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -36,10 +38,13 @@ module.exports = function(grunt) {
             options: {
                 outputStyle: 'compressed'
             },
-            files: {
-                'scss/plusslider.css': 'css/plusslider.scss',
-                'scss/minimal.css': 'css/minimal.scss',
-            }
+            files: [{
+                expand: true,
+                cwd: 'scss/',
+                src: ['*.scss'],
+                dest: 'css/',
+                ext: '.css'
+            }]
         },
 
         version: {
@@ -75,12 +80,6 @@ module.exports = function(grunt) {
         }
     });
 
-    // Load tasks
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-version');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-
     // Register tasks for the `grunt` terminal command
-    grunt.registerTask('default', ['watch', 'sass']);
+    grunt.registerTask('default', ['sass', 'version', 'watch']);
 };

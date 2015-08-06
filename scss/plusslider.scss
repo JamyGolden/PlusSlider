@@ -48,11 +48,11 @@ $ps-height: 250px;
             bottom: 0;
             z-index: 500;
 
-            -webkit-touch-callout: $val;
-            -webkit-user-select: $val;
-            -moz-user-select: $val;
-            -ms-user-select: $val;
-            user-select: $val;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
             .plusslider__pagi-list {
@@ -82,11 +82,11 @@ $ps-height: 250px;
         // Arrows
         // ==========================================================================
         .plusslider__arrow {
-            -webkit-touch-callout: $val;
-            -webkit-user-select: $val;
-            -moz-user-select: $val;
-            -ms-user-select: $val;
-            user-select: $val;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
             .plusslider__arrow-item {
@@ -145,15 +145,3 @@ $ps-height: 250px;
             z-index: 200;
         }
     }
-
-
-// Javascript fallback and sorts init loading of images
-// ==========================================================================
-#slider > * {
-    display: none;
-}
-
-#slider > *:first-child,
-.plusslider #slider > * {
-    display: block;
-}
