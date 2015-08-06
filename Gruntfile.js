@@ -35,16 +35,18 @@ module.exports = function(grunt) {
         },
 
         sass: {
-            options: {
-                outputStyle: 'compressed'
-            },
-            files: [{
-                expand: true,
-                cwd: 'scss/',
-                src: ['*.scss'],
-                dest: 'css/',
-                ext: '.css'
-            }]
+            development: {
+                options: {
+                    outputStyle: 'compressed'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'scss/',
+                    src: ['*.scss'],
+                    dest: 'css/',
+                    ext: '.css'
+                }]
+            }
         },
 
         version: {
