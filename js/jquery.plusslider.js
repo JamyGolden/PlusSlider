@@ -51,27 +51,28 @@
             base.o.attrNames = base._applyCssNamespace(base.o.attrNames, base.o.namespace);
 
             // Access to jQuery and DOM versions of element
-            base.$sliderList = $(el);
+            base.$slider = $(el);
 
             // Add reverse reference object
-            base.$sliderList.data('plusSlider', base);
+            base.$slider.data('plusSlider', base);
+            base.$slider.addClass(base.o.attrNames.elClass);
 
             // Create elements
             //////////////////
 
             // Slider class - contains all
-            base.$slider = $('<div />', {
-                'class': base.o.attrNames.elClass
-            });
-
-            // Slider container class - wraps list
             base.$sliderContainer = $('<div />', {
                 'class': base.o.attrNames.containerClass
             });
 
+            // Slider container class - wraps list
+            base.$sliderList = $('<div />', {
+
+            });
+
             // Set plugin vars
             //////////////////
-            base.$sliderItems        = base.$sliderList.children();
+            base.$sliderItems        = base.$slider.children();
             base.slideCount          = base.$sliderItems.length; // A numerical value of the amount of slides
             base.slideIndexCount     = base.slideCount - 1; // The index value of the amount of slides
             base.sliderWidth         = 0; //Stores the slider width value. This changes on resize
@@ -90,8 +91,8 @@
         // ==========================================================================
         base.destroy = function () {
             // Click events
-            base.$sliderControls.off('click.' + base.o.eventNamespace);
-            base.$arrows.off('click.' + base.o.eventNamespace);
+            if (base.$sliderControls) base.$sliderControls.off('click.' + base.o.eventNamespace);
+            if (base.$arrows) base.$arrows.off('click.' + base.o.eventNamespace);
             base.$sliderList.off('click.' + base.o.eventNamespace);
 
             // Hover events
@@ -104,10 +105,11 @@
             $(window).off('resize.' + base.o.eventNamespace);
 
             base.$slider.removeAttr('style');
+            base.$slider.removeClass(base.o.attrNames.elClass);
             base.$sliderList.removeAttr('style');
             base.$sliderContainer.removeAttr('style');
             base.$sliderItems.removeAttr('style');
-            base.$sliderControls.removeAttr('style');
+            if (base.$sliderControls) base.$sliderControls.removeAttr('style');
 
             // Remove added classes
             base.$sliderList.removeClass(base.o.attrNames.slideListClass);
@@ -115,11 +117,15 @@
             base.$sliderItems.removeClass(base.o.attrNames.slideItemClass);
             base.$sliderItems.removeClass(base.o.attrNames.slideItemActiveClass);
 
-            // Move element out of wrapper
-            base.$sliderList.insertBefore(base.$slider);
-
             // Remove wrapper
-            base.$slider.remove();
+            if (base.$arrows) base.$arrows.remove();
+            if (base.$sliderControls) base.$slider.find('.' + base.o.attrNames.pagiClass).remove();
+            if (base.$arrows) base.$slider.find('.' + base.o.attrNames.arrowClass).remove();
+
+            // Move element out of wrapper
+            base.$sliderItems.appendTo(base.$slider);
+
+            base.$sliderContainer.remove();
         }
 
         base.beginTimer = function() {
@@ -300,10 +306,11 @@
             base._setupVars()
             // DOM manipulations
             ////////////////////
-            base.$slider.insertBefore(base.$sliderList);
+            base.$sliderContainer.prependTo(base.$slider);
             base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
             base.$sliderList.addClass(base.o.attrNames.slideListClass);
-            base.$sliderContainer.appendTo(base.$slider); // Append new Container
+            base.$sliderItems.appendTo(base.$sliderList);
+
             base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
             base.$sliderItems.eq(base.activeSlideIndex);
             base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
