@@ -19,7 +19,7 @@
         // ==========================================================================
 
         // Apply namespace to css classes
-        base._applyCssNamespace = function(attrNames, namespace){
+        function _applyCssNamespace(attrNames, namespace) {
             var obj = {};
             $.each(attrNames, function(k, v){
                 if(typeof v === 'string'){
@@ -30,7 +30,7 @@
             return obj;
         }
 
-        base._calculateSliderWidth = function() {
+        function _calculateSliderWidth() {
             for (var i = 0; i < base.slideCount; i++) {
                 if ( i == 0 ) base.sliderWidth = 0;
                 base.sliderWidth += base.$sliderItems.eq( i ).outerWidth();
@@ -42,13 +42,13 @@
             }
         }
 
-        base._setupVars = function() {
+        function _setupVars() {
 
             // Vars and DOM environment
             // ==========================================================================
             base.o = $.extend( {}, $.plusSlider.defaults, options );
             // Create css namespace
-            base.o.attrNames = base._applyCssNamespace(base.o.attrNames, base.o.namespace);
+            base.o.attrNames = _applyCssNamespace(base.o.attrNames, base.o.namespace);
 
             // Access to jQuery and DOM versions of element
             base.$slider = $(el);
@@ -160,7 +160,7 @@
                 });
             }
 
-            base._calculateSliderWidth();
+            _calculateSliderWidth();
 
             base.$sliderContainer.css({
                 'width': base.wrapContainerWidth,
@@ -303,7 +303,7 @@
         } // base.endToSlide
 
         base.init = function () {
-            base._setupVars()
+            _setupVars()
             // DOM manipulations
             ////////////////////
             base.$sliderContainer.prependTo(base.$slider);
@@ -341,7 +341,7 @@
                 // Slider/Fader Settings
                 if (base.o.sliderType == 'slider') {
 
-                    base._calculateSliderWidth();
+                    _calculateSliderWidth();
 
                     base.$sliderContainer.addClass(base.o.attrNames.elTypeSliderClass).find(base.$sliderList).width( base.sliderWidth );
 
