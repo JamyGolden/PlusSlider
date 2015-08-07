@@ -83,5 +83,5 @@ module.exports = function(grunt) {
     });
 
     // Register tasks for the `grunt` terminal command
-    grunt.registerTask('default', ['sass', 'version', 'watch']);
+    grunt.registerTask('default', ['sass', 'uglify', 'version', 'watch']);
 };

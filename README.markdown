@@ -84,11 +84,11 @@ An agnostic, fluid jQuery content slider that is easily configurable and stylabl
     });
 
 ## Using the API
-The following are the PlusSlider values you may use within the callback functions. Property names beginning with $ ( dollar sign ) are referencing a jQuery object, methods are referenced by ending in () ( open parenthasis, close parenthasis ) and the rest contain a number value.
+The following are the PlusSlider values you may use within the callback functions. Property names beginning with $ ( dollar sign ) are referencing a jQuery object, methods are referenced by ending in () ( open parenthasis, close parenthasis ) and the rest contain a number value. Look at the code for more variables available for access.
 
-    base.$slider             // References the outside .plusslider jQuery object
-    base.$sliderList         // References the original object
-    base.$sliderContainer    // References Slider container wrapping base.$sliderList
+    base.$slider             // References the original object
+    base.$sliderContainer    // References the outside .plusslider jQuery object
+    base.$sliderList         // References Slider container wrapping base.$sliderList
     base.$sliderItems        // References all jQuery slide objects within base.$sliderList
     base.slideCount          // A numerical value of the amount of slides
     base.slideIndexCount     // The index value of the amount of slides
@@ -123,7 +123,15 @@ If you wish to make use of the slider methods and properties outside of the call
 The default example is a great demonstration of what you can do with PlusSlider, but you probably want to customize the slider to match your site's design.
 Check out this easy 12-step tutorial on <a href="tutorial/index.html">how to customize the design of PlusSlider</a>.
 
+## Removing PlusSlider
+
+A `destroy()` function has now been added. This is convenient for javascript apps when it's important to completely remove a component from memory to prevent memory leaks.
+
 ## Changelog
+
+## Version 1.5.15 - 1.5.16
+* Slight structure change to allow PlusSlider to work well as an AngularJS directive
+* Structured and optimised code better
 
 ## Version 1.5.14
 * Added a destroy method. This is needed to wrap PlusSlider in an Angular module.
