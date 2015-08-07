@@ -10,13 +10,349 @@
     "use strict";
 
     $.plusSlider = function(el, options) {
-
+        // ====================================================================
+        // Public properties
+        // ====================================================================
         // To avoid scope issues, use 'base' instead of 'this'
         // To reference this class from internal events and functions.
         var base = this;
 
-        // Private Methods
-        // ==========================================================================
+        (function(){
+            base.$slider             = $(el);
+            base.$sliderContainer    = null;
+            base.$sliderList         = null;
+            base.$sliderItems        = null; // Slides
+            base.slideCount          = null; // A numerical value of the amount of slides
+            base.slideIndexCount     = null; // The index value of the amount of slides
+            base.sliderWidth         = 0; // Stores the slider width value. This changes on resize
+            base.animating           = null; // Boolean - true means the slider is busy animating.
+            base.wrapContainerWidth  = null; // A numerical value of the width of base.$slider
+            base.wrapContainerHeight = null; // A numerical value of the height of base.$slider
+            base.activeSlideIndex    = null; // References the index number of the current slide
+            base.touchEventArr       = null; // Used to detect whether a left or right swipe occurred
+            base.initTouchPos        = null; // Used to detect whether a left or right swipe occurred
+            base.$sliderItemsActive  = null; // References the current/active slide's jQuery object
+            base.$arrowContainer     = null;
+            base.$arrows             = null;
+            base.$arrowNext          = null;
+            base.$arrowPrev          = null;
+            base.$sliderItemsCloneFirst = null; // First clone needed for infinite slide
+            base.$sliderItemsCloneLast = null; // Last clone needed for infinite slide
+            base.$sliderControlsContainer = null;
+            base.$sliderControls     = null;
+        })();
+
+        // ====================================================================
+        // Private methods
+        // ====================================================================
+        function _constructor() {
+            // Vars and DOM environment
+            // ================================================================
+            base.o = $.extend( {}, $.plusSlider.defaults, options );
+            // Create css namespace
+            base.o.attrNames = _applyCssNamespace(base.o.attrNames, base.o.namespace);
+
+            // Add reverse reference object
+            base.$slider.data('plusSlider', base);
+            base.$slider.addClass(base.o.attrNames.elClass);
+
+            // Create elements
+            // ================================================================
+
+            // Slider class - contains all
+            base.$sliderContainer = $('<div />', {
+                'class': base.o.attrNames.containerClass
+            });
+
+            // Slider container class - wraps list
+            base.$sliderList = $('<div />', {
+                'class': base.o.attrNames.slideListClass
+            });
+
+            base.$sliderItems        = base.$slider.children();
+            base.slideCount          = base.$sliderItems.length; // A numerical value of the amount of slides
+            base.slideIndexCount     = base.slideCount - 1; // The index value of the amount of slides
+            base.sliderWidth         = 0; //Stores the slider width value. This changes on resize
+            base.animating           = false; // Boolean - true means the slider is busy animating.
+            base.wrapContainerWidth  = base.$slider.innerWidth(); // A numerical value of the width of base.$slider
+            base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
+            base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
+            base.touchEventArr       = []; // Used to detect whether a left or right swipe occurred
+            base.initTouchPos; // Used to detect whether a left or right swipe occurred
+            base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
+            base.$sliderItemsCloneFirst; // First clone needed for infinite slide
+            base.$sliderItemsCloneLast; // Last clone needed for infinite slide
+
+            // DOM manipulations
+            // ================================================================
+            base.$sliderContainer.prependTo(base.$slider);
+            base.$sliderList.appendTo(base.$sliderContainer);
+
+            base.$sliderItems.appendTo(base.$sliderList);
+            base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
+            base.$sliderItems.eq(base.activeSlideIndex);
+            base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
+
+            // Handle dependant options
+                if (base.slideCount === 1) {
+
+                    base.o.autoPlay = false;
+                    base.o.createArrows = false;
+                    base.o.createPagination = false;
+
+                }; // base.slideCount === 1
+
+                if (base.o.sliderType == 'fader') {
+                    base.$sliderItems.not('.' + base.o.attrNames.slideItemActiveClass).hide(); // Hide non-active slides
+                    base.o.infiniteSlide = false;
+                }
+
+                // infinite Slide
+                if (base.o.infiniteSlide === true) {
+                    base.$sliderItems.css('display', 'block'); //override no-js fallback. Force to block for slider items
+                    base.$sliderItemsCloneFirst = base.$sliderItems.first().clone().addClass(base.o.attrNames.slideItemCloneClass).removeClass(base.o.attrNames.slideItemActiveClass).insertAfter( base.$sliderItems.eq(base.slideIndexCount) );
+                    base.$sliderItemsCloneLast = base.$sliderItems.last().clone().addClass(base.o.attrNames.slideItemCloneClass).insertBefore( base.$sliderItems.eq(0) );
+                }
+
+                base.setSliderDimensions();
+
+                // Slider/Fader Settings
+                if (base.o.sliderType == 'slider') {
+
+                    _calculateSliderWidth();
+
+                    base.$sliderContainer.addClass(base.o.attrNames.elTypeSliderClass).find(base.$sliderList).width( base.sliderWidth );
+
+                    base.setSliderDimensions();
+
+                    $(window).on('resize.' + base.o.eventNamespace, function() {
+
+                        // Reset timer
+                        if (base.o.autoPlay) {
+                            base.clearTimer();
+                            base.beginTimer();
+                        }; // if base.o.autoPlay
+
+                        // Reset dimensions
+                        base.setSliderDimensions();
+
+                    }); // window.resize
+
+                    base.$sliderItems.css('display', 'block'); // force block instead of possible inline
+                    base.$sliderList.css( 'left', base.$sliderItemsActive.position().left * -1 + 'px' );
+
+                } else {
+
+                    base.$sliderContainer.addClass(base.o.attrNames.elTypeFaderClass);
+                    base.$sliderItems.eq(0).css('display', 'block'); // force block instead of possible inline
+
+                }; // base.o.sliderType
+
+                // Begin pagination
+                if ( base.o.createPagination ) {
+
+                    base.$sliderControlsContainer = $('<div />', {
+                        'class': base.o.attrNames.pagiClass
+                    });
+
+                    base.$sliderControls = $('<div />', {
+                        'class': base.o.attrNames.pagiListClass
+                    }).appendTo(base.$sliderControlsContainer);
+
+                    switch (base.o.paginationPosition) {
+
+                        case 'before':
+                            base.$sliderControlsContainer.insertBefore( base.$slider );
+                            break;
+
+                        case 'prepend':
+                            base.$sliderControlsContainer.prependTo( base.$slider );
+                            break;
+
+                        case 'after':
+                            base.$sliderControlsContainer.insertAfter( base.$slider );
+                            break;
+
+                        default: //'append'
+                            base.$sliderControlsContainer.appendTo( base.$slider );
+                            break;
+                    }
+
+                    // Create Pagination
+                    for ( var i = 0; i < base.slideCount; i++ ) {
+
+                        $('<div />', {
+                            'data-index': i,
+                            'class': base.o.attrNames.pagiItemClass,
+                            'text': (typeof base.$sliderItems.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$sliderItems.eq( i ).attr('data-title')
+                        }).appendTo(base.$sliderControls);
+
+                    }; // Pagination appended
+
+                    // Dynamic pagination width
+                    if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).outerWidth(true) * base.slideCount );
+
+                    // Pagination functionality
+                    base.$sliderControlsContainer.find('.' + base.o.attrNames.pagiItemClass).on( 'click.' + base.o.eventNamespace, function( ) {
+
+                        var controlIndex = $(this).index();
+                        base.toSlide( controlIndex );
+
+                    }).eq( base.activeSlideIndex ).addClass(base.o.attrNames.pagiItemActiveClass);
+                    // base.$sliderControls.find('li').click
+
+                }; // End settings.pagination
+
+                // Create Arrows
+                if ( base.o.createArrows ) {
+
+                    base.$arrowContainer = $('<div />', {
+                        'class': base.o.attrNames.arrowClass
+                    });
+
+                    base.$arrows = $('<div />', {
+                        'class': base.o.attrNames.arrowListClass
+                    }).appendTo(base.$arrowContainer);
+
+                    switch (base.o.arrowsPosition) {
+                        case 'before':
+                            base.$arrowContainer.insertBefore( base.$slider );
+                            break;
+
+                        case 'append':
+                            base.$arrowContainer.appendTo( base.$slider );
+                            break;
+
+                        case 'after':
+                            base.$arrowContainer.insertAfter( base.$slider );
+                            break;
+
+                        default: //'prepend'
+                            base.$arrowContainer.prependTo( base.$slider );
+                            break;
+                    }
+
+                    // Prepend Previous Arrow
+                    base.$arrowPrev = $('<div />', {
+                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemPrevClass,
+                        text: base.o.prevText
+                    })
+                    .on( 'click.' + base.o.eventNamespace, function() {
+                        base.toSlide('next');
+                    })
+                    .appendTo( base.$arrows );
+
+                    // Prepend Next Arrow
+                    base.$arrowNext = $('<div />', {
+                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemNextClass,
+                        text: base.o.nextText
+                    })
+                        .on( 'click.' + base.o.eventNamespace, function() {
+                            base.toSlide('next');
+                        })
+                        .appendTo( base.$arrows );
+
+                    // base.$arrowContainer.find('.' + base.o.attrNames.arrowItemNextClass)
+                    //
+                    // base.$arrowContainer.find('.' + base.o.attrNames.arrowItemPrevClass).on( 'click.' + base.o.eventNamespace, function() {
+                    //     base.toSlide('prev');
+                    // }); // prev.click
+
+                }; // base.o.createArrows
+
+                // base.o.autoPlay
+                if ( base.o.autoPlay ) {
+
+                    base.beginTimer();
+
+                    // Pause on hover
+                    if ( base.o.pauseOnHover) {
+
+                        base.$sliderList.on( 'hover.' + base.o.eventNamespace, function () {
+                            base.clearTimer();
+                        }, function() {
+                            base.beginTimer();
+                        }); // base.$sliderList hover
+
+                    }; //  base.o.pauseOnHover
+
+                }; // base.o.autoPlay
+
+                // Keyboard navigation
+                if ( base.o.keyboardNavigation ) {
+
+                    base.$sliderList.on( 'click.' + base.o.eventNamespace, function () {
+                        $('.' + base.o.attrNames.elActiveClass).removeClass(base.o.attrNames.elActiveClass);
+                        $(this).addClass(base.o.attrNames.elActiveClass);
+
+                    });
+
+                    $(window).on( 'keyup.' + base.o.eventNamespace, function ( e ) {
+
+                        if ( base.$sliderList.is('.' + base.o.attrNames.elActiveClass) ) {
+                            if ( e.keyCode == 39 ) { // Right arrow
+                                base.toSlide('next');
+                            } else if ( e.keyCode == 37 ) { // Left arrow
+                                base.toSlide('prev');
+                            }; // e.keyCode
+                        }; // if is .active-plusslider
+
+                    }); // window.keyup
+
+                }; // base.o.keyboardNavigation
+
+                // Touch event support
+                if (base.o.touchEvents) {
+                    if (document.addEventListener) { // Supports addEventListener. Basically ignores IE.
+
+                        base.$sliderList.get(0).addEventListener('touchstart', function(e) {
+                            var touchPosX = e.touches[0].pageX;
+                            var touchPosY = e.touches[0].pageY;
+                            var touchObj = {
+                                'posX': touchPosX,
+                                'posY': touchPosY
+                            };
+                            base.touchEventArr = [];
+
+                            base.touchEventArr.push(touchObj);
+                        }, false);
+
+                        base.$sliderList.get(0).addEventListener('touchmove', function(e) {
+                            if (base.o.touchEventScroll === false) {
+                                e.preventDefault();
+                            }
+
+                            var touchPosX = e.touches[0].pageX;
+                            var touchPosY = e.touches[0].pageY;
+                            var touchObj = {
+                                'posX': touchPosX,
+                                'posY': touchPosY
+                            };
+
+                            base.touchEventArr.push(touchObj);
+                        }, false);
+
+                        base.$sliderList.get(0).addEventListener('touchend', function(e) {
+                            var firstPosX      = base.touchEventArr[0]['posX'];
+                            var lastPosX       = base.touchEventArr[base.touchEventArr.length -1]['posX'];
+                            var differencePosX = lastPosX - firstPosX;
+
+                            // Swipe Right
+                            if(differencePosX < 0 && Math.abs(differencePosX) > 80) {
+                                base.toSlide('next');
+
+                            // Swipe Right
+                            } else if (differencePosX > 0 && Math.abs(differencePosX) > 80){
+                                base.toSlide('prev');
+                            }
+                        });
+
+                    }
+                }
+
+            // onInit callback
+            if ( base.o.onInit && typeof( base.o.onInit ) == 'function' ) base.o.onInit( base );
+        } // _constructor()
 
         // Apply namespace to css classes
         function _applyCssNamespace(attrNames, namespace) {
@@ -42,54 +378,13 @@
             }
         }
 
-        function _setupVars() {
-
-            // Vars and DOM environment
-            // ==========================================================================
-            base.o = $.extend( {}, $.plusSlider.defaults, options );
-            // Create css namespace
-            base.o.attrNames = _applyCssNamespace(base.o.attrNames, base.o.namespace);
-
-            // Access to jQuery and DOM versions of element
-            base.$slider = $(el);
-
-            // Add reverse reference object
-            base.$slider.data('plusSlider', base);
-            base.$slider.addClass(base.o.attrNames.elClass);
-
-            // Create elements
-            //////////////////
-
-            // Slider class - contains all
-            base.$sliderContainer = $('<div />', {
-                'class': base.o.attrNames.containerClass
-            });
-
-            // Slider container class - wraps list
-            base.$sliderList = $('<div />', {
-
-            });
-
-            // Set plugin vars
-            //////////////////
-            base.$sliderItems        = base.$slider.children();
-            base.slideCount          = base.$sliderItems.length; // A numerical value of the amount of slides
-            base.slideIndexCount     = base.slideCount - 1; // The index value of the amount of slides
-            base.sliderWidth         = 0; //Stores the slider width value. This changes on resize
-            base.animating           = false; // Boolean - true means the slider is busy animating.
-            base.wrapContainerWidth  = base.$slider.innerWidth(); // A numerical value of the width of base.$slider
-            base.wrapContainerHeight = base.$slider.innerHeight(); // A numerical value of the height of base.$slider
-            base.activeSlideIndex    = base.o.defaultSlide; // References the index number of the current slide
-            base.touchEventArr       = []; // Used to detect whether a left or right swipe occurred
-            base.initTouchPos; // Used to detect whether a left or right swipe occurred
-            base.$sliderItemsActive  = base.$sliderItems.eq( base.activeSlideIndex ); // References the current/active slide's jQuery object
-            base.$sliderItemsCloneFirst; // First clone needed for infinite slide
-            base.$sliderItemsCloneLast; // Last clone needed for infinite slide
-        }
-
-        // Public Methods
-        // ==========================================================================
+        // ====================================================================
+        // Public methods
+        // ====================================================================
         base.destroy = function () {
+            // remove data
+            base.$slider.removeData('plusSlider');
+
             // Click events
             if (base.$sliderControls) base.$sliderControls.off('click.' + base.o.eventNamespace);
             if (base.$arrows) base.$arrows.off('click.' + base.o.eventNamespace);
@@ -104,6 +399,7 @@
             // Resize events
             $(window).off('resize.' + base.o.eventNamespace);
 
+            // Remove styles
             base.$slider.removeAttr('style');
             base.$slider.removeClass(base.o.attrNames.elClass);
             base.$sliderList.removeAttr('style');
@@ -118,13 +414,16 @@
             base.$sliderItems.removeClass(base.o.attrNames.slideItemActiveClass);
 
             // Remove wrapper
-            if (base.$arrows) base.$arrows.remove();
-            if (base.$sliderControls) base.$slider.find('.' + base.o.attrNames.pagiClass).remove();
-            if (base.$arrows) base.$slider.find('.' + base.o.attrNames.arrowClass).remove();
+            if (base.$arrowContainer) base.$arrowContainer.remove();
+            if (base.$sliderControlsContainer) base.$sliderControlsContainer.remove();
+
+            if (base.o.infiniteSlide) {
+                base.$sliderItemsCloneFirst.remove();
+                base.$sliderItemsCloneLast.remove();
+            }
 
             // Move element out of wrapper
             base.$sliderItems.appendTo(base.$slider);
-
             base.$sliderContainer.remove();
         }
 
@@ -302,274 +601,6 @@
 
         } // base.endToSlide
 
-        base.init = function () {
-            _setupVars()
-            // DOM manipulations
-            ////////////////////
-            base.$sliderContainer.prependTo(base.$slider);
-            base.$sliderList.appendTo(base.$sliderContainer); // Basically wraps el
-            base.$sliderList.addClass(base.o.attrNames.slideListClass);
-            base.$sliderItems.appendTo(base.$sliderList);
-
-            base.$sliderItems.addClass(base.o.attrNames.slideItemClass);
-            base.$sliderItems.eq(base.activeSlideIndex);
-            base.$sliderItems.addClass(base.o.attrNames.slideItemActiveClass);
-
-            // Handle dependant options
-                if (base.slideCount === 1) {
-
-                    base.o.autoPlay = false;
-                    base.o.createArrows = false;
-                    base.o.createPagination = false;
-
-                }; // base.slideCount === 1
-
-                if (base.o.sliderType == 'fader') {
-                    base.$sliderItems.not('.' + base.o.attrNames.slideItemActiveClass).hide(); // Hide non-active slides
-                    base.o.infiniteSlide = false;
-                }
-
-                // infinite Slide
-                if (base.o.infiniteSlide === true) {
-                    base.$sliderItems.css('display', 'block'); //override no-js fallback. Force to block for slider items
-                    base.$sliderItemsCloneFirst = base.$sliderItems.first().clone().addClass(base.o.attrNames.slideItemCloneClass).removeClass(base.o.attrNames.slideItemActiveClass).insertAfter( base.$sliderItems.eq(base.slideIndexCount) );
-                    base.$sliderItemsCloneLast = base.$sliderItems.last().clone().addClass(base.o.attrNames.slideItemCloneClass).insertBefore( base.$sliderItems.eq(0) );
-                }
-
-                base.setSliderDimensions();
-
-                // Slider/Fader Settings
-                if (base.o.sliderType == 'slider') {
-
-                    _calculateSliderWidth();
-
-                    base.$sliderContainer.addClass(base.o.attrNames.elTypeSliderClass).find(base.$sliderList).width( base.sliderWidth );
-
-                    base.setSliderDimensions();
-
-                    $(window).on('resize.' + base.o.eventNamespace, function() {
-
-                        // Reset timer
-                        if (base.o.autoPlay) {
-                            base.clearTimer();
-                            base.beginTimer();
-                        }; // if base.o.autoPlay
-
-                        // Reset dimensions
-                        base.setSliderDimensions();
-
-                    }); // window.resize
-
-                    base.$sliderItems.css('display', 'block'); // force block instead of possible inline
-                    base.$sliderList.css( 'left', base.$sliderItemsActive.position().left * -1 + 'px' );
-
-                } else {
-
-                    base.$sliderContainer.addClass(base.o.attrNames.elTypeFaderClass);
-                    base.$sliderItems.eq(0).css('display', 'block'); // force block instead of possible inline
-
-                }; // base.o.sliderType
-
-                // Begin pagination
-                if ( base.o.createPagination ) {
-
-                    base.$sliderControls = $('<div />', {
-                        'class': base.o.attrNames.pagiListClass
-                    });
-
-                    switch (base.o.paginationPosition) {
-
-                        case 'before':
-                            base.$sliderControls.insertBefore( base.$slider );
-                            break;
-
-                        case 'prepend':
-                            base.$sliderControls.prependTo( base.$slider );
-                            break;
-
-                        case 'after':
-                            base.$sliderControls.insertAfter( base.$slider );
-                            break;
-
-                        default: //'append'
-                            base.$sliderControls.appendTo( base.$slider );
-                            break;
-
-                    }
-
-                    base.$sliderControls.wrap('<div class="' + base.o.attrNames.pagiClass + '" />');
-
-                    // Create Pagination
-                    for ( var i = 0; i < base.slideCount; i++ ) {
-
-                        $('<div />', {
-                            'data-index': i,
-                            'class': base.o.attrNames.pagiItemClass,
-                            'text': (typeof base.$sliderItems.eq( i ).attr('data-title') === 'undefined') ? i + 1 : base.$sliderItems.eq( i ).attr('data-title')
-                        }).appendTo(base.$sliderControls);
-
-                    }; // Pagination appended
-
-                    // Dynamic pagination width
-                    if ( base.o.paginationWidth ) base.$sliderControls.width( base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).outerWidth(true) * base.slideCount );
-
-                    // Pagination functionality
-                    base.$sliderControls.find('.' + base.o.attrNames.pagiItemClass).on( 'click.' + base.o.eventNamespace, function( ) {
-
-                        var controlIndex = $(this).index();
-                        base.toSlide( controlIndex );
-
-                    }).eq( base.activeSlideIndex ).addClass(base.o.attrNames.pagiItemActiveClass);
-                    // base.$sliderControls.find('li').click
-
-                }; // End settings.pagination
-
-                // Create Arrows
-                if ( base.o.createArrows ) {
-
-                    base.$arrows = $('<div />', {
-                        'class': base.o.attrNames.arrowListClass
-                    });
-
-                    switch (base.o.arrowsPosition) {
-
-                        case 'before':
-                            base.$arrows.insertBefore( base.$slider );
-                            break;
-
-                        case 'append':
-                            base.$arrows.appendTo( base.$slider );
-                            break;
-
-                        case 'after':
-                            base.$arrows.insertAfter( base.$slider );
-                            break;
-
-                        default: //'prepend'
-                            base.$arrows.prependTo( base.$slider );
-                            break;
-
-                    }
-
-                    base.$arrows.wrap('<div class="' + base.o.attrNames.arrowClass + '" />');
-
-                    // Prepend Next Arrow
-                    $('<div />', {
-                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemNextClass,
-                        text: base.o.nextText
-                    }).prependTo( base.$arrows );
-
-                    // Prepend Previous Arrow
-                    $('<div />', {
-                        'class': base.o.attrNames.arrowItemClass + ' ' + base.o.attrNames.arrowItemPrevClass,
-                        text: base.o.prevText
-                    }).prependTo( base.$arrows );
-
-                    base.$arrows.find('.' + base.o.attrNames.arrowItemNextClass).on( 'click.' + base.o.eventNamespace, function() {
-                        base.toSlide('next');
-                    }); // .next.click
-
-                    base.$arrows.find('.' + base.o.attrNames.arrowItemPrevClass).on( 'click.' + base.o.eventNamespace, function() {
-                        base.toSlide('prev');
-                    }); // prev.click
-
-                }; // base.o.createArrows
-
-                // base.o.autoPlay
-                if ( base.o.autoPlay ) {
-
-                    base.beginTimer();
-
-                    // Pause on hover
-                    if ( base.o.pauseOnHover) {
-
-                        base.$sliderList.on( 'hover.' + base.o.eventNamespace, function () {
-                            base.clearTimer();
-                        }, function() {
-                            base.beginTimer();
-                        }); // base.$sliderList hover
-
-                    }; //  base.o.pauseOnHover
-
-                }; // base.o.autoPlay
-
-                // Keyboard navigation
-                if ( base.o.keyboardNavigation ) {
-
-                    base.$sliderList.on( 'click.' + base.o.eventNamespace, function () {
-                        $('.' + base.o.attrNames.elActiveClass).removeClass(base.o.attrNames.elActiveClass);
-                        $(this).addClass(base.o.attrNames.elActiveClass);
-
-                    });
-
-                    $(window).on( 'keyup.' + base.o.eventNamespace, function ( e ) {
-
-                        if ( base.$sliderList.is('.' + base.o.attrNames.elActiveClass) ) {
-                            if ( e.keyCode == 39 ) { // Right arrow
-                                base.toSlide('next');
-                            } else if ( e.keyCode == 37 ) { // Left arrow
-                                base.toSlide('prev');
-                            }; // e.keyCode
-                        }; // if is .active-plusslider
-
-                    }); // window.keyup
-
-                }; // base.o.keyboardNavigation
-
-                // Touch event support
-                if (base.o.touchEvents) {
-                    if (document.addEventListener) { // Supports addEventListener. Basically ignores IE.
-
-                        base.$sliderList.get(0).addEventListener('touchstart', function(e) {
-                            var touchPosX = e.touches[0].pageX;
-                            var touchPosY = e.touches[0].pageY;
-                            var touchObj = {
-                                'posX': touchPosX,
-                                'posY': touchPosY
-                            };
-                            base.touchEventArr = [];
-
-                            base.touchEventArr.push(touchObj);
-                        }, false);
-
-                        base.$sliderList.get(0).addEventListener('touchmove', function(e) {
-                            if (base.o.touchEventScroll === false) {
-                                e.preventDefault();
-                            }
-
-                            var touchPosX = e.touches[0].pageX;
-                            var touchPosY = e.touches[0].pageY;
-                            var touchObj = {
-                                'posX': touchPosX,
-                                'posY': touchPosY
-                            };
-
-                            base.touchEventArr.push(touchObj);
-                        }, false);
-
-                        base.$sliderList.get(0).addEventListener('touchend', function(e) {
-                            var firstPosX      = base.touchEventArr[0]['posX'];
-                            var lastPosX       = base.touchEventArr[base.touchEventArr.length -1]['posX'];
-                            var differencePosX = lastPosX - firstPosX;
-
-                            // Swipe Right
-                            if(differencePosX < 0 && Math.abs(differencePosX) > 80) {
-                                base.toSlide('next');
-
-                            // Swipe Right
-                            } else if (differencePosX > 0 && Math.abs(differencePosX) > 80){
-                                base.toSlide('prev');
-                            }
-                        });
-
-                    }
-                }
-
-            // onInit callback
-            if ( base.o.onInit && typeof( base.o.onInit ) == 'function' ) base.o.onInit( base );
-
-        } // base.init
-
         // Check to see if plugin has run before
         // If so then modify the existing plugin with the options supplied
         // Otherwise initialize it with those options
@@ -585,7 +616,7 @@
             });
         } else {
             // Run initializer
-            base.init();
+            _constructor()
         }
     };
 
