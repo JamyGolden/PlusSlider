@@ -8,7 +8,7 @@
 $ps-height: 250px;
 
 .plusslider {
-    background-clip: padding;
+    background-clip: padding-box;
     border-radius: 15px;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.3);
@@ -40,7 +40,7 @@ $ps-height: 250px;
             background-image: url(../images/svg-gradient.svg); /* Gradient; support for IE9 and Opera */
             background: linear-gradient(100% 100% 90deg, #ccc, #f1f1f1);
             border-radius: 0 0 10px 10px;
-            background-clip: padding;
+            background-clip: padding-box;
             height: 40px;
             width: 100%;
             position: absolute;
