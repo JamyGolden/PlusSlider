@@ -1,7 +1,11 @@
 # PlusSlider jQuery Plugin
 An agnostic, fluid jQuery content slider that is easily configurable and styleable.
 
+## Installation
+Install via [bower](https://github.com/JamyGolden/bower-plusslider) `bower install jquery.plusslider --save`. Alternatively, install the [Angular](https://github.com/JamyGolden/angular-plusslider) version via bower `bower install angular-plusslider --save`.
+
 ## Features
+* [Angular module](https://github.com/JamyGolden/angular-plusslider)
 * BEM CSS methodology used
 * Easily swap between **fading** &amp; *sliding*
 * Fluid or fixed width
